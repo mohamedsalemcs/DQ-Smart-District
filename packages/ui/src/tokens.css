@@ -1,0 +1,266 @@
+@import 'tailwindcss';
+@import './fonts.css';
+
+/* ═══════════════════════════════════════════════════════════════════════
+   DQ Smart District — نظام التصميم
+   الهوية: تيل عميق (مدني · مستدام · مؤسسي) على أسطح فاتحة
+   كل نسبة تباين هنا محسوبة بمعادلة WCAG 2.1 — لا تقدير
+   المرجع: _SOURCE/04-DESIGN-SYSTEM/
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ─── العلامة — Brand · تيل عميق ─── */
+  --color-brand-50: #ecf7f5;
+  --color-brand-100: #d0ede8;
+  --color-brand-200: #a3dbd3; /* نص t800 عليه 7.14 AAA */
+  --color-brand-300: #6bc2b7;
+  --color-brand-400: #38a296; /* أيقونة على أبيض 3.10 */
+  --color-brand-500: #178578; /* 4.50 AA نصًا · تعبئة ثانوية */
+  --color-brand-600: #0e6a60; /* ★ التعبئة الأساسية — أبيض عليه 6.46 AA */
+  --color-brand-700: #0b554d; /* ★ نص العلامة — 8.67 AAA · حلقة التركيز */
+  --color-brand-800: #0a443e;
+  --color-brand-900: #07302b;
+
+  /* ─── المحايدات — Neutral · مائلة للتيل ─── */
+  --color-ink-0: #ffffff;
+  --color-ink-25: #f8fafa; /* خلفية الصفحة */
+  --color-ink-50: #f1f5f5; /* سطح غائر */
+  --color-ink-100: #e4eaea; /* فواصل */
+  --color-ink-200: #cbd5d5; /* حدود زخرفية */
+  --color-ink-300: #a4b3b3; /* معطّل */
+  --color-ink-400: #7b8c8c; /* ★ حدود المدخلات — 3.52 يجتاز 1.4.11 */
+  --color-ink-500: #5c6d6d; /* ★ النص الثانوي — 5.44 AA */
+  --color-ink-600: #465555; /* ثانوي مؤكَّد — 7.80 AAA */
+  --color-ink-700: #33403f;
+  --color-ink-800: #1f2a29; /* ★ النص الأساسي — 14.77 AAA */
+  --color-ink-900: #141c1b; /* العناوين — 17.33 AAA */
+
+  /* ─── الدلالية — Semantic ─── */
+  --color-ok-50: #e7f5ed;
+  --color-ok-300: #4fbe85;
+  --color-ok-500: #0e7c4a;
+  --color-ok-600: #0a6139; /* لوحة البوابة — أبيض 7.55 AAA */
+
+  --color-warn-50: #fdf2e3;
+  --color-warn-300: #e8a94a;
+  --color-warn-500: #9a5b0a;
+  --color-warn-600: #7a4708; /* لوحة البوابة — أبيض 7.69 AAA */
+
+  --color-danger-50: #fcecea;
+  --color-danger-300: #f0897f;
+  --color-danger-500: #a82a22;
+  --color-danger-600: #871e18; /* لوحة البوابة — أبيض 9.42 AAA */
+
+  --color-info-50: #eaf1fa;
+  --color-info-300: #79ace4;
+  --color-info-500: #1f5fa8;
+  --color-info-600: #194b85;
+
+  /* ─── تصوير البيانات — متمايزة إدراكيًا ─── */
+  --color-viz-1: #0e6a60;
+  --color-viz-2: #1f5fa8;
+  --color-viz-3: #0e7c4a;
+  --color-viz-4: #a82a22;
+  --color-viz-5: #6bc2b7;
+  --color-viz-6: #9a5b0a;
+
+  /* ─── الطباعة ─── */
+  --font-sans: 'DQ Sans', 'Cairo', 'Inter', system-ui, sans-serif;
+  --font-mono: 'DQ Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --text-display: 2.5rem; /* 40px — قرار البوابة */
+  --text-h1: 1.5rem; /* 24px */
+  --text-h2: 1.25rem; /* 20px */
+  --text-h3: 1.0625rem; /* 17px */
+  --text-body: 0.9375rem; /* 15px */
+  --text-caption: 0.8125rem; /* 13px — الحد الأدنى المقروء */
+  --text-micro: 0.75rem; /* 12px — شارات بأيقونة فقط */
+
+  /* ─── الاستدارة ─── */
+  --radius-ctl: 8px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
+  --radius-pill: 999px;
+
+  /* ─── الارتفاع — ظلال مائلة لأزرق العلامة ─── */
+  --shadow-e1: 0 1px 2px rgb(10 68 62 / 0.05), 0 1px 3px rgb(10 68 62 / 0.04);
+  --shadow-e2: 0 2px 4px rgb(10 68 62 / 0.05), 0 6px 16px rgb(10 68 62 / 0.07);
+  --shadow-e3: 0 4px 8px rgb(10 68 62 / 0.07), 0 12px 28px rgb(10 68 62 / 0.1);
+  --shadow-e4: 0 8px 16px rgb(10 68 62 / 0.09), 0 24px 56px rgb(10 68 62 / 0.14);
+
+  /* ─── الحركة ─── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ─── التخطيط ─── */
+  --spacing-sidebar: 240px;
+  --spacing-header: 60px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   الأساس
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html {
+  font-family: var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-ink-25 text-ink-800 antialiased;
+  font-size: var(--text-body);
+  /* أرقام غربية جدولية — اللوحات والأوقات تُمسح بصريًا (BR-005) */
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+  margin: 0;
+}
+
+/* المقاطع اللاتينية داخل النص العربي لا تنقلب (BR-006) */
+bdi,
+.bidi-isolate {
+  unicode-bidi: isolate;
+}
+
+/* اللوحات وأرقام المعاملات والبصمات — Inter بعرض ثابت */
+.plate,
+.tnum {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+  letter-spacing: 0.02em;
+}
+
+.plate {
+  font-weight: 600;
+}
+
+/* Cairo يرسم مضغوطًا — العربي المتصل يحتاج 1.75 لا 1.5 */
+p,
+li,
+dd,
+dt {
+  line-height: 1.75;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.35;
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   التركيز — WCAG 2.1 §1.4.11 يفرض 3:1 · brand-700 يعطي 6.46
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-700);
+  outline-offset: 2px;
+  border-radius: var(--radius-ctl);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   المرافق
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.thin-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-ink-400) 45%, transparent);
+  border-radius: var(--radius-pill);
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   الحركة
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise-in {
+  animation: rise-in 200ms var(--ease-out);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.toast-in {
+  animation: toast-in 200ms var(--ease-out);
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1.6s var(--ease-in-out) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-danger-500) 50%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+.pulse-ring {
+  animation: pulse-ring 2s var(--ease-out) infinite;
+}
+
+/* تقليل الحركة — يلغي الحركات والتكرار معًا (NFR-03 · DEF-054) */
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .toast-in,
+  .pulse-dot,
+  .pulse-ring {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

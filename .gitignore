@@ -1,0 +1,9 @@
+node_modules/
+dist/
+apps/*/dist/
+*.local
+.DS_Store
+__MACOSX/
+.vercel
+*.log
+.vite/
