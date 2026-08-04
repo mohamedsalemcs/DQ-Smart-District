@@ -27,13 +27,24 @@ import { ago, isPast, secondsToClock } from '@dq/core';
 import { requestKindAr } from '@dq/core';
 
 export function AdminDashboard() {
-  const store = useStore();
+  /* PERF · DEF-035 — محدِّدات ذرّية لا `useStore()` عاريًا.
+   * نبضة المستشعرات تغيّر `sensorValues` و`patrols` كل ثلاث ثوانٍ (0.3 في وضع 10×)؛
+   * الاشتراك العاري كان يعيد رسم ست خرائط Recharts وقماشَ الـ3D مع كل نبضة.
+   * الشرائح أدناه لا تتغيّر إلا بتغيّر بياناتها فعلًا، وعدّ الحاويات رقمٌ تكفيه Object.is. */
+  const metrics = useStore((s) => s.metrics);
+  const requests = useStore((s) => s.requests);
+  const violations = useStore((s) => s.violations);
+  const permits = useStore((s) => s.permits);
+  const fullBinsCount = useStore(
+    (s) => s.assets.filter((a) => a.kind === 'bin' && (s.sensorValues[a.id]?.fill ?? 0) >= 80).length,
+  );
+  const pushToast = useStore((s) => s.pushToast);
   const navigate = useNavigate();
   const [range, setRange] = useState<Range>(30);
 
   const { cur, prev, sum, avg, deltaPct } = useMemo(
-    () => windowStats(store.metrics, range),
-    [store.metrics, range],
+    () => windowStats(metrics, range),
+    [metrics, range],
   );
 
   const series = useMemo(
@@ -103,18 +114,20 @@ export function AdminDashboard() {
     },
   ];
 
-  const donut = [
-    { name: 'مغلقة', value: store.requests.filter((r) => r.status === 'closed').length, color: 'var(--color-viz-3)' },
-    { name: 'قيد المعالجة', value: store.requests.filter((r) => ['triaged', 'assigned', 'in_progress', 'awaiting_verification'].includes(r.status)).length, color: 'var(--color-viz-6)' },
-    { name: 'جديدة / معاد فتحها', value: store.requests.filter((r) => r.status === 'new' || r.status === 'reopened').length, color: 'var(--color-viz-4)' },
-  ];
+  const donut = useMemo(
+    () => [
+      { name: 'مغلقة', value: requests.filter((r) => r.status === 'closed').length, color: 'var(--color-viz-3)' },
+      { name: 'قيد المعالجة', value: requests.filter((r) => ['triaged', 'assigned', 'in_progress', 'awaiting_verification'].includes(r.status)).length, color: 'var(--color-viz-6)' },
+      { name: 'جديدة / معاد فتحها', value: requests.filter((r) => r.status === 'new' || r.status === 'reopened').length, color: 'var(--color-viz-4)' },
+    ],
+    [requests],
+  );
 
   /* live layer */
-  const openRequests = store.requests.filter((r) => r.status !== 'closed');
+  const openRequests = useMemo(() => requests.filter((r) => r.status !== 'closed'), [requests]);
   const slaBreaches = openRequests.filter((r) => r.slaBreached || isPast(r.dueISO));
-  const openViolations = store.violations.filter((v) => v.status !== 'closed');
-  const pendingPermits = store.permits.filter((p) => p.status === 'pending');
-  const fullBins = store.assets.filter((a) => a.kind === 'bin' && (store.sensorValues[a.id]?.fill ?? 0) >= 80);
+  const openViolations = useMemo(() => violations.filter((v) => v.status !== 'closed'), [violations]);
+  const pendingPermits = permits.filter((p) => p.status === 'pending');
   const tickInterval = range === 7 ? 0 : range === 30 ? 4 : 14;
 
   return (
@@ -234,7 +247,7 @@ export function AdminDashboard() {
           className="border-ink-300 !text-ink-800"
           onClick={() => {
             navigator.clipboard?.writeText(`${window.location.origin}/visit`).catch(() => {});
-            store.pushToast('نُسخ رابط بوابة الزوار', 'شاركه في قنوات الحي ومداخل الخرائط', 'ok');
+            pushToast('نُسخ رابط بوابة الزوار', 'شاركه في قنوات الحي ومداخل الخرائط', 'ok');
           }}
         >
           <Copy size={13} /> نسخ الرابط
@@ -251,7 +264,7 @@ export function AdminDashboard() {
         <Stat label="تجاوزات SLA" value={slaBreaches.length} onClick={() => navigate('/a/requests')} />
         <Stat label="مخالفات قائمة" value={openViolations.length} onClick={() => navigate('/a/violations')} />
         <Stat label="تصاريح بانتظار الاعتماد" value={pendingPermits.length} onClick={() => navigate('/a/permits')} />
-        <Stat label="حاويات فوق 80%" value={fullBins.length} onClick={() => navigate('/a/operations')} />
+        <Stat label="حاويات فوق 80%" value={fullBinsCount} onClick={() => navigate('/a/operations')} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">

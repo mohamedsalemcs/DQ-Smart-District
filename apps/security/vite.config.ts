@@ -24,10 +24,23 @@ export default defineConfig({
     rollupOptions: {
       maxParallelFileOps: 2, // كل عملية تحتفظ بملف في الذاكرة — يتفادى OOM في البناء
       output: {
-        manualChunks: {
-          three: ['three', '@react-three/fiber', '@react-three/drei', 'three-mesh-bvh'],
-          charts: ['recharts'],
-          react: ['react', 'react-dom', 'react-router-dom'],
+        // PERF — التقسيم بدالّة لا بكائن: الشكل الكائني كان يترك وحدات مشتركة
+        // (أهمها react/jsx-runtime) تسقط في حزمة three، فيستوردها المدخل استيرادًا
+        // ساكنًا ويسحب معه المليون بايت كاملة إلى أول تحميل — حتى لو لم تُفتح خريطة.
+        manualChunks(id: string) {
+          if (id.includes('vite/preload-helper')) return 'react';
+          const m = /[\\/]node_modules[\\/](@[^\\/]+[\\/][^\\/]+|[^\\/]+)/.exec(id);
+          if (!m) return;
+          const pkg = m[1].replace(/\\/g, '/');
+          if (pkg === 'three' || pkg === 'three-mesh-bvh' || pkg.startsWith('@react-three/')) return 'three';
+          if (pkg === 'recharts' || pkg.startsWith('d3-') || pkg === 'victory-vendor' || pkg === 'decimal.js-light' || pkg === 'internmap') return 'charts';
+          // zustand مشتركة بين المخزن و@react-three/fiber. كل وحدة مشتركة تُترك
+          // بلا وجهة يرفعها Rollup إلى حزمة three، فيستوردها المدخل استيرادًا
+          // ساكنًا ويسحب المليون بايت إلى أول تحميل. تثبيتها هنا يقطع ذلك الرباط.
+          if (
+            pkg === 'react' || pkg === 'react-dom' || pkg === 'react-router' ||
+            pkg === 'react-router-dom' || pkg === 'scheduler' || pkg === 'zustand'
+          ) return 'react';
         },
       },
     },

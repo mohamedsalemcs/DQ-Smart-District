@@ -24,9 +24,16 @@ export default defineConfig({
     rollupOptions: {
       maxParallelFileOps: 2, // كل عملية تحتفظ بملف في الذاكرة — يتفادى OOM في البناء
       output: {
-        manualChunks: {
-          charts: ['recharts'],
-          react: ['react', 'react-dom', 'react-router-dom'],
+        manualChunks(id: string) {
+          if (id.includes('vite/preload-helper')) return 'react';
+          const m = /[\\/]node_modules[\\/](@[^\\/]+[\\/][^\\/]+|[^\\/]+)/.exec(id);
+          if (!m) return;
+          const pkg = m[1].replace(/\\/g, '/');
+          if (pkg === 'recharts' || pkg.startsWith('d3-') || pkg === 'victory-vendor' || pkg === 'decimal.js-light' || pkg === 'internmap') return 'charts';
+          if (
+            pkg === 'react' || pkg === 'react-dom' || pkg === 'react-router' ||
+            pkg === 'react-router-dom' || pkg === 'scheduler' || pkg === 'zustand'
+          ) return 'react';
         },
       },
     },
