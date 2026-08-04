@@ -9,6 +9,7 @@ import { BOUNDS } from '@dq/core';
 import { setRoadNetwork } from '../../lib/roadGraph';
 import { incidentKindAr, propertyTypeAr, requestKindAr } from '@dq/core';
 import { ago } from '@dq/core';
+import { ErrorBoundary } from '@dq/ui';
 
 /* BVH-accelerated raycasting — terrain snapping stays cheap on a ~10MB city mesh */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -16,8 +17,11 @@ import { ago } from '@dq/core';
 (THREE.BufferGeometry.prototype as any).disposeBoundsTree = disposeBoundsTree;
 (THREE.Mesh.prototype as any).raycast = acceleratedRaycast;
 
-const MODEL_URL = '/3d/dq.glb';
-const ROAD_URL = '/3d/road.glb'; // roads-only export of the same area — drives the traffic heatmap
+// المسار القاعدي يختلف بين المنصات (/dashboard/ · /ops/) — الأصول تُطلب نسبةً إليه
+// لا من جذر النطاق، وإلا فشل التحميل بـ404 خارج بيئة التطوير الجذرية.
+const ASSET_BASE = import.meta.env.BASE_URL;
+const MODEL_URL = `${ASSET_BASE}3d/dq.glb`;
+const ROAD_URL = `${ASSET_BASE}3d/road.glb`; // تصدير الطرق وحدها — يقود خريطة حرارة المرور
 useGLTF.preload(MODEL_URL);
 useGLTF.preload(ROAD_URL);
 
@@ -1041,7 +1045,7 @@ function GateMarkers({ onHover, onOpen }: { onHover: (h: HoverInfo | null) => vo
               <meshStandardMaterial color="#0e6a60" emissive="#0e6a60" emissiveIntensity={0.35} />
             </mesh>
             <Html position={[0, 58, 0]} center distanceFactor={1600} occlude={false} zIndexRange={[10, 0]}>
-              <div dir="rtl" className="pointer-events-none whitespace-nowrap rounded-full bg-ink-0/85 px-2.5 py-1 text-[--text-caption] font-bold text-brand-600 ring-1 ring-brand-500/40">
+              <div dir="rtl" className="pointer-events-none whitespace-nowrap rounded-full bg-ink-0/85 px-2.5 py-1 text-caption font-bold text-brand-600 ring-1 ring-brand-500/40">
                 {g.nameAr}
               </div>
             </Html>
@@ -1070,7 +1074,7 @@ function TwinScene({ layers, onOpen }: { layers: TwinLayers; onOpen: (link: stri
       <Suspense
         fallback={
           <Html center>
-            <div dir="rtl" className="rounded-[--radius-card] bg-ink-0/90 px-5 py-3 text-sm font-semibold text-ink-800 ring-1 ring-brand-500/30">
+            <div dir="rtl" className="rounded-card bg-ink-0/90 px-5 py-3 text-sm font-semibold text-ink-800 ring-1 ring-brand-500/30">
               جارٍ تحميل نموذج الحي ثلاثي الأبعاد…
             </div>
           </Html>
@@ -1095,9 +1099,9 @@ function TwinScene({ layers, onOpen }: { layers: TwinLayers; onOpen: (link: stri
             {layers.patrols && patrols.map((p) => <PatrolMarker key={p.id} id={p.id} onHover={setHover} onOpen={onOpen} />)}
             {hover && (
               <Html position={hover.pos} center distanceFactor={1400} zIndexRange={[20, 11]}>
-                <div dir="rtl" className="pointer-events-none w-max max-w-56 rounded-[--radius-card] bg-ink-0/95 px-3 py-2 text-ink-800 shadow-e3 ring-1 ring-brand-500/40">
-                  <p className="text-[--text-caption] font-bold">{hover.title}</p>
-                  {hover.sub && <p className="mt-0.5 text-[--text-micro] text-ink-500">{hover.sub}</p>}
+                <div dir="rtl" className="pointer-events-none w-max max-w-56 rounded-card bg-ink-0/95 px-3 py-2 text-ink-800 shadow-e3 ring-1 ring-brand-500/40">
+                  <p className="text-caption font-bold">{hover.title}</p>
+                  {hover.sub && <p className="mt-0.5 text-micro text-ink-500">{hover.sub}</p>}
                 </div>
               </Html>
             )}
@@ -1141,7 +1145,7 @@ export function DQTwinCanvas({
 
 /** Compact live 3D map for dashboards and screens — replaces the old static SVG map.
  *  Same model, same shared store; pick the layers each screen needs. */
-export function Map3D({
+function Map3DInner({
   layers,
   onOpen = () => {},
   className = 'aspect-[16/9]',
@@ -1152,7 +1156,7 @@ export function Map3D({
 }) {
   const merged: TwinLayers = { ...noLayers, ...layers };
   return (
-    <div className={`relative overflow-hidden rounded-[--radius-card] ${className}`}>
+    <div className={`relative overflow-hidden rounded-card ${className}`}>
       <Canvas camera={{ position: [500, 2500, 2700], fov: 42, near: 10, far: 20000 }} dpr={[1, 1.5]} shadows={false}>
         <TwinScene layers={merged} onOpen={onOpen} />
         <OrbitControls
@@ -1169,5 +1173,18 @@ export function Map3D({
         Satlas — Allen AI · © OpenStreetMap
       </p>
     </div>
+  );
+}
+
+/**
+ * TD-10 — الخريطة محاطة بحد خطأ.
+ * فشل تحميل نموذج 3D كان يُسقط التطبيق كله إلى شاشة بيضاء؛
+ * الآن يبقى الفشل محصورًا في مساحة الخريطة وحدها.
+ */
+export function Map3D(props: Parameters<typeof Map3DInner>[0]) {
+  return (
+    <ErrorBoundary labelAr="الخريطة ثلاثية الأبعاد" compact>
+      <Map3DInner {...props} />
+    </ErrorBoundary>
   );
 }

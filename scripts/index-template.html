@@ -1,0 +1,204 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e6a60" />
+    <title>الحي الدبلوماسي الذكي</title>
+    <!--
+      صفحة اختيار المنصة — ملف ساكن، لا تطبيق ولا بورت.
+      ثلاثة روابط لا تستحق حزمة React. الخطوط محلية كبقية المنصات.
+    -->
+    <style>
+      @font-face {
+        font-family: 'DQ Sans';
+        src: url('./fonts/inter.woff2') format('woff2-variations');
+        font-weight: 100 900;
+        font-display: swap;
+        unicode-range: U+0000-00FF, U+2000-206F, U+2212;
+      }
+      @font-face {
+        font-family: 'DQ Sans';
+        src: url('./fonts/cairo-400.woff2') format('woff2');
+        font-weight: 400;
+        font-display: swap;
+        unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+      }
+      @font-face {
+        font-family: 'DQ Sans';
+        src: url('./fonts/cairo-600.woff2') format('woff2');
+        font-weight: 600;
+        font-display: swap;
+        unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+      }
+      @font-face {
+        font-family: 'DQ Sans';
+        src: url('./fonts/cairo-700.woff2') format('woff2');
+        font-weight: 700;
+        font-display: swap;
+        unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+      }
+
+      :root {
+        --brand-50: #ecf7f5;
+        --brand-100: #d0ede8;
+        --brand-300: #6bc2b7;
+        --brand-600: #0e6a60;
+        --brand-700: #0b554d;
+        --ink-0: #fff;
+        --ink-25: #f8fafa;
+        --ink-100: #e4eaea;
+        --ink-500: #5c6d6d;
+        --ink-900: #141c1b;
+        --radius-card: 12px;
+        --radius-ctl: 8px;
+        --shadow-1: 0 1px 2px rgb(10 68 62 / 0.06), 0 1px 3px rgb(10 68 62 / 0.04);
+        --shadow-3: 0 4px 8px rgb(10 68 62 / 0.07), 0 12px 28px rgb(10 68 62 / 0.1);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'DQ Sans', system-ui, sans-serif;
+        font-size: 15px;
+        background: var(--ink-25);
+        color: var(--ink-900);
+        -webkit-font-smoothing: antialiased;
+        font-feature-settings: 'lnum' 1, 'tnum' 1;
+      }
+      .glow {
+        position: absolute;
+        inset-inline: 0;
+        top: 0;
+        height: 420px;
+        background: radial-gradient(120% 100% at 50% 0%, var(--brand-100) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      main {
+        position: relative;
+        max-width: 640px;
+        margin: 0 auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 64px 20px;
+      }
+      header { text-align: center; margin-bottom: 40px; }
+      .badge {
+        width: 72px; height: 72px;
+        display: inline-flex; align-items: center; justify-content: center;
+        background: var(--ink-0);
+        border-radius: 16px;
+        box-shadow: var(--shadow-1);
+        outline: 1px solid var(--ink-100);
+        margin-bottom: 20px;
+      }
+      h1 { font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+      .en {
+        font-size: 13px; font-weight: 600; letter-spacing: 0.14em;
+        color: var(--brand-600); margin-top: 6px;
+      }
+      .lede { color: var(--ink-500); margin-top: 20px; font-size: 15px; }
+
+      nav { display: flex; flex-direction: column; gap: 12px; }
+      a.portal {
+        display: flex; align-items: center; gap: 16px;
+        padding: 20px;
+        background: var(--ink-0);
+        border-radius: var(--radius-card);
+        outline: 1px solid var(--ink-100);
+        box-shadow: var(--shadow-1);
+        text-decoration: none; color: inherit;
+        transition: transform .18s cubic-bezier(.16,1,.3,1), box-shadow .18s, outline-color .18s;
+      }
+      a.portal:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-3);
+        outline-color: var(--brand-300);
+      }
+      a.portal:focus-visible { outline: 2px solid var(--brand-700); outline-offset: 2px; }
+      .icon {
+        width: 48px; height: 48px; flex: none;
+        display: flex; align-items: center; justify-content: center;
+        background: var(--brand-50); color: var(--brand-600);
+        border-radius: var(--radius-ctl);
+        transition: background .18s, color .18s;
+      }
+      a.portal:hover .icon { background: var(--brand-600); color: var(--ink-0); }
+      .body { flex: 1; min-width: 0; }
+      .title { font-size: 17px; font-weight: 700; }
+      .sub { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: var(--brand-600); }
+      .desc { font-size: 13px; color: var(--ink-500); margin-top: 6px; line-height: 1.6; }
+      .path {
+        flex: none; font-size: 12px; font-weight: 600;
+        color: var(--ink-500); background: var(--ink-25);
+        padding: 5px 10px; border-radius: 999px;
+      }
+      @media (max-width: 480px) { .path { display: none; } }
+
+      footer { margin-top: 48px; text-align: center; color: var(--ink-500); font-size: 13px; }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { transition-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+    <main>
+      <header>
+        <span class="badge">
+          <svg width="44" height="44" viewBox="0 0 32 32" fill="none" role="img" aria-label="الحي الدبلوماسي الذكي">
+            <path d="M16 2.5c4.4 0 8.3 1.1 11 2.6v10.2c0 6.6-4.4 11.6-11 14.2C9.4 26.9 5 21.9 5 15.3V5.1C7.7 3.6 11.6 2.5 16 2.5Z" fill="#0b554d"/>
+            <path d="M16 8.2c2.6 0 4.9.6 6.6 1.5v5.9c0 3.9-2.6 6.9-6.6 8.4-4-1.5-6.6-4.5-6.6-8.4V9.7c1.7-.9 4-1.5 6.6-1.5Z" fill="#178578"/>
+            <path d="M16 12.4l4.1 7.1h-8.2L16 12.4Z" fill="#a3dbd3"/>
+          </svg>
+        </span>
+        <h1>الحي الدبلوماسي الذكي</h1>
+        <div class="en">DQ SMART DISTRICT</div>
+        <p class="lede">اختر المنصة — منظومة تشغيل الحي المتكاملة</p>
+      </header>
+
+      <nav aria-label="المنصات">
+        <a class="portal" href="__DASHBOARD__">
+          <span class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          </span>
+          <span class="body">
+            <span class="title">مركز القيادة</span>
+            <span class="sub" style="display:block">COMMAND CENTER</span>
+            <span class="desc" style="display:block">إدارة الحي بالكامل — الخريطة الحية، الطوابير، المخالفات والتحليلات</span>
+          </span>
+          <span class="path">/dashboard</span>
+        </a>
+
+        <a class="portal" href="__OPS__">
+          <span class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1A10 10 0 0 1 4.9 4.9"/><path d="M7.8 16.2a6 6 0 0 1 0-8.4"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4"/><path d="M19.1 4.9a10 10 0 0 1 0 14.2"/></svg>
+          </span>
+          <span class="body">
+            <span class="title">التشغيل الأمني</span>
+            <span class="sub" style="display:block">SECURITY OPS</span>
+            <span class="desc" style="display:block">البوابة · الدوريات · البلاغات · المحاضر · الورديات والجولات</span>
+          </span>
+          <span class="path">/ops</span>
+        </a>
+
+        <a class="portal" href="__PORTAL__">
+          <span class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
+          <span class="body">
+            <span class="title">بوابة المقيم</span>
+            <span class="sub" style="display:block">RESIDENT PORTAL</span>
+            <span class="desc" style="display:block">التصاريح والبلاغات والحجوزات وملف العقار — كما يراها الساكن</span>
+          </span>
+          <span class="path">/portal</span>
+        </a>
+      </nav>
+
+      <footer>منصة واحدة · ثلاثة تطبيقات · حالة مشتركة</footer>
+    </main>
+  </body>
+</html>

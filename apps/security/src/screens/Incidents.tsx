@@ -23,7 +23,7 @@ export function IncidentsList() {
       <Card className="overflow-x-auto p-0">
         <table className="w-full min-w-[640px] text-sm">
           <thead>
-            <tr className="border-b border-ink-100 text-start text-[--text-caption] text-ink-500">
+            <tr className="border-b border-ink-100 text-start text-caption text-ink-500">
               <th className="p-3 text-start">رقم المعاملة</th>
               <th className="p-3 text-start">النوع</th>
               <th className="p-3 text-start">الخطورة</th>

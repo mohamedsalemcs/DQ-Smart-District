@@ -35,10 +35,10 @@ export function ResidentRequests() {
                     <span className="font-semibold">{requestKindAr[r.kind]}</span>
                     {requestPill(r.status)}
                   </div>
-                  <p className="mt-1 truncate text-[--text-caption] text-ink-500">{r.descriptionAr}</p>
+                  <p className="mt-1 truncate text-caption text-ink-500">{r.descriptionAr}</p>
                   <div className="mt-1.5 flex items-center gap-2">
                     <SlaBadge req={r} />
-                    <span className="text-[--text-caption] text-ink-500">{ago(r.events[0]?.atISO ?? '')}</span>
+                    <span className="text-caption text-ink-500">{ago(r.events[0]?.atISO ?? '')}</span>
                   </div>
                 </div>
                 <ChevronLeft size={18} className="shrink-0 text-ink-500" />

@@ -47,7 +47,7 @@ export function StatusPill({
   const FallbackIcon = tone === 'ok' ? CheckCircle2 : tone === 'bad' ? XCircle : tone === 'warn' ? AlertTriangle : CircleDashed;
   const I = Icon ?? FallbackIcon;
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[--text-caption] font-medium ${dark ? onDark[tone] : light[tone]}`}>
+    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-caption font-medium ${dark ? onDark[tone] : light[tone]}`}>
       <I size={12} />
       {labelAr}
     </span>

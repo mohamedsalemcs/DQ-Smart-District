@@ -101,18 +101,18 @@ export function AdminPeople() {
           <button
             key={c.key}
             onClick={() => setFilter(filter === c.key ? 'all' : c.key)}
-            className={`rounded-[--radius-card] bg-ink-0 p-4 text-start ring-1 transition-all hover:-translate-y-0.5 ${
+            className={`rounded-card bg-ink-0 p-4 text-start ring-1 transition-all hover:-translate-y-0.5 ${
               filter === c.key ? 'ring-2 ring-brand-500' : 'ring-ink-100'
             }`}
            
           >
             <div className="flex items-center justify-between">
               <c.icon size={16} className={c.cls} />
-              {filter === c.key && <span className="rounded-full bg-brand-600 px-1.5 py-0.5 text-[--text-micro] font-bold text-ink-900">مفعّل</span>}
+              {filter === c.key && <span className="rounded-full bg-brand-600 px-1.5 py-0.5 text-micro font-bold text-ink-900">مفعّل</span>}
             </div>
             <p className={`mt-2 text-2xl font-bold tabular-nums ${c.cls}`}>{c.count}</p>
-            <p className="text-[--text-caption] font-semibold">{c.labelAr}</p>
-            <p className="text-[--text-micro] text-ink-500">{c.hint}</p>
+            <p className="text-caption font-semibold">{c.labelAr}</p>
+            <p className="text-micro text-ink-500">{c.hint}</p>
           </button>
         ))}
       </div>
@@ -120,7 +120,7 @@ export function AdminPeople() {
       <div className="grid gap-4 lg:grid-cols-3">
         {/* units map */}
         <Card className="lg:col-span-2 p-3">
-          <p className="mb-2 px-1 text-[--text-caption] font-semibold text-ink-500">
+          <p className="mb-2 px-1 text-caption font-semibold text-ink-500">
             خريطة الوحدات ({filtered.length}) — اضغط علامة لفتح ملف العقار
           </p>
           <MapCanvas
@@ -136,7 +136,7 @@ export function AdminPeople() {
               onClick: () => navigate(`/a/properties/${p.id}`),
             }))}
           />
-          <div className="mt-2 flex flex-wrap gap-3 px-1 text-[--text-micro] text-ink-500">
+          <div className="mt-2 flex flex-wrap gap-3 px-1 text-micro text-ink-500">
             <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full" style={{ background: TYPE_COLORS.villa }} /> فيلا</span>
             <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full" style={{ background: TYPE_COLORS.apartment }} /> شقة</span>
             <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full" style={{ background: TYPE_COLORS.commercial }} /> تجاري</span>
@@ -148,7 +148,7 @@ export function AdminPeople() {
         {/* charts */}
         <div className="space-y-4">
           <Card className="p-4">
-            <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">تكوين الوحدات</p>
+            <p className="mb-2 text-caption font-semibold text-ink-500">تكوين الوحدات</p>
             <div className="h-36" dir="ltr">
               <ResponsiveContainer>
                 <PieChart>
@@ -161,7 +161,7 @@ export function AdminPeople() {
             </div>
             <div className="mt-1 grid grid-cols-2 gap-x-3 gap-y-1">
               {donut.map((d) => (
-                <span key={d.name} className="flex items-center justify-between text-[--text-caption]">
+                <span key={d.name} className="flex items-center justify-between text-caption">
                   <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: d.color }} />{d.name}</span>
                   <b className="tabular-nums">{d.value}</b>
                 </span>
@@ -170,7 +170,7 @@ export function AdminPeople() {
           </Card>
 
           <Card className="p-4">
-            <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">الإشغال حسب القطاع</p>
+            <p className="mb-2 text-caption font-semibold text-ink-500">الإشغال حسب القطاع</p>
             <div className="h-40" dir="ltr">
               <ResponsiveContainer>
                 <BarChart data={zoneBars} barGap={1}>
@@ -191,7 +191,7 @@ export function AdminPeople() {
       <Card className="overflow-x-auto p-0">
         <table className="w-full min-w-[760px] text-sm">
           <thead>
-            <tr className="border-b border-ink-100 text-[--text-caption] text-ink-500">
+            <tr className="border-b border-ink-100 text-caption text-ink-500">
               <th className="p-3 text-start">الكود</th>
               <th className="p-3 text-start">الوحدة</th>
               <th className="p-3 text-start">النوع</th>
@@ -215,11 +215,11 @@ export function AdminPeople() {
                   <td className="p-3">{propertyTypeAr[p.type]}{p.subtypeAr ? ` · ${p.subtypeAr.split(' ')[0]}` : ''}</td>
                   <td className="p-3 text-ink-500">{p.zone}</td>
                   <td className="p-3">
-                    <span className={`rounded-full px-2 py-0.5 text-[--text-caption] font-semibold ${occ ? 'bg-ok-600-50 text-ok-600' : 'bg-warn-600-50 text-warn-600'}`}>
+                    <span className={`rounded-full px-2 py-0.5 text-caption font-semibold ${occ ? 'bg-ok-600-50 text-ok-600' : 'bg-warn-600-50 text-warn-600'}`}>
                       {occ ? 'مشغولة' : 'شاغرة'}
                     </span>
                   </td>
-                  <td className="p-3">{owner?.nameAr} <span className="text-[--text-caption] text-ink-500">({owner ? roleAr[owner.role] : ''})</span></td>
+                  <td className="p-3">{owner?.nameAr} <span className="text-caption text-ink-500">({owner ? roleAr[owner.role] : ''})</span></td>
                   <td className="p-3 tabular-nums">{p.residentIds.length}</td>
                   <td className="p-3 tabular-nums">{p.vehicleIds.length}</td>
                 </tr>

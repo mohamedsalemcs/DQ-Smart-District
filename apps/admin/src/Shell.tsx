@@ -19,7 +19,7 @@ import {
   Users,
   Wrench,
 } from 'lucide-react';
-import { AppShell, NotificationsBell, SpeedToggle, ToastHost, type NavItem } from '@dq/ui';
+import { ErrorBoundary, AppShell, NotificationsBell, SpeedToggle, ToastHost, type NavItem } from '@dq/ui';
 import { ago, useStore } from '@dq/core';
 import { useI18n } from './i18n';
 
@@ -30,14 +30,14 @@ function LangToggle() {
     <div
       role="group"
       aria-label={t('language')}
-      className="flex items-center rounded-[--radius-pill] bg-ink-50 p-0.5"
+      className="flex items-center rounded-pill bg-ink-50 p-0.5"
     >
       {(['ar', 'en'] as const).map((l) => (
         <button
           key={l}
           onClick={() => setLang(l)}
           aria-pressed={lang === l}
-          className={`plate rounded-[--radius-pill] px-2.5 py-1 text-[--text-micro] font-bold uppercase transition-colors ${
+          className={`plate rounded-pill px-2.5 py-1 text-micro font-bold uppercase transition-colors ${
             lang === l ? 'bg-ink-0 text-brand-700 shadow-e1' : 'text-ink-500 hover:text-ink-800'
           }`}
         >
@@ -121,15 +121,17 @@ export function AdminShell() {
               markAllAr={t('markAllRead')}
             />
             <span className="hidden items-center gap-2 border-s border-ink-100 ps-3 md:flex">
-              <span className="flex size-8 items-center justify-center rounded-[--radius-pill] bg-brand-50 text-[--text-micro] font-bold text-brand-700">
+              <span className="flex size-8 items-center justify-center rounded-pill bg-brand-50 text-micro font-bold text-brand-700">
                 <Building2 size={15} aria-hidden />
               </span>
-              <span className="text-[--text-micro] font-semibold text-ink-700">إدارة الحي</span>
+              <span className="text-micro font-semibold text-ink-700">إدارة الحي</span>
             </span>
           </>
         }
       >
-        <Outlet />
+        <ErrorBoundary labelAr="هذه الشاشة">
+          <Outlet />
+        </ErrorBoundary>
       </AppShell>
       <ToastHost toasts={toasts} onDismiss={dismissToast} />
     </>

@@ -13,7 +13,7 @@ import {
   ShieldAlert,
   ShieldCheck,
 } from 'lucide-react';
-import { AppShell, NotificationsBell, SpeedToggle, ToastHost, type NavItem } from '@dq/ui';
+import { ErrorBoundary, AppShell, NotificationsBell, SpeedToggle, ToastHost, type NavItem } from '@dq/ui';
 import { ago, useStore } from '@dq/core';
 
 const NAV: NavItem[] = [
@@ -78,15 +78,17 @@ export function SecurityShell() {
               }}
             />
             <span className="hidden items-center gap-2 border-s border-ink-100 ps-3 md:flex">
-              <span className="flex size-8 items-center justify-center rounded-[--radius-pill] bg-brand-50 text-brand-700">
+              <span className="flex size-8 items-center justify-center rounded-pill bg-brand-50 text-brand-700">
                 <ShieldCheck size={15} aria-hidden />
               </span>
-              <span className="text-[--text-micro] font-semibold text-ink-700">مشرف الأمن</span>
+              <span className="text-micro font-semibold text-ink-700">مشرف الأمن</span>
             </span>
           </>
         }
       >
-        <Outlet />
+        <ErrorBoundary labelAr="هذه الشاشة">
+          <Outlet />
+        </ErrorBoundary>
       </AppShell>
       <ToastHost toasts={toasts} onDismiss={dismissToast} />
     </>

@@ -69,7 +69,7 @@ export function ViolationNew() {
                     tab.key === 'vehicle' ? demoVehicleId : tab.key === 'property' ? properties[0].id : people.find((p) => p.role === 'resident')!.id,
                   );
                 }}
-                className={`flex flex-col items-center gap-1.5 rounded-[--radius-card] p-3 text-sm ${
+                className={`flex flex-col items-center gap-1.5 rounded-card p-3 text-sm ${
                   subject === tab.key ? 'bg-brand-600 text-ink-900 font-semibold' : 'bg-ink-0 text-ink-500 hover:text-ink-900-800'
                 }`}
               >
@@ -107,7 +107,7 @@ export function ViolationNew() {
         </Field>
 
         {subject === 'vehicle' && subjectId === demoVehicleId && demoVehicle && (
-          <div className="rounded-[--radius-card] bg-warn-600-50 p-3 text-sm text-warn-600-600">
+          <div className="rounded-card bg-warn-600-50 p-3 text-sm text-warn-600-600">
             <p className="font-semibold">⚠ هذه المركبة عليها مخالفة سابقة</p>
             <p className="mt-1 flex items-center gap-2">
               <PlateBadge plate={demoVehicle.plate} size="sm" /> حافلة مدرسة — التسجيل الجديد سيرفع عدّاد التكرار إلى 2
@@ -129,7 +129,7 @@ export function ViolationNew() {
           <p className="mb-1.5 text-sm font-medium">التوثيق</p>
           <button
             onClick={() => setPhoto((p) => !p)}
-            className={`flex w-full items-center justify-center gap-2 rounded-[--radius-card] border-2 border-dashed p-4 text-sm ${
+            className={`flex w-full items-center justify-center gap-2 rounded-card border-2 border-dashed p-4 text-sm ${
               photo ? 'border-ok-500 bg-ok-600-50 text-ok-600' : 'border-ink-300 text-ink-500'
             }`}
           >
@@ -138,7 +138,7 @@ export function ViolationNew() {
           </button>
         </div>
 
-        <div className="rounded-[--radius-card] bg-ink-0 p-3 text-[--text-caption] text-ink-500">
+        <div className="rounded-card bg-ink-0 p-3 text-caption text-ink-500">
           الموقع: يُلتقط تلقائيًا من جهاز الحارس · شارع الأمم، قرب حديقة الطلح
         </div>
 

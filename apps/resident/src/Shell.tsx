@@ -11,7 +11,7 @@ import {
   Megaphone,
   UserRound,
 } from 'lucide-react';
-import { AppShell, NotificationsBell, ToastHost, type NavItem } from '@dq/ui';
+import { ErrorBoundary, AppShell, NotificationsBell, ToastHost, type NavItem } from '@dq/ui';
 import { ago, useStore } from '@dq/core';
 import { EmergencyButton } from './components/EmergencyButton';
 
@@ -79,16 +79,18 @@ export function ResidentShell() {
               }}
             />
             <span className="hidden items-center gap-2 border-s border-ink-100 ps-3 md:flex">
-              <span className="flex size-8 items-center justify-center rounded-[--radius-pill] bg-brand-50 text-[--text-micro] font-bold text-brand-700">
+              <span className="flex size-8 items-center justify-center rounded-pill bg-brand-50 text-micro font-bold text-brand-700">
                 {user?.nameAr.slice(0, 2)}
               </span>
-              <span className="text-[--text-micro] font-semibold text-ink-700">{user?.nameAr}</span>
+              <span className="text-micro font-semibold text-ink-700">{user?.nameAr}</span>
             </span>
           </>
         }
         extra={<EmergencyButton />}
       >
-        <Outlet />
+        <ErrorBoundary labelAr="هذه الشاشة">
+          <Outlet />
+        </ErrorBoundary>
       </AppShell>
       <ToastHost toasts={toasts} onDismiss={dismissToast} />
     </>

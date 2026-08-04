@@ -62,10 +62,10 @@ export function LookupScreen() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-semibold">{p.nameAr}</p>
-                <p className="text-[--text-caption] text-ink-500">{roleAr[p.role]} · هوية {p.nationalId} · {p.phone}</p>
-                {prop && <p className="mt-1 text-[--text-caption] text-ink-500">مرتبط بـ {prop.code} — {prop.unitNo}</p>}
+                <p className="text-caption text-ink-500">{roleAr[p.role]} · هوية {p.nationalId} · {p.phone}</p>
+                {prop && <p className="mt-1 text-caption text-ink-500">مرتبط بـ {prop.code} — {prop.unitNo}</p>}
               </div>
-              <span className="rounded-full bg-ink-50 px-2.5 py-1 text-[--text-caption] text-ink-800">شخص</span>
+              <span className="rounded-full bg-ink-50 px-2.5 py-1 text-caption text-ink-800">شخص</span>
             </div>
           </Card>
         );
@@ -78,12 +78,12 @@ export function LookupScreen() {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <PlateBadge plate={v.plate} />
-                <p className="mt-1 text-[--text-caption] text-ink-500">{v.make} · {v.color} · المالك: {owner?.nameAr}</p>
+                <p className="mt-1 text-caption text-ink-500">{v.make} · {v.color} · المالك: {owner?.nameAr}</p>
                 {v.suspension && !v.suspension.liftedAtISO && (
-                  <p className="mt-1 text-[--text-caption] font-semibold text-danger-600">موقوفة: {v.suspension.reason}</p>
+                  <p className="mt-1 text-caption font-semibold text-danger-600">موقوفة: {v.suspension.reason}</p>
                 )}
               </div>
-              <span className={`rounded-full px-2.5 py-1 text-[--text-caption] font-semibold ${v.accessState === 'allowed' ? 'bg-ok-600-50 text-ok-600' : 'bg-danger-50 text-danger-600'}`}>
+              <span className={`rounded-full px-2.5 py-1 text-caption font-semibold ${v.accessState === 'allowed' ? 'bg-ok-600-50 text-ok-600' : 'bg-danger-50 text-danger-600'}`}>
                 {accessStateAr[v.accessState]}
               </span>
             </div>
@@ -96,9 +96,9 @@ export function LookupScreen() {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-semibold">{p.code} — {p.unitNo}</p>
-              <p className="text-[--text-caption] text-ink-500">{propertyTypeAr[p.type]} · {p.zone} · {p.residentIds.length} مقيم · {p.vehicleIds.length} مركبة</p>
+              <p className="text-caption text-ink-500">{propertyTypeAr[p.type]} · {p.zone} · {p.residentIds.length} مقيم · {p.vehicleIds.length} مركبة</p>
             </div>
-            <span className="rounded-full bg-ink-50 px-2.5 py-1 text-[--text-caption] text-ink-800">عقار</span>
+            <span className="rounded-full bg-ink-50 px-2.5 py-1 text-caption text-ink-800">عقار</span>
           </div>
         </Card>
       ))}
@@ -108,7 +108,7 @@ export function LookupScreen() {
           <div className="flex items-center justify-between gap-2">
             <div>
               <p className="font-semibold">{p.subject.nameAr}</p>
-              <p className="text-[--text-caption] text-ink-500">{permitKindAr[p.kind]} {p.plate ? <>· <bdi className="plate">{p.plate}</bdi></> : null}</p>
+              <p className="text-caption text-ink-500">{permitKindAr[p.kind]} {p.plate ? <>· <bdi className="plate">{p.plate}</bdi></> : null}</p>
             </div>
             {permitPill(p.status)}
           </div>

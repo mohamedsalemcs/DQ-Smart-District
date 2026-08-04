@@ -25,11 +25,11 @@ export function AdminSettings() {
 
       <Card className="p-5">
         <p className="mb-1 text-sm font-bold">سلّم التصعيد</p>
-        <p className="mb-4 text-[--text-caption] text-ink-500">هذه القيم تقود شاشة المخالفات مباشرة — عدّل مسمى درجة واحفظ ثم افتح مخالفة لترى الأثر.</p>
+        <p className="mb-4 text-caption text-ink-500">هذه القيم تقود شاشة المخالفات مباشرة — عدّل مسمى درجة واحفظ ثم افتح مخالفة لترى الأثر.</p>
         <div className="space-y-2">
           {ladder.map((step, i) => (
             <div key={step.step} className="flex items-center gap-2">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink-50 text-[--text-caption] font-bold">{step.step}</span>
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink-50 text-caption font-bold">{step.step}</span>
               <Input
                 value={step.labelAr}
                 onChange={(e) => setLadder((l) => l.map((s, j) => (j === i ? { ...s, labelAr: e.target.value } : s)))}
@@ -59,10 +59,10 @@ export function AdminSettings() {
         <p className="mb-3 text-sm font-bold">أنواع التصاريح</p>
         <div className="flex flex-wrap gap-2">
           {Object.values(permitKindAr).map((k) => (
-            <span key={k} className="rounded-full bg-ink-50 px-3 py-1 text-[--text-caption]">{k}</span>
+            <span key={k} className="rounded-full bg-ink-50 px-3 py-1 text-caption">{k}</span>
           ))}
         </div>
-        <p className="mt-2 text-[--text-caption] text-ink-500">إدارة كاملة لأنواع التصاريح خارج نطاق نموذج الإثبات.</p>
+        <p className="mt-2 text-caption text-ink-500">إدارة كاملة لأنواع التصاريح خارج نطاق نموذج الإثبات.</p>
       </Card>
 
       <Card className="p-5">

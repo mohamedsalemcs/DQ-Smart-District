@@ -150,7 +150,7 @@ export function Sustainability() {
       <Card padding="lg">
         <SectionTitle sub="الشفافية شرط المصداقية — لا صندوق أسود">معاملات الحساب</SectionTitle>
         <div className="overflow-x-auto">
-          <table className="w-full text-[--text-caption]">
+          <table className="w-full text-caption">
             <thead>
               <tr className="border-b border-ink-100 text-start text-ink-500">
                 <th className="py-2 text-start font-semibold">المعامل</th>

@@ -49,7 +49,7 @@ export function RequestNew() {
               <button
                 key={k}
                 onClick={() => setKind(k)}
-                className={`rounded-[--radius-ctl] px-2 py-2 text-[--text-caption] ${kind === k ? 'bg-brand-600 font-semibold text-ink-900' : 'bg-ink-50 text-ink-500 hover:text-ink-900-800'}`}
+                className={`rounded-ctl px-2 py-2 text-caption ${kind === k ? 'bg-brand-600 font-semibold text-ink-900' : 'bg-ink-50 text-ink-500 hover:text-ink-900-800'}`}
               >
                 {v}
               </button>
@@ -69,7 +69,7 @@ export function RequestNew() {
           </Field>
           <div>
             <p className="mb-1 text-sm font-medium">الموقع</p>
-            <p className="flex items-center gap-1.5 rounded-[--radius-ctl] bg-ink-50 px-3 py-2 text-[--text-caption] text-ink-500">
+            <p className="flex items-center gap-1.5 rounded-ctl bg-ink-50 px-3 py-2 text-caption text-ink-500">
               <MapPin size={13} /> قرب {prop?.code ?? 'موقعك الحالي'} (تلقائي)
             </p>
           </div>
@@ -77,13 +77,13 @@ export function RequestNew() {
 
         <button
           onClick={() => setMedia((m) => !m)}
-          className={`flex w-full items-center justify-center gap-2 rounded-[--radius-card] border-2 border-dashed p-4 text-sm ${media ? 'border-ok-500 bg-ok-600-50 text-ok-600' : 'border-ink-100 text-ink-500'}`}
+          className={`flex w-full items-center justify-center gap-2 rounded-card border-2 border-dashed p-4 text-sm ${media ? 'border-ok-500 bg-ok-600-50 text-ok-600' : 'border-ink-100 text-ink-500'}`}
         >
           <Camera size={18} />
           {media ? 'أُرفقت صورة (محاكاة) ✓' : 'إرفاق صورة'}
         </button>
 
-        {err && <p className="rounded-[--radius-card] border border-danger-500 bg-danger-50 p-2.5 text-[--text-caption] text-danger-600">{err}</p>}
+        {err && <p className="rounded-card border border-danger-500 bg-danger-50 p-2.5 text-caption text-danger-600">{err}</p>}
 
         <Button size="lg" className="w-full" onClick={submit} disabled={submitting}>
           {submitting ? 'جارٍ الإرسال…' : 'إرسال البلاغ'}

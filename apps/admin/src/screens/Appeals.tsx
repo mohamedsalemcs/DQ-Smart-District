@@ -80,11 +80,11 @@ export function AdminAppeals() {
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="plate text-[--text-caption] font-bold text-ink-500">{v.code}</span>
-                  <h3 className="text-[--text-h3] font-bold text-ink-900">{v.labelAr}</h3>
+                  <span className="plate text-caption font-bold text-ink-500">{v.code}</span>
+                  <h3 className="text-h3 font-bold text-ink-900">{v.labelAr}</h3>
                   <StatusPill labelAr="قيد التظلّم" tone="info" size="sm" />
                 </div>
-                <div className="mt-2 flex items-center gap-2 text-[--text-caption] text-ink-500">
+                <div className="mt-2 flex items-center gap-2 text-caption text-ink-500">
                   {subjectOf(v)}
                   <span>· التكرار {v.repeatCount}</span>
                   <span>· الدرجة {v.escalationStep}</span>
@@ -116,9 +116,9 @@ export function AdminAppeals() {
               </div>
             </div>
 
-            <blockquote className="mt-4 rounded-[--radius-ctl] border-s-4 border-s-info-500 bg-info-50 p-3.5">
-              <p className="text-[--text-body] leading-relaxed text-ink-800">{v.appeal?.reasonAr}</p>
-              <p className="mt-2 text-[--text-caption] text-ink-500">
+            <blockquote className="mt-4 rounded-ctl border-s-4 border-s-info-500 bg-info-50 p-3.5">
+              <p className="text-body leading-relaxed text-ink-800">{v.appeal?.reasonAr}</p>
+              <p className="mt-2 text-caption text-ink-500">
                 {people.find((p) => p.id === v.appeal?.submittedBy)?.nameAr ?? 'مقيم'} ·{' '}
                 {v.appeal ? fmtDateTime(v.appeal.submittedISO) : ''}
               </p>
@@ -129,11 +129,11 @@ export function AdminAppeals() {
 
       {decided.length > 0 && (
         <Card padding="lg">
-          <h2 className="mb-3 text-[--text-h3] font-semibold text-ink-900">تظلّمات سابقة</h2>
+          <h2 className="mb-3 text-h3 font-semibold text-ink-900">تظلّمات سابقة</h2>
           <ul className="divide-y divide-ink-100">
             {decided.map((v) => (
               <li key={v.id} className="flex flex-wrap items-center justify-between gap-2 py-2.5">
-                <span className="text-[--text-caption] text-ink-700">
+                <span className="text-caption text-ink-700">
                   <span className="plate font-bold">{v.code}</span> — {v.labelAr}
                 </span>
                 <StatusPill
@@ -153,7 +153,7 @@ export function AdminAppeals() {
         title={acting?.decision === 'accepted' ? 'قبول التظلّم' : 'رفض التظلّم'}
       >
         <p
-          className={`mb-4 rounded-[--radius-ctl] p-3 text-[--text-caption] leading-relaxed ${
+          className={`mb-4 rounded-ctl p-3 text-caption leading-relaxed ${
             acting?.decision === 'accepted' ? 'bg-ok-50 text-ok-600' : 'bg-warn-50 text-warn-600'
           }`}
         >

@@ -95,7 +95,7 @@ export function IncidentNew() {
               <button
                 key={k}
                 onClick={() => setLocationKind(k)}
-                className={`rounded-full px-3 py-1 text-[--text-caption] ${locationKind === k ? 'bg-brand-600 text-ink-900 font-semibold' : 'bg-ink-0 text-ink-500'}`}
+                className={`rounded-full px-3 py-1 text-caption ${locationKind === k ? 'bg-brand-600 text-ink-900 font-semibold' : 'bg-ink-0 text-ink-500'}`}
               >
                 {label}
               </button>
@@ -112,11 +112,11 @@ export function IncidentNew() {
             </Select>
           )}
           {locationKind === 'street' && (
-            <p className="rounded-[--radius-ctl] bg-ink-0 px-3 py-2 text-[--text-caption] text-ink-500">شارع الأمم — قرب حديقة الطلح (يُلتقط من جهاز الحارس)</p>
+            <p className="rounded-ctl bg-ink-0 px-3 py-2 text-caption text-ink-500">شارع الأمم — قرب حديقة الطلح (يُلتقط من جهاز الحارس)</p>
           )}
         </div>
 
-        <div className="rounded-[--radius-card] border border-ink-300 p-3">
+        <div className="rounded-card border border-ink-300 p-3">
           <p className="mb-2 text-sm font-medium">المركبة (إن وجدت)</p>
           <div className="grid grid-cols-2 gap-2">
             <Input placeholder="رقم اللوحة" value={plate} onChange={(e) => setPlate(e.target.value)} />
@@ -131,7 +131,7 @@ export function IncidentNew() {
         </Field>
 
         {errors.length > 0 && (
-          <ul className="space-y-1 rounded-[--radius-card] border border-danger-500 bg-danger-50 p-3 text-[--text-caption] text-danger-600">
+          <ul className="space-y-1 rounded-card border border-danger-500 bg-danger-50 p-3 text-caption text-danger-600">
             {errors.map((e) => <li key={e}>• {e}</li>)}
           </ul>
         )}

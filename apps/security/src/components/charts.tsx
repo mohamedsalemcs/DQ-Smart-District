@@ -53,21 +53,21 @@ export function KpiCard({
   return (
     <Comp
       onClick={onClick}
-      className={`rounded-[--radius-card] p-4 text-start ${
+      className={`rounded-card p-4 text-start ${
         dark ? 'bg-ink-50 text-ink-800 ring-1 ring-ink-100' : 'bg-ink-0 ring-1 ring-ink-100'
       } ${onClick ? 'cursor-pointer transition-all hover:-translate-y-0.5' : ''}`}
       
     >
-      <p className={`text-[--text-caption] font-semibold ${dark ? 'text-ink-500' : 'text-ink-500'}`}>{label}</p>
+      <p className={`text-caption font-semibold ${dark ? 'text-ink-500' : 'text-ink-500'}`}>{label}</p>
       <div className="mt-1.5 flex items-end justify-between gap-2">
         <p className="text-2xl font-bold leading-none tabular-nums tracking-tight">
           {value}
-          {suffix && <span className={`ms-1 text-[--text-caption] font-semibold ${dark ? 'text-ink-500' : 'text-ink-500'}`}>{suffix}</span>}
+          {suffix && <span className={`ms-1 text-caption font-semibold ${dark ? 'text-ink-500' : 'text-ink-500'}`}>{suffix}</span>}
         </p>
         {spark && <Sparkline data={spark} color={sparkColor ?? 'var(--color-viz-2)'} />}
       </div>
       {delta != null && (
-        <p className={`mt-2 flex items-center gap-1 text-[--text-caption] font-semibold ${deltaCls}`}>
+        <p className={`mt-2 flex items-center gap-1 text-caption font-semibold ${deltaCls}`}>
           {delta >= 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
           <bdi dir="ltr">{delta > 0 ? '+' : ''}{delta.toFixed(0)}%</bdi>
           <span className={`font-normal ${dark ? 'text-ink-500' : 'text-ink-500'}`}>عن الفترة السابقة</span>
@@ -94,13 +94,13 @@ export function ChartCard({
 }) {
   return (
     <div
-      className={`rounded-[--radius-card] p-4 ${dark ? 'bg-ink-50 text-ink-800 ring-1 ring-ink-100' : 'bg-ink-0 ring-1 ring-ink-100'} ${className}`}
+      className={`rounded-card p-4 ${dark ? 'bg-ink-50 text-ink-800 ring-1 ring-ink-100' : 'bg-ink-0 ring-1 ring-ink-100'} ${className}`}
       
     >
       <div className="mb-3 flex items-start justify-between gap-2">
         <div>
           <p className="text-sm font-bold">{title}</p>
-          {sub && <p className={`text-[--text-caption] ${dark ? 'text-ink-500' : 'text-ink-500'}`}>{sub}</p>}
+          {sub && <p className={`text-caption ${dark ? 'text-ink-500' : 'text-ink-500'}`}>{sub}</p>}
         </div>
         {action}
       </div>
@@ -118,14 +118,14 @@ export function RangePicker({ value, onChange, dark = false }: { value: Range; o
     { r: 90, labelAr: 'ربع سنة' },
   ];
   return (
-    <div className={`flex items-center gap-0.5 rounded-[--radius-card] p-0.5 ${dark ? 'bg-ink-0' : 'bg-ink-50'}`} role="tablist" aria-label="الفترة الزمنية">
+    <div className={`flex items-center gap-0.5 rounded-card p-0.5 ${dark ? 'bg-ink-0' : 'bg-ink-50'}`} role="tablist" aria-label="الفترة الزمنية">
       {options.map((o) => (
         <button
           key={o.r}
           role="tab"
           aria-selected={value === o.r}
           onClick={() => onChange(o.r)}
-          className={`rounded-[--radius-ctl] px-3 py-1 text-[--text-caption] font-semibold transition-colors ${
+          className={`rounded-ctl px-3 py-1 text-caption font-semibold transition-colors ${
             value === o.r ? 'bg-brand-600 text-ink-900' : dark ? 'text-ink-500 hover:text-ink-900-800' : 'text-ink-500 hover:text-ink-900-800'
           }`}
         >

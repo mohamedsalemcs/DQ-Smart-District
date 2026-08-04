@@ -176,14 +176,14 @@ export function SecurityReports() {
               .filter((e) => e.decision !== 'allowed')
               .slice(0, 6)
               .map((e) => (
-                <div key={e.id} className="flex items-center gap-2 rounded-[--radius-ctl] bg-ink-0 px-3 py-2 text-[--text-caption]">
+                <div key={e.id} className="flex items-center gap-2 rounded-ctl bg-ink-0 px-3 py-2 text-caption">
                   <span className={`font-bold ${e.decision === 'denied' ? 'text-danger-600' : 'text-warn-600-600'}`}>{gateDecisionAr[e.decision]}</span>
                   <bdi className="plate text-ink-800">{e.input}</bdi>
                   <span className="ms-auto truncate text-ink-500">{e.reasonAr}</span>
                 </div>
               ))}
             {store.gateEvents.filter((e) => e.decision !== 'allowed').length === 0 && (
-              <p className="py-4 text-center text-[--text-caption] text-ink-500">لا حالات رفض في السجل الحالي</p>
+              <p className="py-4 text-center text-caption text-ink-500">لا حالات رفض في السجل الحالي</p>
             )}
           </div>
           <div className="mt-3 flex flex-wrap gap-1.5 border-t border-ink-900 pt-3">
@@ -193,7 +193,7 @@ export function SecurityReports() {
                 return acc;
               }, {}),
             ).map(([k, v]) => (
-              <span key={k} className="rounded-full bg-ink-0 px-2.5 py-1 text-[--text-micro] text-ink-500">
+              <span key={k} className="rounded-full bg-ink-0 px-2.5 py-1 text-micro text-ink-500">
                 {k} <b className="tabular-nums text-ink-800">{v}</b>
               </span>
             ))}

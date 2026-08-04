@@ -59,7 +59,7 @@ export function QrScanModal({
 
   return (
     <Modal open={open} onClose={onClose} title="مسح رمز QR — محاكاة">
-      <div className="mb-4 flex h-32 items-center justify-center rounded-[--radius-card] border-2 border-dashed border-brand-300 bg-ink-0/90">
+      <div className="mb-4 flex h-32 items-center justify-center rounded-card border-2 border-dashed border-brand-300 bg-ink-0/90">
         <ScanLine size={40} className="text-brand-600 pulse-dot" />
       </div>
       <Input placeholder="أو ألصق الرمز يدويًا…" value={q} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQ(e.target.value)} />
@@ -71,16 +71,16 @@ export function QrScanModal({
       <div className="mt-4 max-h-64 space-y-3 overflow-y-auto thin-scroll">
         {groups.map((g) => (
           <div key={g.title}>
-            <p className="mb-1 text-[--text-caption] font-semibold text-ink-500">{g.title}</p>
+            <p className="mb-1 text-caption font-semibold text-ink-500">{g.title}</p>
             <div className="space-y-1">
               {g.items.map((it) => (
                 <button
                   key={it.token}
                   onClick={() => pick(it.token)}
-                  className="flex w-full items-center justify-between rounded-[--radius-ctl] bg-ink-50 px-3 py-2 text-sm hover:bg-brand-50"
+                  className="flex w-full items-center justify-between rounded-ctl bg-ink-50 px-3 py-2 text-sm hover:bg-brand-50"
                 >
                   <span>{it.labelAr}</span>
-                  <bdi dir="ltr" className="plate text-[--text-caption] text-ink-500">{it.token}</bdi>
+                  <bdi dir="ltr" className="plate text-caption text-ink-500">{it.token}</bdi>
                 </button>
               ))}
             </div>

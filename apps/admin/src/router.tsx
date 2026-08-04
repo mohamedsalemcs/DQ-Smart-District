@@ -26,7 +26,7 @@ const TwinFallback = () => (
   <div className="space-y-3">
     <Skeleton className="h-10 w-64" />
     <Skeleton className="h-[60vh] w-full" />
-    <p className="text-center text-[--text-caption] text-ink-500">جارٍ تحميل التوأم الرقمي…</p>
+    <p className="text-center text-caption text-ink-500">جارٍ تحميل التوأم الرقمي…</p>
   </div>
 );
 

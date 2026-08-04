@@ -3,9 +3,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /**
- * يجمع مخرجات المنصات الأربع في مجلد نشر واحد.
+ * يجمع مخرجات المنصات الثلاث في مجلد نشر واحد، ويولّد صفحة الاختيار.
+ *
  * نشرة Vercel واحدة تخدم:
- *   /            → صفحة اختيار المنصة
+ *   /            → صفحة اختيار المنصة (HTML ساكن — لا تطبيق ولا بورت)
  *   /dashboard/  → مركز القيادة
  *   /ops/        → التشغيل الأمني
  *   /portal/     → بوابة المقيم
@@ -14,8 +15,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const DIST = path.join(ROOT, 'dist');
 
-const MAP = [
-  { app: 'landing', to: '.' },
+const APPS = [
   { app: 'admin', to: 'dashboard' },
   { app: 'security', to: 'ops' },
   { app: 'resident', to: 'portal' },
@@ -24,17 +24,38 @@ const MAP = [
 fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(DIST, { recursive: true });
 
-for (const { app, to } of MAP) {
+for (const { app, to } of APPS) {
   const from = path.join(ROOT, 'apps', app, 'dist');
   if (!fs.existsSync(from)) {
     console.error(`✗ ${app}: لا يوجد مخرج بناء — شغّل build أولًا`);
     process.exit(1);
   }
-  const target = to === '.' ? DIST : path.join(DIST, to);
-  fs.mkdirSync(target, { recursive: true });
-  fs.cpSync(from, target, { recursive: true });
-  console.log(`✓ ${app.padEnd(9)} → /${to === '.' ? '' : to + '/'}`);
+  fs.cpSync(from, path.join(DIST, to), { recursive: true });
+  console.log(`✓ ${app.padEnd(9)} → /${to}/`);
 }
+
+/* ── الخطوط لصفحة الاختيار — محلية كبقية المنصات، صفر طلبات شبكة ── */
+const FONTS = [
+  ['@fontsource-variable/inter/files/inter-latin-wght-normal.woff2', 'inter.woff2'],
+  ['@fontsource/cairo/files/cairo-arabic-400-normal.woff2', 'cairo-400.woff2'],
+  ['@fontsource/cairo/files/cairo-arabic-600-normal.woff2', 'cairo-600.woff2'],
+  ['@fontsource/cairo/files/cairo-arabic-700-normal.woff2', 'cairo-700.woff2'],
+];
+const fontDir = path.join(DIST, 'fonts');
+fs.mkdirSync(fontDir, { recursive: true });
+for (const [src, name] of FONTS) {
+  fs.copyFileSync(path.join(ROOT, 'node_modules', src), path.join(fontDir, name));
+}
+console.log(`✓ fonts     → /fonts/ (${FONTS.length} ملفات)`);
+
+/* ── صفحة الاختيار ── */
+const html = fs
+  .readFileSync(path.join(ROOT, 'scripts', 'index-template.html'), 'utf8')
+  .replace('__DASHBOARD__', '/dashboard/')
+  .replace('__OPS__', '/ops/')
+  .replace('__PORTAL__', '/portal/');
+fs.writeFileSync(path.join(DIST, 'index.html'), html, 'utf8');
+console.log('✓ index     → /');
 
 const size = (dir) => {
   let n = 0;

@@ -14,7 +14,7 @@ export function EscalationLadder({ currentStep }: { currentStep: number }) {
             <div className="flex w-full items-center">
               <div className={`h-0.5 flex-1 ${i === 0 ? 'opacity-0' : reached ? 'bg-brand-600' : 'bg-ink-100'}`} />
               <span
-                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[--text-caption] font-bold ${
+                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-caption font-bold ${
                   isCurrent
                     ? 'bg-brand-600 text-ink-900 ring-4 ring-brand-500/25'
                     : reached
@@ -26,7 +26,7 @@ export function EscalationLadder({ currentStep }: { currentStep: number }) {
               </span>
               <div className={`h-0.5 flex-1 ${i === ladder.length - 1 ? 'opacity-0' : i < currentStep ? 'bg-brand-600' : 'bg-ink-100'}`} />
             </div>
-            <p className={`mt-1.5 text-[--text-caption] font-medium leading-tight ${reached ? '' : 'text-ink-500'}`}>{step.labelAr}</p>
+            <p className={`mt-1.5 text-caption font-medium leading-tight ${reached ? '' : 'text-ink-500'}`}>{step.labelAr}</p>
           </li>
         );
       })}

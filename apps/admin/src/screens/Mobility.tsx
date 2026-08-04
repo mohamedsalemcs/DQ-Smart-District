@@ -122,8 +122,8 @@ export function Mobility() {
             <Card key={z.id} padding="lg">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <p className="text-[--text-body] font-semibold text-ink-900">{z.nameAr}</p>
-                  <p className="mt-0.5 text-[--text-caption] text-ink-500">
+                  <p className="text-body font-semibold text-ink-900">{z.nameAr}</p>
+                  <p className="mt-0.5 text-caption text-ink-500">
                     <span className="tnum">{z.free}</span> موقفًا متاحًا من{' '}
                     <span className="tnum">{z.capacity}</span>
                   </p>
@@ -132,7 +132,7 @@ export function Mobility() {
               </div>
               {/* الشريط + النسبة النصية: لا اعتماد على اللون وحده (BR-007) */}
               <div
-                className="mt-3 h-2.5 overflow-hidden rounded-[--radius-pill] bg-ink-100"
+                className="mt-3 h-2.5 overflow-hidden rounded-pill bg-ink-100"
                 role="meter"
                 aria-valuenow={z.pct}
                 aria-valuemin={0}
@@ -140,7 +140,7 @@ export function Mobility() {
                 aria-label={`إشغال ${z.nameAr}`}
               >
                 <div
-                  className={`h-full rounded-[--radius-pill] transition-all ${
+                  className={`h-full rounded-pill transition-all ${
                     z.pct >= 90 ? 'bg-danger-500' : z.pct >= 70 ? 'bg-warn-500' : 'bg-ok-500'
                   }`}
                   style={{ width: `${z.pct}%` }}
@@ -174,8 +174,8 @@ export function Mobility() {
                   size="sm"
                 />
               </div>
-              <p className="mt-3 text-[--text-caption] font-semibold text-ink-900">{c.nameAr}</p>
-              <p className="mt-1 text-[--text-caption] text-ink-500">
+              <p className="mt-3 text-caption font-semibold text-ink-900">{c.nameAr}</p>
+              <p className="mt-1 text-caption text-ink-500">
                 <span className="tnum">{c.kw}</span> kW
                 {c.state === 'busy' && ` · ينتهي بعد ${c.minsLeft} دقيقة`}
                 {c.state === 'fault' && ' · صدر أمر عمل'}
@@ -192,15 +192,15 @@ export function Mobility() {
             {SHUTTLE_STOPS.map((stop, i) => (
               <li key={stop} className="flex items-center gap-3">
                 <span
-                  className={`flex size-7 shrink-0 items-center justify-center rounded-[--radius-pill] text-[--text-micro] font-bold ${
+                  className={`flex size-7 shrink-0 items-center justify-center rounded-pill text-micro font-bold ${
                     i === 1 ? 'bg-brand-600 text-ink-0' : 'bg-ink-50 text-ink-500'
                   }`}
                 >
                   {i + 1}
                 </span>
-                <span className="flex-1 text-[--text-caption] font-medium text-ink-800">{stop}</span>
+                <span className="flex-1 text-caption font-medium text-ink-800">{stop}</span>
                 {i === 1 && <StatusPill labelAr="المكوك هنا" tone="ok" icon={Bus} size="sm" />}
-                <span className="plate text-[--text-caption] text-ink-500">
+                <span className="plate text-caption text-ink-500">
                   {fmtTime(new Date(Date.now() + i * 4 * 60000).toISOString())}
                 </span>
               </li>
@@ -215,13 +215,13 @@ export function Mobility() {
               const max = Math.max(1, ...m.perGate.map((x) => x.count));
               return (
                 <div key={g.id}>
-                  <div className="flex items-center justify-between text-[--text-caption]">
+                  <div className="flex items-center justify-between text-caption">
                     <span className="font-medium text-ink-800">{g.nameAr}</span>
                     <span className="tnum text-ink-500">{g.count}</span>
                   </div>
-                  <div className="mt-1.5 h-2 overflow-hidden rounded-[--radius-pill] bg-ink-100">
+                  <div className="mt-1.5 h-2 overflow-hidden rounded-pill bg-ink-100">
                     <div
-                      className="h-full rounded-[--radius-pill] bg-brand-500"
+                      className="h-full rounded-pill bg-brand-500"
                       style={{ width: `${(g.count / max) * 100}%` }}
                     />
                   </div>
@@ -229,7 +229,7 @@ export function Mobility() {
               );
             })}
           </div>
-          <div className="mt-4 flex items-center gap-4 border-t border-ink-100 pt-3 text-[--text-caption]">
+          <div className="mt-4 flex items-center gap-4 border-t border-ink-100 pt-3 text-caption">
             <span className="flex items-center gap-1.5 text-ok-600">
               <LogIn size={14} aria-hidden />
               <span className="tnum font-semibold">{m.inCount}</span> دخول

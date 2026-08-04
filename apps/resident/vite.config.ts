@@ -15,7 +15,7 @@ export default defineConfig({
       { find: /^@dq\/ui\//, replacement: fileURLToPath(new URL('../../packages/ui/src/', import.meta.url)) },
     ],
   },
-  server: { port: 5173, strictPort: true },
+  server: { port: 3003, strictPort: true },
   build: {
     outDir: 'dist',
     sourcemap: false,

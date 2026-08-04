@@ -73,10 +73,10 @@ export function EmbassyBooking() {
       {/* public header */}
       <header className="bg-ink-0 px-4 py-5 text-ink-800">
         <div className="mx-auto flex max-w-lg items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-[--radius-card] bg-brand-600 font-bold text-ink-900">DQ</span>
+          <span className="flex h-10 w-10 items-center justify-center rounded-card bg-brand-600 font-bold text-ink-900">DQ</span>
           <div>
             <p className="text-sm font-bold">الحي الدبلوماسي الذكي</p>
-            <p className="text-[--text-caption] text-ink-500">بوابة مواعيد السفارات</p>
+            <p className="text-caption text-ink-500">بوابة مواعيد السفارات</p>
           </div>
         </div>
       </header>
@@ -84,19 +84,19 @@ export function EmbassyBooking() {
       <main className="mx-auto max-w-lg px-4">
         <div className="-mt-0 rounded-b-[6px] bg-ink-50 p-4 text-ink-800">
           <p className="flex items-center gap-2 text-base font-bold"><Landmark size={17} className="text-brand-600" /> {embassy.unitNo}</p>
-          <p className="mt-1 text-[--text-caption] text-ink-500">احجز موعد زيارتك — يصلك رمز QR يُبرز عند بوابة الحي مباشرة، دون أي إجراء إضافي</p>
+          <p className="mt-1 text-caption text-ink-500">احجز موعد زيارتك — يصلك رمز QR يُبرز عند بوابة الحي مباشرة، دون أي إجراء إضافي</p>
         </div>
 
         {done ? (
-          <div className="mt-4 rounded-[--radius-card] bg-ink-0 p-6 text-center">
+          <div className="mt-4 rounded-card bg-ink-0 p-6 text-center">
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-ok-600-50 text-ok-600"><CheckCircle2 size={28} /></span>
             <h2 className="mt-3 text-lg font-bold">تم تأكيد موعدك</h2>
             <p className="mt-1 text-sm text-ink-500">{embassy.unitNo} · {fmtDateTime(done.dateISO)}</p>
-            <div className="mx-auto mt-4 w-fit rounded-[--radius-card] border-2 border-ink-900 p-4">
+            <div className="mx-auto mt-4 w-fit rounded-card border-2 border-ink-900 p-4">
               <QrCode size={120} className="text-ink-900" />
-              <bdi dir="ltr" className="plate mt-2 block text-[--text-caption] font-bold text-ink-800"><Txn no={done.qrToken} /></bdi>
+              <bdi dir="ltr" className="plate mt-2 block text-caption font-bold text-ink-800"><Txn no={done.qrToken} /></bdi>
             </div>
-            <div className="mt-4 space-y-1 rounded-[--radius-card] bg-warn-600-50 p-3 text-start text-[--text-caption] text-ink-800">
+            <div className="mt-4 space-y-1 rounded-card bg-warn-600-50 p-3 text-start text-caption text-ink-800">
               <p>• أبرز هذا الرمز عند <b>بوابة الحي</b> يوم الموعد — الدخول آلي.</p>
               <p>• الرمز صالح لمرة واحدة وليوم الموعد فقط.</p>
               <p>• أحضر هويتك الوطنية / الإقامة المطابقة للبيانات المسجلة.</p>
@@ -104,7 +104,7 @@ export function EmbassyBooking() {
             <Button variant="outline" className="mt-4" onClick={() => setDone(null)}>حجز موعد آخر</Button>
           </div>
         ) : (
-          <div className="mt-4 space-y-4 rounded-[--radius-card] bg-ink-0 p-5">
+          <div className="mt-4 space-y-4 rounded-card bg-ink-0 p-5">
             {/* day picker with live availability */}
             <div>
               <p className="mb-1.5 flex items-center gap-1.5 text-sm font-medium"><CalendarDays size={14} /> اليوم</p>
@@ -114,13 +114,13 @@ export function EmbassyBooking() {
                     key={d.offset}
                     disabled={d.left === 0}
                     onClick={() => setDayOffset(d.offset)}
-                    className={`min-w-[76px] rounded-[--radius-card] border p-2 text-center text-[--text-caption] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                    className={`min-w-[76px] rounded-card border p-2 text-center text-caption transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
                       dayOffset === d.offset ? 'border-brand-500 bg-brand-50 font-bold' : 'border-ink-100 hover:border-brand-300'
                     }`}
                   >
                     <p className="font-semibold">{d.offset === 0 ? 'اليوم' : d.offset === 1 ? 'غدًا' : format(d.date, 'EEEE', { locale: ar })}</p>
-                    <p className="text-[--text-micro] text-ink-500">{format(d.date, 'd MMM', { locale: ar })}</p>
-                    <p className={`mt-0.5 text-[--text-micro] font-semibold ${d.left === 0 ? 'text-danger-600' : d.left <= 3 ? 'text-warn-600' : 'text-ok-600'}`}>
+                    <p className="text-micro text-ink-500">{format(d.date, 'd MMM', { locale: ar })}</p>
+                    <p className={`mt-0.5 text-micro font-semibold ${d.left === 0 ? 'text-danger-600' : d.left <= 3 ? 'text-warn-600' : 'text-ok-600'}`}>
                       {d.left === 0 ? 'مكتمل' : `${d.left} متاح`}
                     </p>
                   </button>
@@ -153,10 +153,10 @@ export function EmbassyBooking() {
               </Field>
             </div>
 
-            {err && <p className="rounded-[--radius-card] border border-danger-500 bg-danger-50 p-2.5 text-[--text-caption] text-danger-600">{err}</p>}
+            {err && <p className="rounded-card border border-danger-500 bg-danger-50 p-2.5 text-caption text-danger-600">{err}</p>}
 
             <Button size="lg" className="w-full" onClick={submit}>تأكيد الحجز واستلام رمز الدخول</Button>
-            <p className="text-center text-[--text-micro] text-ink-500">بيانات الزيارة تخضع لسياسات أمن الحي الدبلوماسي</p>
+            <p className="text-center text-micro text-ink-500">بيانات الزيارة تخضع لسياسات أمن الحي الدبلوماسي</p>
           </div>
         )}
       </main>

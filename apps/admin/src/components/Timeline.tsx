@@ -13,8 +13,8 @@ export function Timeline({ events, dark = false }: { events: TimelineEvent[]; da
         <li key={i} className="relative me-4 pe-4">
           <span className={`absolute -end-[21px] top-1.5 h-2.5 w-2.5 rounded-full ${i === 0 ? 'bg-brand-600' : dark ? 'bg-ink-200' : 'bg-ink-100'}`} />
           <p className="text-sm font-medium">{e.action}</p>
-          {e.detailAr && <p className={`text-[--text-caption] ${dark ? 'text-ink-500' : 'text-ink-500'}`}>{e.detailAr}</p>}
-          <p className={`mt-0.5 text-[--text-caption] tabular-nums ${dark ? 'text-ink-500' : 'text-ink-500'}`}>
+          {e.detailAr && <p className={`text-caption ${dark ? 'text-ink-500' : 'text-ink-500'}`}>{e.detailAr}</p>}
+          <p className={`mt-0.5 text-caption tabular-nums ${dark ? 'text-ink-500' : 'text-ink-500'}`}>
             {nameOf(e.actorId)} · {fmtDateTime(e.atISO)}
           </p>
         </li>

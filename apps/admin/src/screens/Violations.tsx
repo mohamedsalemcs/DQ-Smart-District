@@ -53,7 +53,7 @@ export function AdminViolations() {
       <div className="grid gap-4 lg:grid-cols-5">
         {/* queue */}
         <Card className="lg:col-span-2 p-3">
-          <p className="mb-2 px-1 text-[--text-caption] font-semibold text-ink-500">مواقع المخالفات — اضغط علامة لفتح المخالفة</p>
+          <p className="mb-2 px-1 text-caption font-semibold text-ink-500">مواقع المخالفات — اضغط علامة لفتح المخالفة</p>
           <MapCanvas
             className="mb-3 aspect-[16/10]"
             markers={open.map((v) => ({
@@ -74,13 +74,13 @@ export function AdminViolations() {
               onClick: () => setSelectedId(v.id),
             }))}
           />
-          <p className="mb-2 px-1 text-[--text-caption] font-semibold text-ink-500">قائمة الانتظار ({open.length})</p>
+          <p className="mb-2 px-1 text-caption font-semibold text-ink-500">قائمة الانتظار ({open.length})</p>
           <div className="space-y-1.5">
             {open.map((v) => (
               <button
                 key={v.id}
                 onClick={() => setSelectedId(v.id)}
-                className={`block w-full rounded-[--radius-card] p-3 text-start transition-colors ${
+                className={`block w-full rounded-card p-3 text-start transition-colors ${
                   selected?.id === v.id ? 'bg-brand-50 ring-1 ring-brand-500' : 'bg-ink-50 hover:bg-brand-50'
                 }`}
               >
@@ -88,8 +88,8 @@ export function AdminViolations() {
                   <span className="text-sm font-semibold">{v.code} · {subjectOf(v)}</span>
                   {violationPill(v.status)}
                 </div>
-                <p className="mt-1 truncate text-[--text-caption] text-ink-500">{v.labelAr}</p>
-                <div className="mt-1 flex items-center gap-2 text-[--text-caption] text-ink-500">
+                <p className="mt-1 truncate text-caption text-ink-500">{v.labelAr}</p>
+                <div className="mt-1 flex items-center gap-2 text-caption text-ink-500">
                   <span>{ago(v.events[0]?.atISO ?? '')}</span>
                   {v.repeatCount > 1 && (
                     <span className="inline-flex items-center gap-0.5 rounded-full bg-danger-50 px-1.5 py-0.5 font-semibold text-danger-600">
@@ -102,7 +102,7 @@ export function AdminViolations() {
             {open.length === 0 && <EmptyState title="لا مخالفات مفتوحة" />}
           </div>
           {closed.length > 0 && (
-            <p className="mt-3 px-1 text-[--text-caption] text-ink-500">+ {closed.length} مخالفة مغلقة في الأرشيف</p>
+            <p className="mt-3 px-1 text-caption text-ink-500">+ {closed.length} مخالفة مغلقة في الأرشيف</p>
           )}
         </Card>
 
@@ -123,21 +123,21 @@ export function AdminViolations() {
             </div>
 
             {/* ladder — driven by Settings, not hardcoded */}
-            <div className="mt-5 rounded-[--radius-card] bg-ink-50 p-4">
-              <p className="mb-3 text-[--text-caption] font-semibold text-ink-500">سلّم التصعيد (قابل للتعديل من الإعدادات) — الدرجة الحالية: {selected.escalationStep}</p>
+            <div className="mt-5 rounded-card bg-ink-50 p-4">
+              <p className="mb-3 text-caption font-semibold text-ink-500">سلّم التصعيد (قابل للتعديل من الإعدادات) — الدرجة الحالية: {selected.escalationStep}</p>
               <EscalationLadder currentStep={selected.escalationStep} />
             </div>
 
             {selected.graceUntilISO && selected.status === 'grace' && (
-              <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-warn-600-50 px-3 py-1 text-[--text-caption] font-medium text-warn-600">
+              <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-warn-600-50 px-3 py-1 text-caption font-medium text-warn-600">
                 <Timer size={13} /> مهلة التصحيح حتى {fmtDateTime(selected.graceUntilISO)}
               </p>
             )}
 
             {vehicle?.accessState === 'suspended' && (
-              <div className="mt-3 rounded-[--radius-card] border border-danger-500 bg-danger-50 p-3 text-sm">
+              <div className="mt-3 rounded-card border border-danger-500 bg-danger-50 p-3 text-sm">
                 <p className="flex items-center gap-1.5 font-semibold text-danger-600"><Ban size={15} /> الإنفاذ البوابي مفعّل</p>
-                <p className="mt-1 text-[--text-caption] text-ink-500">
+                <p className="mt-1 text-caption text-ink-500">
                   المركبة سترفض عند جميع البوابات حتى {fmtDateTime(vehicle.suspension!.untilISO)} — قرار{' '}
                   {store.people.find((p) => p.id === vehicle.suspension!.decidedBy)?.nameAr}
                 </p>
@@ -182,7 +182,7 @@ export function AdminViolations() {
             </div>
 
             <div className="mt-6">
-              <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">الخط الزمني</p>
+              <p className="mb-2 text-caption font-semibold text-ink-500">الخط الزمني</p>
               <Timeline events={selected.events} />
             </div>
           </Card>
@@ -206,7 +206,7 @@ export function AdminViolations() {
 
       {/* suspension dialog — the supervisor decision that flips the gate */}
       <Modal open={suspendOpen} onClose={() => setSuspendOpen(false)} title="إيقاف المركبة — قرار مشرف">
-        <p className="mb-3 rounded-[--radius-card] bg-warn-600-50 p-3 text-[--text-caption] text-ink-800">
+        <p className="mb-3 rounded-card bg-warn-600-50 p-3 text-caption text-ink-800">
           الإيقاف يكتب حالة <b>موقوف</b> على المركبة نفسها. شاشة البوابة تقرأ هذه الحالة فقط — ولا تعيد اشتقاق القاعدة.
         </p>
         <div className="space-y-3">

@@ -17,7 +17,7 @@ export function Payments() {
           <div key={label} className="flex items-center justify-between border-b border-ink-100 p-4 text-sm last:border-0">
             <div>
               <p className="font-medium">{label}</p>
-              <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[--text-micro] ${tone === 'ok' ? 'bg-ok-600-50 text-ok-600' : 'bg-danger-50 text-danger-600'}`}>
+              <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-micro ${tone === 'ok' ? 'bg-ok-600-50 text-ok-600' : 'bg-danger-50 text-danger-600'}`}>
                 {status}
               </span>
             </div>
@@ -25,7 +25,7 @@ export function Payments() {
           </div>
         ))}
       </Card>
-      <p className="text-center text-[--text-caption] text-ink-500">القيم المالية والفوترة خارج نطاق نموذج الإثبات</p>
+      <p className="text-center text-caption text-ink-500">القيم المالية والفوترة خارج نطاق نموذج الإثبات</p>
     </div>
   );
 }

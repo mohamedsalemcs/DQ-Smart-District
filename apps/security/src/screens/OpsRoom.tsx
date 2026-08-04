@@ -30,7 +30,7 @@ export function OpsRoom() {
       <div className="grid gap-4 lg:grid-cols-3">
         {/* live map */}
         <Card className="lg:col-span-2 p-3">
-          <p className="mb-2 px-1 text-[--text-caption] font-semibold text-ink-500">
+          <p className="mb-2 px-1 text-caption font-semibold text-ink-500">
             الخريطة الحية ثلاثية الأبعاد — بلاغات · دوريات متحركة · بوابات · حركة مرورية
           </p>
           <Map3D
@@ -47,35 +47,35 @@ export function OpsRoom() {
         <div className="space-y-4">
           {/* active incidents */}
           <Card className="p-4">
-            <p className="mb-2 flex items-center gap-1.5 text-[--text-caption] font-semibold text-ink-500">
+            <p className="mb-2 flex items-center gap-1.5 text-caption font-semibold text-ink-500">
               <Siren size={13} /> البلاغات النشطة
             </p>
             <div className="space-y-2">
               {active.map((i) => (
-                <Link key={i.id} to={`/s/incidents/${i.id}`} className="block rounded-[--radius-card] bg-ink-0 p-3 transition-colors hover:bg-ink-50">
+                <Link key={i.id} to={`/s/incidents/${i.id}`} className="block rounded-card bg-ink-0 p-3 transition-colors hover:bg-ink-50">
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-sm font-semibold">{incidentKindAr[i.kind]}</span>
                     {incidentPill(i.status)}
                   </div>
-                  <p className="mt-1 text-[--text-caption] text-ink-500">
+                  <p className="mt-1 text-caption text-ink-500">
                     <Txn no={i.txnNo} /> · {ago(i.reportedISO)}
                   </p>
                 </Link>
               ))}
-              {active.length === 0 && <p className="py-2 text-center text-[--text-caption] text-ink-500">لا بلاغات نشطة</p>}
+              {active.length === 0 && <p className="py-2 text-center text-caption text-ink-500">لا بلاغات نشطة</p>}
             </div>
           </Card>
 
           {/* gates */}
           <Card className="p-4">
-            <p className="mb-2 flex items-center gap-1.5 text-[--text-caption] font-semibold text-ink-500">
+            <p className="mb-2 flex items-center gap-1.5 text-caption font-semibold text-ink-500">
               <DoorOpen size={13} /> حالة البوابات
             </p>
             <div className="space-y-1.5">
               {store.gates.map((g) => (
-                <Link key={g.id} to={`/s/gate/${g.id}`} className="flex items-center justify-between rounded-[--radius-ctl] bg-ink-0 px-3 py-2 text-sm hover:bg-ink-50">
+                <Link key={g.id} to={`/s/gate/${g.id}`} className="flex items-center justify-between rounded-ctl bg-ink-0 px-3 py-2 text-sm hover:bg-ink-50">
                   <span>{g.nameAr}</span>
-                  <span className={`flex items-center gap-1 text-[--text-caption] ${g.state === 'open' ? 'text-ok-600' : g.state === 'manual' ? 'text-warn-600-600' : 'text-danger-600'}`}>
+                  <span className={`flex items-center gap-1 text-caption ${g.state === 'open' ? 'text-ok-600' : g.state === 'manual' ? 'text-warn-600-600' : 'text-danger-600'}`}>
                     <span className={`h-1.5 w-1.5 rounded-full ${g.state === 'open' ? 'bg-ok-600' : g.state === 'manual' ? 'bg-warn-600' : 'bg-danger-600'}`} />
                     {g.state === 'open' ? 'مفتوحة' : g.state === 'manual' ? 'تشغيل يدوي' : 'مغلقة'}
                   </span>
@@ -87,7 +87,7 @@ export function OpsRoom() {
           {/* uncovered posts */}
           {uncovered.length > 0 && (
             <Card className="border border-danger-500 p-4">
-              <p className="mb-2 flex items-center gap-1.5 text-[--text-caption] font-semibold text-danger-600">
+              <p className="mb-2 flex items-center gap-1.5 text-caption font-semibold text-danger-600">
                 <UserX size={13} /> مواقع غير مغطاة
               </p>
               {uncovered.map((s) => (
@@ -101,13 +101,13 @@ export function OpsRoom() {
 
           {/* patrols */}
           <Card className="p-4">
-            <p className="mb-2 flex items-center gap-1.5 text-[--text-caption] font-semibold text-ink-500">
+            <p className="mb-2 flex items-center gap-1.5 text-caption font-semibold text-ink-500">
               <Radio size={13} /> الدوريات
             </p>
             {store.patrols.map((p) => (
               <div key={p.id} className="flex items-center justify-between py-1 text-sm">
                 <span>{p.nameAr}</span>
-                <span className={`text-[--text-caption] ${p.status === 'available' ? 'text-ok-600' : 'text-warn-600-600'}`}>
+                <span className={`text-caption ${p.status === 'available' ? 'text-ok-600' : 'text-warn-600-600'}`}>
                   {p.status === 'available' ? 'متاحة' : p.status === 'dispatched' ? 'في مهمة' : 'في الموقع'}
                 </span>
               </div>

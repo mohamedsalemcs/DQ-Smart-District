@@ -50,7 +50,7 @@ export function IncidentDetail() {
             {incidentKindAr[incident.kind]}
             <Txn no={incident.txnNo} className="text-brand-600" />
           </h1>
-          <p className="mt-0.5 text-[--text-caption] text-ink-500">
+          <p className="mt-0.5 text-caption text-ink-500">
             وقعت {fmtDateTime(incident.occurredISO)} · أُبلغت {fmtDateTime(incident.reportedISO)} · الخطورة: {severityAr[incident.severity]}
           </p>
         </div>
@@ -73,11 +73,11 @@ export function IncidentDetail() {
                 <p className="mb-2 text-sm text-ink-500">أقرب الدوريات للموقع — الأقرب أولًا:</p>
                 <div className="space-y-2">
                   {nearestPatrols.map((p, i) => (
-                    <div key={p.id} className="flex items-center justify-between rounded-[--radius-card] bg-ink-0 p-3">
+                    <div key={p.id} className="flex items-center justify-between rounded-card bg-ink-0 p-3">
                       <div className="flex items-center gap-2 text-sm">
                         <Radio size={15} className={p.status === 'available' ? 'text-ok-600' : 'text-ink-500'} />
                         <span>{p.nameAr}</span>
-                        {i === 0 && <span className="rounded-full bg-brand-50 px-2 py-0.5 text-[--text-micro] font-bold text-brand-600">الأقرب</span>}
+                        {i === 0 && <span className="rounded-full bg-brand-50 px-2 py-0.5 text-micro font-bold text-brand-600">الأقرب</span>}
                       </div>
                       <Button size="sm" disabled={p.status !== 'available'} onClick={() => store.dispatchPatrol(incident.id, p.id)}>
                         إسناد
@@ -95,17 +95,17 @@ export function IncidentDetail() {
                 <Button size="lg" variant="success" onClick={() => store.confirmArrival(incident.id)}>
                   <CheckCircle2 size={18} /> تأكيد الوصول للموقع
                 </Button>
-                <p className="mt-2 text-[--text-caption] text-ink-500">وقت الوصول يُسجَّل تلقائيًا عند التأكيد</p>
+                <p className="mt-2 text-caption text-ink-500">وقت الوصول يُسجَّل تلقائيًا عند التأكيد</p>
               </div>
             )}
 
             {incident.dispatch?.arrivedISO && (
-              <div className="rounded-[--radius-card] bg-ok-600-50 p-4 text-center">
+              <div className="rounded-card bg-ok-600-50 p-4 text-center">
                 <p className="text-sm text-ok-600">وصلت {patrol?.nameAr}</p>
                 <p className="mt-1 text-2xl font-bold tabular-nums text-ok-600">
                   زمن الاستجابة {secondsToClock(incident.dispatch.responseSeconds ?? 0)}
                 </p>
-                <p className="mt-0.5 text-[--text-caption] text-ink-500">سُجّل الوصول {fmtDateTime(incident.dispatch.arrivedISO)}</p>
+                <p className="mt-0.5 text-caption text-ink-500">سُجّل الوصول {fmtDateTime(incident.dispatch.arrivedISO)}</p>
               </div>
             )}
 
@@ -172,7 +172,7 @@ export function IncidentDetail() {
 
         {/* map */}
         <Card className="p-3">
-          <p className="mb-2 flex items-center gap-1.5 px-1 text-[--text-caption] font-semibold text-ink-500">
+          <p className="mb-2 flex items-center gap-1.5 px-1 text-caption font-semibold text-ink-500">
             <MapPin size={13} /> موقع البلاغ والدوريات — حي
           </p>
           <Map3D layers={{ incidents: true, patrols: true, gates: true }} className="aspect-[4/3]" />

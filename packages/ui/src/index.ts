@@ -1,4 +1,5 @@
 export { PALETTE, SCENE, VIZ } from './palette';
+export { ErrorBoundary } from './ErrorBoundary';
 export { Logo, LogoMark, type LogoTone } from './Logo';
 export { AppShell, type Density, type NavItem } from './Shell';
 export {

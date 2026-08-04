@@ -54,7 +54,7 @@ export function GateScreen() {
             <Link
               key={g.id}
               to={`/s/gate/${g.id}`}
-              className={`rounded-full px-2.5 py-1 text-[--text-caption] ${g.id === gateId ? 'bg-brand-600 text-ink-900 font-bold' : 'bg-ink-50 text-ink-500'}`}
+              className={`rounded-full px-2.5 py-1 text-caption ${g.id === gateId ? 'bg-brand-600 text-ink-900 font-bold' : 'bg-ink-50 text-ink-500'}`}
             >
               {g.nameAr.replace('بوابة ', '').replace('البوابة ', '')}
             </Link>
@@ -86,7 +86,7 @@ export function GateScreen() {
             </Button>
           </form>
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[--text-caption] text-ink-500">
+        <div className="mt-3 flex flex-wrap items-center gap-1.5 text-caption text-ink-500">
           <span>أمثلة سريعة:</span>
           {demoVehicle && (
             <button onClick={() => scan('plate', demoVehicle.plate)} className="rounded-full bg-ink-50 px-2 py-0.5 hover:bg-brand-600 hover:text-ink-900-900">
@@ -105,7 +105,7 @@ export function GateScreen() {
       {result && (
         <section
           role="status"
-          className={`rounded-[--radius-card] p-8 text-center text-white ${
+          className={`rounded-card p-8 text-center text-white ${
             result.decision === 'allowed' ? 'bg-ok-600' : result.decision === 'denied' ? 'bg-danger-600' : 'bg-warn-600'
           }`}
         >
@@ -126,7 +126,7 @@ export function GateScreen() {
 
           {/* ALLOWED: permit holder, host, window, companions */}
           {result.decision === 'allowed' && result.permit && (
-            <div className="mx-auto mt-4 grid max-w-md grid-cols-2 gap-x-6 gap-y-1 rounded-[--radius-card] bg-ink-0/15 p-4 text-start text-sm">
+            <div className="mx-auto mt-4 grid max-w-md grid-cols-2 gap-x-6 gap-y-1 rounded-card bg-ink-0/15 p-4 text-start text-sm">
               <span className="opacity-80">حامل التصريح</span>
               <span className="font-semibold">{result.permit.subject.nameAr}</span>
               <span className="opacity-80">النوع</span>
@@ -151,7 +151,7 @@ export function GateScreen() {
 
           {/* paid visitor day-pass details */}
           {result.decision === 'allowed' && result.visitorPass && (
-            <div className="mx-auto mt-4 max-w-md space-y-1.5 rounded-[--radius-card] bg-ink-0/15 p-4 text-start text-sm">
+            <div className="mx-auto mt-4 max-w-md space-y-1.5 rounded-card bg-ink-0/15 p-4 text-start text-sm">
               <div className="flex justify-between">
                 <span className="opacity-80">الزائر</span>
                 <span className="font-semibold">{result.visitorPass.visitorNameAr}</span>
@@ -165,7 +165,7 @@ export function GateScreen() {
                 <span className="font-semibold tabular-nums">{result.visitorPass.totalPaid} ر.س</span>
               </div>
               {result.visitorPass.orders.length > 0 && (
-                <p className="mt-1 rounded bg-ink-0/20 px-2 py-1.5 text-center text-[--text-caption] font-semibold">
+                <p className="mt-1 rounded bg-ink-0/20 px-2 py-1.5 text-center text-caption font-semibold">
                   {result.visitorPass.orders.length} طلب مطاعم مدفوع مسبقًا — الاستلام بنفس الرمز
                 </p>
               )}
@@ -174,7 +174,7 @@ export function GateScreen() {
 
           {/* DENIED: reason, window, decider, tappable source violation (§11) */}
           {result.decision === 'denied' && result.vehicle?.suspension && (
-            <div className="mx-auto mt-4 max-w-md space-y-2 rounded-[--radius-card] bg-ink-0/15 p-4 text-start text-sm">
+            <div className="mx-auto mt-4 max-w-md space-y-2 rounded-card bg-ink-0/15 p-4 text-start text-sm">
               <div className="flex justify-between">
                 <span className="opacity-80">فترة الإيقاف</span>
                 <span className="font-semibold tabular-nums">
@@ -187,7 +187,7 @@ export function GateScreen() {
               </div>
               <button
                 onClick={() => setViolationOpen(true)}
-                className="w-full rounded-[--radius-ctl] bg-ink-0/20 px-3 py-2 text-center font-semibold hover:bg-ink-0/30"
+                className="w-full rounded-ctl bg-ink-0/20 px-3 py-2 text-center font-semibold hover:bg-ink-0/30"
               >
                 المخالفة المصدر: {sourceViolation?.code} — اضغط للتفاصيل
               </button>
@@ -213,7 +213,7 @@ export function GateScreen() {
         <h2 className="mb-2 text-sm font-semibold text-ink-500">سجل البوابة — كل مسح يُسجّل أيًا كانت النتيجة</h2>
         <div className="space-y-1.5">
           {log.map((e) => (
-            <div key={e.id} className="flex items-center gap-2 rounded-[--radius-ctl] bg-ink-0 px-3 py-2 text-[--text-caption]">
+            <div key={e.id} className="flex items-center gap-2 rounded-ctl bg-ink-0 px-3 py-2 text-caption">
               <span
                 className={`h-2 w-2 shrink-0 rounded-full ${
                   e.decision === 'allowed' ? 'bg-ok-600' : e.decision === 'denied' ? 'bg-danger-600' : 'bg-warn-600'
@@ -227,7 +227,7 @@ export function GateScreen() {
               <span className="ms-auto tabular-nums text-ink-500">{fmtTime(e.atISO)}</span>
             </div>
           ))}
-          {log.length === 0 && <p className="py-3 text-center text-[--text-caption] text-ink-500">لا عمليات على هذه البوابة بعد</p>}
+          {log.length === 0 && <p className="py-3 text-center text-caption text-ink-500">لا عمليات على هذه البوابة بعد</p>}
         </div>
       </Card>
 

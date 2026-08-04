@@ -46,7 +46,7 @@ export function EmergencyButton() {
         aria-label="زر الطوارئ"
       >
         <Siren size={20} />
-        <span className="text-[--text-micro] font-bold">طوارئ</span>
+        <span className="text-micro font-bold">طوارئ</span>
       </button>
       <Modal open={open} onClose={() => setOpen(false)} title={sentTxn ? 'تم إرسال بلاغ الطوارئ' : 'بلاغ طوارئ'}>
         {sentTxn ? (
@@ -58,7 +58,7 @@ export function EmergencyButton() {
             <p className="mt-1 text-sm text-ink-500">
               رقم المعاملة <Txn no={sentTxn} className="text-ink-800" /> · موقعك أُرسل تلقائيًا
             </p>
-            <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-warn-600-50 px-3 py-1 text-[--text-caption] font-medium text-warn-600">
+            <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-warn-600-50 px-3 py-1 text-caption font-medium text-warn-600">
               <span className="pulse-dot inline-block h-2 w-2 rounded-full bg-warn-600" />
               جارٍ إسناد أقرب دورية…
             </p>
@@ -72,7 +72,7 @@ export function EmergencyButton() {
               <button
                 key={t.kind}
                 onClick={() => send(t.kind)}
-                className="flex min-h-24 flex-col items-center justify-center gap-2 rounded-[--radius-card] border border-danger-500 bg-danger-50 p-3 text-danger-600 transition-colors hover:bg-danger-600 hover:text-white"
+                className="flex min-h-24 flex-col items-center justify-center gap-2 rounded-card border border-danger-500 bg-danger-50 p-3 text-danger-600 transition-colors hover:bg-danger-600 hover:text-white"
               >
                 <t.icon size={24} />
                 <span className="text-sm font-semibold">{t.labelAr}</span>

@@ -102,19 +102,19 @@ export function EmbassyAccess() {
             <button
               key={e.id}
               onClick={() => setSelectedId(e.id)}
-              className={`rounded-[--radius-card] bg-ink-0 p-4 text-start ring-1 transition-all ${activeCard ? 'ring-2 ring-brand-500' : 'ring-ink-100 hover:-translate-y-0.5'}`}
+              className={`rounded-card bg-ink-0 p-4 text-start ring-1 transition-all ${activeCard ? 'ring-2 ring-brand-500' : 'ring-ink-100 hover:-translate-y-0.5'}`}
              
             >
               <div className="flex items-center gap-2">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-50 text-brand-600"><Landmark size={16} /></span>
                 <div className="min-w-0">
                   <p className="truncate text-sm font-bold">{e.unitNo}</p>
-                  <p className="text-[--text-micro] text-ink-500">{e.code} · نسبة حضور {attendanceRate(e.id)}%</p>
+                  <p className="text-micro text-ink-500">{e.code} · نسبة حضور {attendanceRate(e.id)}%</p>
                 </div>
               </div>
 
               <div className="mt-3">
-                <div className="flex justify-between text-[--text-micro] text-ink-500">
+                <div className="flex justify-between text-micro text-ink-500">
                   <span>مواعيد اليوم</span>
                   <span className="tabular-nums">{used} / {limit}</span>
                 </div>
@@ -125,14 +125,14 @@ export function EmbassyAccess() {
 
               {/* daily limit config */}
               <div className="mt-3 flex items-center gap-1.5" onClick={(ev) => ev.stopPropagation()}>
-                <span className="text-[--text-micro] text-ink-500">الحد اليومي</span>
+                <span className="text-micro text-ink-500">الحد اليومي</span>
                 <Input
                   type="number"
                   min={1}
                   max={100}
                   value={draft}
                   onChange={(ev) => setLimitDraft((d) => ({ ...d, [e.id]: +ev.target.value }))}
-                  className="!w-16 !px-2 !py-1 text-center text-[--text-caption]"
+                  className="!w-16 !px-2 !py-1 text-center text-caption"
                 />
                 {draft !== limit && (
                   <Button size="sm" onClick={() => store.setEmbassyLimit(e.id, draft)}><Check size={12} /></Button>
@@ -141,7 +141,7 @@ export function EmbassyAccess() {
 
               {/* public link */}
               <div className="mt-3 flex items-center gap-1" onClick={(ev) => ev.stopPropagation()}>
-                <bdi dir="ltr" className="plate flex-1 truncate rounded bg-ink-50 px-2 py-1 text-[--text-micro] text-ink-500">/book/{e.id}</bdi>
+                <bdi dir="ltr" className="plate flex-1 truncate rounded bg-ink-50 px-2 py-1 text-micro text-ink-500">/book/{e.id}</bdi>
                 <button onClick={() => copyLink(e.id)} title="نسخ الرابط العام" className="rounded p-1.5 text-ink-500 hover:bg-ink-50 hover:text-ink-900-800">
                   {copied === e.id ? <Check size={13} className="text-ok-600" /> : <Copy size={13} />}
                 </button>
@@ -157,7 +157,7 @@ export function EmbassyAccess() {
       {/* selected embassy analytics */}
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="p-4">
-          <p className="mb-3 text-[--text-caption] font-semibold text-ink-500">مواعيد {selected.unitNo} — آخر 7 أيام</p>
+          <p className="mb-3 text-caption font-semibold text-ink-500">مواعيد {selected.unitNo} — آخر 7 أيام</p>
           <div className="h-48" dir="ltr">
             <ResponsiveContainer>
               <BarChart data={weekSeries}>
@@ -173,12 +173,12 @@ export function EmbassyAccess() {
 
         <Card className="lg:col-span-2 overflow-x-auto p-0">
           <div className="flex items-center justify-between p-3 pb-0">
-            <p className="text-[--text-caption] font-semibold text-ink-500">المواعيد القادمة — {selected.unitNo}</p>
-            <span className="flex items-center gap-1 text-[--text-micro] text-ink-500"><QrCode size={11} /> الرمز يُقبل عند البوابة ويُستهلك مرة واحدة</span>
+            <p className="text-caption font-semibold text-ink-500">المواعيد القادمة — {selected.unitNo}</p>
+            <span className="flex items-center gap-1 text-micro text-ink-500"><QrCode size={11} /> الرمز يُقبل عند البوابة ويُستهلك مرة واحدة</span>
           </div>
           <table className="w-full min-w-[560px] text-sm">
             <thead>
-              <tr className="border-b border-ink-100 text-[--text-caption] text-ink-500">
+              <tr className="border-b border-ink-100 text-caption text-ink-500">
                 <th className="p-3 text-start">الزائر</th>
                 <th className="p-3 text-start">الغرض</th>
                 <th className="p-3 text-start">الموعد</th>
@@ -191,19 +191,19 @@ export function EmbassyAccess() {
                 <tr key={a.id} className="border-b border-ink-100 hover:bg-ink-50">
                   <td className="p-3">
                     <p className="font-medium">{a.visitorNameAr}</p>
-                    <p className="text-[--text-micro] text-ink-500">{a.phone}</p>
+                    <p className="text-micro text-ink-500">{a.phone}</p>
                   </td>
-                  <td className="p-3 text-[--text-caption]">{a.purposeAr}</td>
-                  <td className="p-3 tabular-nums text-[--text-caption] text-ink-500">{fmtDateTime(a.dateISO)}</td>
-                  <td className="p-3"><bdi dir="ltr" className="plate text-[--text-caption]">{a.qrToken}</bdi></td>
+                  <td className="p-3 text-caption">{a.purposeAr}</td>
+                  <td className="p-3 tabular-nums text-caption text-ink-500">{fmtDateTime(a.dateISO)}</td>
+                  <td className="p-3"><bdi dir="ltr" className="plate text-caption">{a.qrToken}</bdi></td>
                   <td className="p-3">
-                    <span className={`rounded-full px-2 py-0.5 text-[--text-caption] font-semibold ${statusCls[a.status]}`}>{statusAr[a.status]}</span>
+                    <span className={`rounded-full px-2 py-0.5 text-caption font-semibold ${statusCls[a.status]}`}>{statusAr[a.status]}</span>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {upcoming.length === 0 && <p className="p-6 text-center text-[--text-caption] text-ink-500">لا مواعيد قادمة لهذه السفارة</p>}
+          {upcoming.length === 0 && <p className="p-6 text-center text-caption text-ink-500">لا مواعيد قادمة لهذه السفارة</p>}
         </Card>
       </div>
     </div>

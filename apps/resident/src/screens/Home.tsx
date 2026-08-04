@@ -30,7 +30,7 @@ export function ResidentHome() {
           <h1 className="text-2xl font-bold tracking-tight">مرحبًا، {me.nameAr.split(' ')[0]} 👋</h1>
           <p className="text-sm text-ink-500">كل خدمات الحي في مكان واحد</p>
         </div>
-        <div className="flex gap-4 rounded-[--radius-card] bg-ink-0 px-4 py-2.5 ring-1 ring-ink-100">
+        <div className="flex gap-4 rounded-card bg-ink-0 px-4 py-2.5 ring-1 ring-ink-100">
           {[
             [myRequests.length, 'طلبات مفتوحة'],
             [myPermits.length, 'تصاريح فعالة'],
@@ -39,7 +39,7 @@ export function ResidentHome() {
           ].map(([v, l]) => (
             <div key={l as string} className="text-center">
               <p className="text-lg font-bold leading-none tabular-nums text-ink-900">{v}</p>
-              <p className="mt-1 text-[--text-micro] text-ink-500">{l}</p>
+              <p className="mt-1 text-micro text-ink-500">{l}</p>
             </div>
           ))}
         </div>
@@ -48,7 +48,7 @@ export function ResidentHome() {
       {/* quick services */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {quick.map((qa) => (
-          <Link key={qa.to} to={qa.to} className="flex min-h-24 flex-col items-center justify-center gap-2 rounded-[--radius-card] bg-ink-0 p-4 shadow-e1 transition-transform hover:-translate-y-0.5">
+          <Link key={qa.to} to={qa.to} className="flex min-h-24 flex-col items-center justify-center gap-2 rounded-card bg-ink-0 p-4 shadow-e1 transition-transform hover:-translate-y-0.5">
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600"><qa.icon size={20} /></span>
             <span className="text-sm font-semibold">{qa.labelAr}</span>
           </Link>
@@ -57,10 +57,10 @@ export function ResidentHome() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="p-4">
-          <SectionTitle action={<Link to="/r/requests" className="text-[--text-caption] text-brand-600 hover:underline">الكل</Link>}>طلباتي المفتوحة</SectionTitle>
+          <SectionTitle action={<Link to="/r/requests" className="text-caption text-brand-600 hover:underline">الكل</Link>}>طلباتي المفتوحة</SectionTitle>
           <div className="space-y-2">
             {myRequests.map((r) => (
-              <Link key={r.id} to={`/r/requests/${r.id}`} className="block rounded-[--radius-card] bg-ink-50 p-3 hover:bg-brand-50">
+              <Link key={r.id} to={`/r/requests/${r.id}`} className="block rounded-card bg-ink-50 p-3 hover:bg-brand-50">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-medium">{requestKindAr[r.kind]}</span>
                   {requestPill(r.status)}
@@ -68,23 +68,23 @@ export function ResidentHome() {
                 <div className="mt-1.5"><SlaBadge req={r} /></div>
               </Link>
             ))}
-            {myRequests.length === 0 && <p className="py-4 text-center text-[--text-caption] text-ink-500">لا طلبات مفتوحة</p>}
+            {myRequests.length === 0 && <p className="py-4 text-center text-caption text-ink-500">لا طلبات مفتوحة</p>}
           </div>
         </Card>
 
         <Card className="p-4">
-          <SectionTitle action={<Link to="/r/permits" className="text-[--text-caption] text-brand-600 hover:underline">الكل</Link>}>تصاريحي الفعالة</SectionTitle>
+          <SectionTitle action={<Link to="/r/permits" className="text-caption text-brand-600 hover:underline">الكل</Link>}>تصاريحي الفعالة</SectionTitle>
           <div className="space-y-2">
             {myPermits.map((p) => (
-              <div key={p.id} className="rounded-[--radius-card] bg-ink-50 p-3">
+              <div key={p.id} className="rounded-card bg-ink-50 p-3">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-medium">{p.subject.nameAr}</span>
                   {permitPill(p.status)}
                 </div>
-                <p className="mt-0.5 text-[--text-caption] text-ink-500">{permitKindAr[p.kind]}</p>
+                <p className="mt-0.5 text-caption text-ink-500">{permitKindAr[p.kind]}</p>
               </div>
             ))}
-            {myPermits.length === 0 && <p className="py-4 text-center text-[--text-caption] text-ink-500">لا تصاريح فعالة</p>}
+            {myPermits.length === 0 && <p className="py-4 text-center text-caption text-ink-500">لا تصاريح فعالة</p>}
           </div>
         </Card>
       </div>
@@ -92,24 +92,24 @@ export function ResidentHome() {
       {/* dues + announcements */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="p-4">
-          <SectionTitle action={<Link to="/r/payments" className="text-[--text-caption] text-brand-600 hover:underline">المدفوعات</Link>}>المستحقات</SectionTitle>
-          <div className="flex items-center justify-between rounded-[--radius-card] bg-warn-600-50 p-3 text-sm">
+          <SectionTitle action={<Link to="/r/payments" className="text-caption text-brand-600 hover:underline">المدفوعات</Link>}>المستحقات</SectionTitle>
+          <div className="flex items-center justify-between rounded-card bg-warn-600-50 p-3 text-sm">
             <span>رسوم الخدمات — الربع الثالث</span>
             <span className="font-bold tabular-nums">— ر.س</span>
           </div>
-          <p className="mt-2 text-[--text-caption] text-ink-500">القيم المالية خارج نطاق العرض التجريبي</p>
+          <p className="mt-2 text-caption text-ink-500">القيم المالية خارج نطاق العرض التجريبي</p>
         </Card>
 
         <Card className="p-4">
           <SectionTitle>إعلانات الحي</SectionTitle>
           <div className="space-y-2 text-sm">
-            <div className="rounded-[--radius-card] bg-ink-50 p-3">
+            <div className="rounded-card bg-ink-50 p-3">
               <p className="font-medium">صيانة مجدولة لشبكة الري — حديقة المشتل</p>
-              <p className="text-[--text-caption] text-ink-500">{ago(new Date(Date.now() - 5 * 3600e3).toISOString())}</p>
+              <p className="text-caption text-ink-500">{ago(new Date(Date.now() - 5 * 3600e3).toISOString())}</p>
             </div>
-            <div className="rounded-[--radius-card] bg-ink-50 p-3">
+            <div className="rounded-card bg-ink-50 p-3">
               <p className="font-medium">فعالية سوق السبت تعود هذا الأسبوع — منتزه عشية</p>
-              <p className="text-[--text-caption] text-ink-500">{ago(new Date(Date.now() - 26 * 3600e3).toISOString())}</p>
+              <p className="text-caption text-ink-500">{ago(new Date(Date.now() - 26 * 3600e3).toISOString())}</p>
             </div>
           </div>
         </Card>

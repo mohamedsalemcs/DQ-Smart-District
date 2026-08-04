@@ -135,7 +135,7 @@ export function AdminRevenue() {
           </div>
           <div className="mt-1 space-y-1">
             {donut.map((d) => (
-              <span key={d.name} className="flex items-center justify-between text-[--text-caption]">
+              <span key={d.name} className="flex items-center justify-between text-caption">
                 <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: d.color }} />{d.name}</span>
                 <b className="tabular-nums">{SAR(d.value)}</b>
               </span>
@@ -148,7 +148,7 @@ export function AdminRevenue() {
       <Card className="overflow-x-auto p-0">
         <table className="w-full min-w-[720px] text-sm">
           <thead>
-            <tr className="border-b border-ink-100 text-[--text-caption] text-ink-500">
+            <tr className="border-b border-ink-100 text-caption text-ink-500">
               <th className="p-3 text-start">المصدر</th>
               <th className="p-3 text-start">الأساس</th>
               <th className="p-3 text-start">شهريًا (ر.س)</th>
@@ -166,7 +166,7 @@ export function AdminRevenue() {
                     <span className="me-2 inline-block h-2 w-2 rounded-full" style={{ background: STREAM_COLORS[model.streams.indexOf(s)] }} />
                     {s.name}
                   </td>
-                  <td className="p-3 text-[--text-caption] text-ink-500">{s.basisAr}</td>
+                  <td className="p-3 text-caption text-ink-500">{s.basisAr}</td>
                   <td className="p-3 font-bold tabular-nums">{SAR(s.monthly)}</td>
                   <td className="p-3 tabular-nums text-ink-500">{SAR(s.yearly)}</td>
                   <td className="p-3">
@@ -174,7 +174,7 @@ export function AdminRevenue() {
                       <div className="h-1.5 w-24 overflow-hidden rounded-full bg-ink-50">
                         <div className="h-full bg-brand-600" style={{ width: `${(s.monthly / model.monthlyTotal) * 100}%` }} />
                       </div>
-                      <span className="text-[--text-caption] tabular-nums text-ink-500">{Math.round((s.monthly / model.monthlyTotal) * 100)}%</span>
+                      <span className="text-caption tabular-nums text-ink-500">{Math.round((s.monthly / model.monthlyTotal) * 100)}%</span>
                     </div>
                     <span className="sr-only">{i}</span>
                   </td>
@@ -190,21 +190,21 @@ export function AdminRevenue() {
           <p className="flex items-center gap-1.5 text-sm font-bold">
             <Megaphone size={15} className="text-brand-600" /> إعلانات الوحدات التجارية — تُعرض في صفحة المجتمع
           </p>
-          <Link to="/r/community" className="text-[--text-caption] text-brand-600 hover:underline">معاينة صفحة المجتمع ←</Link>
+          <Link to="/r/community" className="text-caption text-brand-600 hover:underline">معاينة صفحة المجتمع ←</Link>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
           {store.ads.filter((a) => a.status !== 'ended').map((ad) => {
             const advertiser = store.properties.find((p) => p.id === ad.advertiserPropId);
             return (
-              <div key={ad.id} className={`rounded-[--radius-card] p-3 ${ad.package === 'featured' ? 'bg-brand-50 ring-1 ring-brand-500/40' : 'bg-ink-50'}`}>
+              <div key={ad.id} className={`rounded-card p-3 ${ad.package === 'featured' ? 'bg-brand-50 ring-1 ring-brand-500/40' : 'bg-ink-50'}`}>
                 <div className="flex items-start justify-between gap-2">
                   <p className="text-sm font-semibold">{ad.titleAr}</p>
-                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[--text-micro] font-bold ${ad.status === 'active' ? 'bg-ok-600-50 text-ok-600' : 'bg-warn-600-50 text-warn-600'}`}>
+                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-micro font-bold ${ad.status === 'active' ? 'bg-ok-600-50 text-ok-600' : 'bg-warn-600-50 text-warn-600'}`}>
                     {ad.status === 'active' ? 'نشط' : 'بانتظار الاعتماد'}
                   </span>
                 </div>
-                <p className="mt-1 text-[--text-caption] text-ink-500">{advertiser?.subtypeAr ?? advertiser?.unitNo} ({advertiser?.code})</p>
-                <p className="mt-2 text-[--text-caption]">
+                <p className="mt-1 text-caption text-ink-500">{advertiser?.subtypeAr ?? advertiser?.unitNo} ({advertiser?.code})</p>
+                <p className="mt-2 text-caption">
                   <b className="tabular-nums">{SAR(ad.monthlyPrice)} ر.س / شهر</b>
                   <span className="text-ink-500"> · باقة {ad.package === 'featured' ? 'مميزة' : 'أساسية'}</span>
                 </p>

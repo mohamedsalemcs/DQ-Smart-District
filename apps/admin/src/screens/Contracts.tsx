@@ -17,22 +17,22 @@ export function AdminContracts() {
               <div className="flex items-start justify-between">
                 <div>
                   <p className="font-bold">{o.nameAr}</p>
-                  <p className="text-[--text-caption] text-ink-500">{kindAr[o.kind]}</p>
+                  <p className="text-caption text-ink-500">{kindAr[o.kind]}</p>
                 </div>
-                <span className="rounded-full bg-ink-50 px-2.5 py-1 text-[--text-caption]">عقد ساري</span>
+                <span className="rounded-full bg-ink-50 px-2.5 py-1 text-caption">عقد ساري</span>
               </div>
               <div className="mt-4 grid grid-cols-3 gap-3 text-center">
                 <div>
                   <p className={`text-xl font-bold tabular-nums ${o.kpiOnTime >= 90 ? 'text-ok-600' : 'text-warn-600'}`}>{o.kpiOnTime}%</p>
-                  <p className="text-[--text-caption] text-ink-500">إنجاز في الوقت</p>
+                  <p className="text-caption text-ink-500">إنجاز في الوقت</p>
                 </div>
                 <div>
                   <p className="text-xl font-bold tabular-nums">{o.kpiRating}</p>
-                  <p className="text-[--text-caption] text-ink-500">تقييم السكان /5</p>
+                  <p className="text-caption text-ink-500">تقييم السكان /5</p>
                 </div>
                 <div>
                   <p className="text-xl font-bold tabular-nums">{activeReqs}</p>
-                  <p className="text-[--text-caption] text-ink-500">مهام نشطة</p>
+                  <p className="text-caption text-ink-500">مهام نشطة</p>
                 </div>
               </div>
               <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-ink-50">

@@ -35,14 +35,14 @@ export function RequestDetail() {
         </div>
         <div className="mt-2"><SlaBadge req={req} /></div>
         {req.assignedToOrgId && (
-          <p className="mt-3 rounded-[--radius-card] bg-ink-50 p-2.5 text-[--text-caption]">
+          <p className="mt-3 rounded-card bg-ink-50 p-2.5 text-caption">
             الجهة المنفذة: <b>{store.organizations.find((o) => o.id === req.assignedToOrgId)?.nameAr}</b>
           </p>
         )}
         <div className="mt-4"><MediaGrid before={req.mediaBefore} after={req.mediaAfter} /></div>
 
         {canVerify && (
-          <div className="mt-4 rounded-[--radius-card] bg-warn-600-50 p-3">
+          <div className="mt-4 rounded-card bg-warn-600-50 p-3">
             <p className="text-sm font-semibold">اكتملت المعالجة — هل الملاحظة حُلّت فعلًا؟</p>
             <div className="mt-2 flex gap-2">
               <Button variant="success" onClick={() => store.approveRequestClosure(req.id)}>نعم، أُغلق الطلب</Button>
@@ -52,7 +52,7 @@ export function RequestDetail() {
         )}
 
         {canRate && (
-          <div className="mt-4 rounded-[--radius-card] bg-ink-50 p-3 text-center">
+          <div className="mt-4 rounded-card bg-ink-50 p-3 text-center">
             <p className="mb-2 text-sm font-semibold">قيّم الخدمة</p>
             <div className="flex justify-center gap-1" dir="ltr">
               {[1, 2, 3, 4, 5].map((n) => (
@@ -71,7 +71,7 @@ export function RequestDetail() {
         )}
 
         {req.rating && (
-          <p className="mt-4 flex items-center justify-center gap-1 rounded-[--radius-card] bg-ink-50 p-3 text-sm">
+          <p className="mt-4 flex items-center justify-center gap-1 rounded-card bg-ink-50 p-3 text-sm">
             تقييمك: {Array.from({ length: req.rating }).map((_, i) => <Star key={i} size={15} className="fill-gold text-brand-600" />)}
           </p>
         )}

@@ -99,8 +99,8 @@ export function MyViolations() {
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="plate text-[--text-caption] font-bold text-ink-500">{v.code}</span>
-                    <h3 className="text-[--text-h3] font-bold text-ink-900">{v.labelAr}</h3>
+                    <span className="plate text-caption font-bold text-ink-500">{v.code}</span>
+                    <h3 className="text-h3 font-bold text-ink-900">{v.labelAr}</h3>
                     <StatusPill labelAr={violationStatusAr[v.status]} tone={TONE[v.status]} size="sm" />
                   </div>
                   {veh && (
@@ -108,7 +108,7 @@ export function MyViolations() {
                       <PlateBadge plate={veh.plate} size="sm" />
                     </div>
                   )}
-                  <p className="mt-2 text-[--text-caption] text-ink-500">
+                  <p className="mt-2 text-caption text-ink-500">
                     سُجّلت {fmtDateTime(v.events[0]?.atISO ?? '')}
                     {v.repeatCount > 1 && ` · التكرار ${v.repeatCount} خلال 12 شهرًا`}
                   </p>
@@ -130,32 +130,32 @@ export function MyViolations() {
               </div>
 
               {/* الأثر بلغة مفهومة لا بمصطلح داخلي */}
-              <div className="mt-4 rounded-[--radius-ctl] bg-ink-50 p-3.5">
-                <p className="text-[--text-caption] font-semibold text-ink-700">
+              <div className="mt-4 rounded-ctl bg-ink-50 p-3.5">
+                <p className="text-caption font-semibold text-ink-700">
                   الدرجة الحالية: {step?.labelAr ?? '—'}
                 </p>
-                <p className="mt-1 text-[--text-caption] leading-relaxed text-ink-500">
+                <p className="mt-1 text-caption leading-relaxed text-ink-500">
                   {step?.descriptionAr}
                 </p>
                 {v.graceUntilISO && v.status === 'grace' && (
-                  <p className="mt-2 text-[--text-caption] font-semibold text-warn-600">
+                  <p className="mt-2 text-caption font-semibold text-warn-600">
                     مهلة التصحيح حتى {fmtDate(v.graceUntilISO)}
                   </p>
                 )}
               </div>
 
               {v.appeal && (
-                <div className="mt-3 rounded-[--radius-ctl] border border-info-500/20 bg-info-50 p-3.5">
-                  <p className="text-[--text-caption] font-bold text-info-600">
+                <div className="mt-3 rounded-ctl border border-info-500/20 bg-info-50 p-3.5">
+                  <p className="text-caption font-bold text-info-600">
                     {v.appeal.decision === 'accepted'
                       ? 'قُبل تظلّمك — أُلغيت المخالفة'
                       : v.appeal.decision === 'rejected'
                         ? 'رُفض تظلّمك'
                         : 'تظلّمك قيد المراجعة — عدّاد المهلة متوقف'}
                   </p>
-                  <p className="mt-1 text-[--text-caption] text-ink-600">{v.appeal.reasonAr}</p>
+                  <p className="mt-1 text-caption text-ink-600">{v.appeal.reasonAr}</p>
                   {v.appeal.decisionNoteAr && (
-                    <p className="mt-1.5 text-[--text-caption] font-medium text-ink-700">
+                    <p className="mt-1.5 text-caption font-medium text-ink-700">
                       رد الإدارة: {v.appeal.decisionNoteAr}
                     </p>
                   )}
@@ -163,7 +163,7 @@ export function MyViolations() {
               )}
 
               <details className="mt-4">
-                <summary className="cursor-pointer text-[--text-caption] font-semibold text-brand-600">
+                <summary className="cursor-pointer text-caption font-semibold text-brand-600">
                   الخط الزمني
                 </summary>
                 <div className="mt-3">
@@ -176,7 +176,7 @@ export function MyViolations() {
       </div>
 
       <Modal open={!!appealFor} onClose={() => setAppealFor(null)} title="تقديم تظلّم">
-        <p className="mb-4 rounded-[--radius-ctl] bg-brand-50 p-3 text-[--text-caption] leading-relaxed text-brand-700">
+        <p className="mb-4 rounded-ctl bg-brand-50 p-3 text-caption leading-relaxed text-brand-700">
           تقديم التظلّم <b>يوقف عدّاد مهلة التصحيح</b> حتى يبتّ فيه المشرف. إن قُبل تظلّمك تُلغى المخالفة
           وتُرفع كل آثارها — بما فيها إيقاف المركبة إن وُجد.
         </p>

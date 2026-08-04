@@ -47,7 +47,7 @@ export function AdminRequests() {
 
       <div className="grid gap-4 lg:grid-cols-5">
         <Card className="lg:col-span-2 p-3">
-          <p className="mb-2 px-1 text-[--text-caption] font-semibold text-ink-500">مواقع البلاغات — اضغط علامة لفتح البلاغ</p>
+          <p className="mb-2 px-1 text-caption font-semibold text-ink-500">مواقع البلاغات — اضغط علامة لفتح البلاغ</p>
           <MapCanvas
             className="mb-3 aspect-[16/10]"
             markers={list.map((r) => ({
@@ -73,13 +73,13 @@ export function AdminRequests() {
               <button
                 key={r.id}
                 onClick={() => setSelectedId(r.id)}
-                className={`block w-full rounded-[--radius-card] p-3 text-start ${selected?.id === r.id ? 'bg-brand-50 ring-1 ring-brand-500' : 'bg-ink-50 hover:bg-brand-50'}`}
+                className={`block w-full rounded-card p-3 text-start ${selected?.id === r.id ? 'bg-brand-50 ring-1 ring-brand-500' : 'bg-ink-50 hover:bg-brand-50'}`}
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-semibold">{requestKindAr[r.kind]}</span>
                   {requestPill(r.status)}
                 </div>
-                <p className="mt-1 truncate text-[--text-caption] text-ink-500">{r.descriptionAr}</p>
+                <p className="mt-1 truncate text-caption text-ink-500">{r.descriptionAr}</p>
                 <div className="mt-1.5"><SlaBadge req={r} /></div>
               </button>
             ))}
@@ -93,7 +93,7 @@ export function AdminRequests() {
               <div>
                 <h2 className="text-base font-bold">{requestKindAr[selected.kind]}</h2>
                 <p className="mt-0.5 text-sm text-ink-500">{selected.descriptionAr}</p>
-                <p className="mt-1 text-[--text-caption] text-ink-500">
+                <p className="mt-1 text-caption text-ink-500">
                   الأولوية: {priorityAr[selected.priority]} · المبلّغ: {store.people.find((p) => p.id === selected.raisedBy)?.nameAr ?? 'النظام (مستشعر)'}
                 </p>
               </div>
@@ -104,7 +104,7 @@ export function AdminRequests() {
             </div>
 
             {selected.assignedToOrgId && (
-              <p className="mt-3 rounded-[--radius-card] bg-ink-50 p-2.5 text-[--text-caption]">
+              <p className="mt-3 rounded-card bg-ink-50 p-2.5 text-caption">
                 مُسند إلى: <b>{store.organizations.find((o) => o.id === selected.assignedToOrgId)?.nameAr}</b>
               </p>
             )}
@@ -127,7 +127,7 @@ export function AdminRequests() {
             </div>
 
             <div className="mt-6">
-              <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">الخط الزمني</p>
+              <p className="mb-2 text-caption font-semibold text-ink-500">الخط الزمني</p>
               <Timeline events={selected.events} />
             </div>
           </Card>

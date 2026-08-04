@@ -31,25 +31,25 @@ export function TourScreen() {
           <Map3D layers={{ checkpoints: true, patrols: true, gates: true }} className="aspect-[4/3]" />
         </Card>
         <Card className="p-4">
-          <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">
+          <p className="mb-2 text-caption font-semibold text-ink-500">
             نقاط الجولة — {store.checkpoints.length - missed.length}/{store.checkpoints.length} مغطاة
           </p>
           <div className="space-y-1.5">
             {store.checkpoints.map((c) => {
               const scan = lastScan(c.id);
               return (
-                <div key={c.id} className="flex items-center justify-between rounded-[--radius-ctl] bg-ink-0 px-3 py-2.5 text-sm">
+                <div key={c.id} className="flex items-center justify-between rounded-ctl bg-ink-0 px-3 py-2.5 text-sm">
                   <span className="flex items-center gap-2">
                     {scan ? <CheckCircle2 size={15} className="text-ok-600" /> : <XCircle size={15} className="text-danger-600" />}
                     {c.nameAr}
                   </span>
-                  <span className="text-[--text-caption] text-ink-500">{scan ? `آخر مرور ${ago(scan.atISO)}` : 'لم تُغطَّ بعد'}</span>
+                  <span className="text-caption text-ink-500">{scan ? `آخر مرور ${ago(scan.atISO)}` : 'لم تُغطَّ بعد'}</span>
                 </div>
               );
             })}
           </div>
           {missed.length > 0 && (
-            <p className="mt-3 rounded-[--radius-card] bg-danger-50 p-2.5 text-[--text-caption] text-danger-600">
+            <p className="mt-3 rounded-card bg-danger-50 p-2.5 text-caption text-danger-600">
               {missed.length} نقاط لم تُغطَّ في هذه الجولة — امسح رمز النقطة عند المرور لإثبات التواجد
             </p>
           )}

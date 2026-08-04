@@ -28,12 +28,12 @@ function ToastRow({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string) 
   const { cls, Icon } = TOAST_STYLE[toast.tone];
   return (
     <div
-      className={`toast-in pointer-events-auto flex items-start gap-2.5 rounded-[--radius-card] border-s-4 bg-ink-0 p-3.5 shadow-e3 ring-1 ring-ink-100 ${cls}`}
+      className={`toast-in pointer-events-auto flex items-start gap-2.5 rounded-card border-s-4 bg-ink-0 p-3.5 shadow-e3 ring-1 ring-ink-100 ${cls}`}
     >
       <Icon size={18} className="mt-0.5 shrink-0" aria-hidden />
       <div className="min-w-0">
-        <p className="text-[--text-caption] font-semibold text-ink-900">{toast.titleAr}</p>
-        {toast.bodyAr && <p className="mt-0.5 text-[--text-caption] leading-relaxed text-ink-500">{toast.bodyAr}</p>}
+        <p className="text-caption font-semibold text-ink-900">{toast.titleAr}</p>
+        {toast.bodyAr && <p className="mt-0.5 text-caption leading-relaxed text-ink-500">{toast.bodyAr}</p>}
       </div>
     </div>
   );
@@ -93,11 +93,11 @@ export function NotificationsBell({
         onClick={() => setOpen((o) => !o)}
         aria-label={`${labelAr} — ${unread} غير مقروء`}
         aria-expanded={open}
-        className="relative rounded-[--radius-ctl] p-2 text-ink-600 hover:bg-ink-50 hover:text-ink-900"
+        className="relative rounded-ctl p-2 text-ink-600 hover:bg-ink-50 hover:text-ink-900"
       >
         <Bell size={19} aria-hidden />
         {unread > 0 && (
-          <span className="plate absolute -top-0.5 -start-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-[--radius-pill] bg-danger-600 px-1 text-[11px] font-bold text-ink-0">
+          <span className="plate absolute -top-0.5 -start-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-pill bg-danger-600 px-1 text-[11px] font-bold text-ink-0">
             {unread}
           </span>
         )}
@@ -106,12 +106,12 @@ export function NotificationsBell({
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} aria-hidden />
-          <div className="rise-in absolute end-0 top-full z-50 mt-2 max-h-[26rem] w-[min(21rem,calc(100vw-2rem))] overflow-y-auto rounded-[--radius-card] bg-ink-0 p-2 shadow-e4 ring-1 ring-ink-100 thin-scroll">
+          <div className="rise-in absolute end-0 top-full z-50 mt-2 max-h-[26rem] w-[min(21rem,calc(100vw-2rem))] overflow-y-auto rounded-card bg-ink-0 p-2 shadow-e4 ring-1 ring-ink-100 thin-scroll">
             <div className="mb-1 flex items-center justify-between px-2 py-1">
-              <p className="text-[--text-caption] font-bold text-ink-900">{labelAr}</p>
+              <p className="text-caption font-bold text-ink-900">{labelAr}</p>
               {unread > 0 && (
                 <button
-                  className="text-[--text-micro] font-semibold text-brand-600 hover:underline"
+                  className="text-micro font-semibold text-brand-600 hover:underline"
                   onClick={onMarkAllRead}
                 >
                   {markAllAr}
@@ -120,7 +120,7 @@ export function NotificationsBell({
             </div>
 
             {items.length === 0 && (
-              <p className="px-3 py-6 text-center text-[--text-caption] text-ink-500">{emptyAr}</p>
+              <p className="px-3 py-6 text-center text-caption text-ink-500">{emptyAr}</p>
             )}
 
             {items.slice(0, 25).map((n) => (
@@ -130,7 +130,7 @@ export function NotificationsBell({
                   onOpen(n);
                   setOpen(false);
                 }}
-                className={`block w-full rounded-[--radius-ctl] p-2.5 text-start hover:bg-ink-50 ${
+                className={`block w-full rounded-ctl p-2.5 text-start hover:bg-ink-50 ${
                   n.read ? 'opacity-60' : ''
                 }`}
               >
@@ -141,12 +141,12 @@ export function NotificationsBell({
                       aria-hidden
                     />
                   )}
-                  <span className="truncate text-[--text-caption] font-semibold text-ink-900">
+                  <span className="truncate text-caption font-semibold text-ink-900">
                     {n.titleAr}
                   </span>
                 </span>
-                <span className="mt-0.5 block truncate text-[--text-caption] text-ink-500">{n.bodyAr}</span>
-                <span className="mt-0.5 block text-[--text-micro] text-ink-400">{relTime(n.atISO)}</span>
+                <span className="mt-0.5 block truncate text-caption text-ink-500">{n.bodyAr}</span>
+                <span className="mt-0.5 block text-micro text-ink-400">{relTime(n.atISO)}</span>
               </button>
             ))}
           </div>
@@ -165,7 +165,7 @@ export function SpeedToggle({ speed, onToggle }: { speed: 1 | 10; onToggle: () =
       onClick={onToggle}
       title="سرعة العرض — تسريع المستشعرات"
       aria-pressed={on}
-      className={`hidden items-center gap-1 rounded-[--radius-pill] px-2.5 py-1.5 text-[--text-micro] font-bold transition-colors sm:flex ${
+      className={`hidden items-center gap-1 rounded-pill px-2.5 py-1.5 text-micro font-bold transition-colors sm:flex ${
         on ? 'bg-brand-600 text-ink-0' : 'bg-ink-50 text-ink-500 hover:bg-ink-100'
       }`}
     >

@@ -60,7 +60,7 @@ export function PermitNew() {
               <button
                 key={k}
                 onClick={() => setKind(k)}
-                className={`rounded-[--radius-ctl] px-2 py-2 text-[--text-caption] ${kind === k ? 'bg-brand-600 font-semibold text-ink-900' : 'bg-ink-50 text-ink-500 hover:text-ink-900-800'}`}
+                className={`rounded-ctl px-2 py-2 text-caption ${kind === k ? 'bg-brand-600 font-semibold text-ink-900' : 'bg-ink-50 text-ink-500 hover:text-ink-900-800'}`}
               >
                 {v}
               </button>
@@ -105,7 +105,7 @@ export function PermitNew() {
                 <button
                   key={g.id}
                   onClick={() => setGateIds((ids) => (ids.includes(g.id) ? ids.filter((x) => x !== g.id) : [...ids, g.id]))}
-                  className={`rounded-full px-2.5 py-1 text-[--text-caption] ${gateIds.includes(g.id) ? 'bg-brand-600 font-semibold text-ink-900' : 'bg-ink-50 text-ink-500'}`}
+                  className={`rounded-full px-2.5 py-1 text-caption ${gateIds.includes(g.id) ? 'bg-brand-600 font-semibold text-ink-900' : 'bg-ink-50 text-ink-500'}`}
                 >
                   {g.nameAr}
                 </button>
@@ -115,7 +115,7 @@ export function PermitNew() {
         </div>
 
         {errors.length > 0 && (
-          <ul className="space-y-1 rounded-[--radius-card] border border-danger-500 bg-danger-50 p-3 text-[--text-caption] text-danger-600">
+          <ul className="space-y-1 rounded-card border border-danger-500 bg-danger-50 p-3 text-caption text-danger-600">
             {errors.map((e) => <li key={e}>• {e}</li>)}
           </ul>
         )}
@@ -123,7 +123,7 @@ export function PermitNew() {
         <Button size="lg" className="w-full" onClick={submit} disabled={submitting}>
           {submitting ? 'جارٍ الإرسال…' : 'إرسال الطلب للاعتماد'}
         </Button>
-        <p className="text-center text-[--text-caption] text-ink-500">يصدر رمز QR فور اعتماد الإدارة — يصلك إشعار</p>
+        <p className="text-center text-caption text-ink-500">يصدر رمز QR فور اعتماد الإدارة — يصلك إشعار</p>
       </Card>
     </div>
   );

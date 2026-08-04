@@ -31,7 +31,7 @@ export function MapCanvas({
   const label = dark ? 'var(--color-viz-5)' : '#9AA8B8';
 
   return (
-    <div className={`relative overflow-hidden rounded-[--radius-card] ${className}`} style={{ background: bg }}>
+    <div className={`relative overflow-hidden rounded-card ${className}`} style={{ background: bg }}>
       <svg viewBox={`0 0 ${VIEW.w} ${VIEW.h}`} className="h-full w-full" role="img" aria-label="خريطة الحي الدبلوماسي">
         {/* wadi curve (Wadi Hanifa side) */}
         <path d={`M 0 ${VIEW.h * 0.88} C ${VIEW.w * 0.25} ${VIEW.h * 0.7}, ${VIEW.w * 0.2} ${VIEW.h * 0.45}, ${VIEW.w * 0.05} ${VIEW.h * 0.2} L 0 0 L 0 ${VIEW.h} Z`} fill={dark ? '#0A1420' : '#cbd5d5'} />

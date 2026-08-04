@@ -47,7 +47,7 @@ export function AdminReports() {
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="p-4">
-          <p className="mb-3 text-[--text-caption] font-semibold text-ink-500">البلاغات حسب النوع</p>
+          <p className="mb-3 text-caption font-semibold text-ink-500">البلاغات حسب النوع</p>
           <div className="h-56" dir="ltr">
             <ResponsiveContainer>
               <BarChart data={byKind} layout="vertical" margin={{ right: 10 }}>
@@ -62,7 +62,7 @@ export function AdminReports() {
         </Card>
 
         <Card className="p-4">
-          <p className="mb-3 text-[--text-caption] font-semibold text-ink-500">حالة الطلبات</p>
+          <p className="mb-3 text-caption font-semibold text-ink-500">حالة الطلبات</p>
           <div className="h-56" dir="ltr">
             <ResponsiveContainer>
               <PieChart>
@@ -73,7 +73,7 @@ export function AdminReports() {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex justify-center gap-3 text-[--text-caption]">
+          <div className="flex justify-center gap-3 text-caption">
             {donut.map((d) => (
               <span key={d.name} className="flex items-center gap-1">
                 <span className="h-2 w-2 rounded-full" style={{ background: d.color }} /> {d.name} ({d.value})
@@ -83,20 +83,20 @@ export function AdminReports() {
         </Card>
 
         <Card className="p-3">
-          <p className="mb-2 px-1 text-[--text-caption] font-semibold text-ink-500">الخريطة الحية — تركز البلاغات والمخالفات</p>
+          <p className="mb-2 px-1 text-caption font-semibold text-ink-500">الخريطة الحية — تركز البلاغات والمخالفات</p>
           <Map3D layers={{ requests: true, violations: true }} className="aspect-square" />
         </Card>
       </div>
 
       <Card className="p-4">
-        <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">المخالفات المتكررة — مرشحة للتصعيد</p>
-        {repeatViolators.length === 0 && <p className="py-2 text-center text-[--text-caption] text-ink-500">لا مخالفات متكررة حالياً</p>}
+        <p className="mb-2 text-caption font-semibold text-ink-500">المخالفات المتكررة — مرشحة للتصعيد</p>
+        {repeatViolators.length === 0 && <p className="py-2 text-center text-caption text-ink-500">لا مخالفات متكررة حالياً</p>}
         {repeatViolators.map((v) => {
           const veh = v.subject === 'vehicle' ? store.vehicles.find((x) => x.id === v.subjectId) : undefined;
           return (
             <div key={v.id} className="flex items-center justify-between border-b border-ink-100 py-2 text-sm last:border-0">
               <span>{v.code} — {v.labelAr}{veh ? ` · ${veh.plate}` : ''}</span>
-              <span className="rounded-full bg-danger-50 px-2 py-0.5 text-[--text-caption] font-semibold text-danger-600">تكرار {v.repeatCount}</span>
+              <span className="rounded-full bg-danger-50 px-2 py-0.5 text-caption font-semibold text-danger-600">تكرار {v.repeatCount}</span>
             </div>
           );
         })}

@@ -8,12 +8,11 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "concurrently -n \"landing,dashboard,ops,portal\" -c \"gray,cyan,magenta,green\" \"npm:dev:landing\" \"npm:dev:admin\" \"npm:dev:security\" \"npm:dev:resident\"",
-    "dev:landing": "npm run dev -w @dq/landing",
+    "dev": "concurrently -n \"dashboard,ops,portal\" -c \"cyan,magenta,green\" \"npm:dev:admin\" \"npm:dev:security\" \"npm:dev:resident\"",
     "dev:admin": "npm run dev -w @dq/admin",
     "dev:security": "npm run dev -w @dq/security",
     "dev:resident": "npm run dev -w @dq/resident",
-    "build": "npm run build -w @dq/landing && npm run build -w @dq/admin && npm run build -w @dq/security && npm run build -w @dq/resident && node scripts/assemble.mjs",
+    "build": "npm run build -w @dq/admin && npm run build -w @dq/security && npm run build -w @dq/resident && node scripts/assemble.mjs",
     "preview": "npx serve dist -l 4000",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },

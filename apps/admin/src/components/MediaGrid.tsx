@@ -6,12 +6,12 @@ export function MediaGrid({ before, after }: { before: string[]; after: string[]
   const tile = (label: string, tone: 'before' | 'after', key: string) => (
     <figure
       key={key}
-      className={`flex h-28 flex-col items-center justify-center gap-1.5 rounded-[--radius-card] border ${
+      className={`flex h-28 flex-col items-center justify-center gap-1.5 rounded-card border ${
         tone === 'after' ? 'border-ok-500 bg-ok-600-50 text-ok-600' : 'border-ink-300 bg-ink-50 text-ink-500'
       }`}
     >
       <Camera size={20} strokeWidth={1.5} />
-      <figcaption className="text-[--text-caption] font-medium">{label}</figcaption>
+      <figcaption className="text-caption font-medium">{label}</figcaption>
     </figure>
   );
   return (

@@ -39,9 +39,9 @@ export function StatusPill({
   const Icon = icon ?? FALLBACK[tone];
   return (
     <span
-      className={`inline-flex shrink-0 items-center gap-1.5 rounded-[--radius-pill] font-semibold ring-1 ${
+      className={`inline-flex shrink-0 items-center gap-1.5 rounded-pill font-semibold ring-1 ${
         TONES[tone]
-      } ${size === 'sm' ? 'px-2 py-0.5 text-[--text-micro]' : 'px-2.5 py-1 text-[--text-caption]'}`}
+      } ${size === 'sm' ? 'px-2 py-0.5 text-micro' : 'px-2.5 py-1 text-caption'}`}
     >
       <Icon size={size === 'sm' ? 11 : 13} aria-hidden />
       {labelAr}
@@ -54,13 +54,13 @@ export function StatusPill({
 /** اللوحة معزولة اتجاهيًا دائمًا — بدونها تظهر 1284 بدل 4821 (BR-006) */
 export function PlateBadge({ plate, size = 'md' }: { plate: string; size?: 'sm' | 'md' | 'lg' }) {
   const cls = {
-    sm: 'px-2 py-0.5 text-[--text-caption]',
-    md: 'px-2.5 py-1 text-[--text-body]',
+    sm: 'px-2 py-0.5 text-caption',
+    md: 'px-2.5 py-1 text-body',
     lg: 'px-4 py-2 text-2xl',
   }[size];
   return (
     <bdi
-      className={`plate inline-flex items-center rounded-[--radius-ctl] bg-ink-50 text-ink-900 ring-1 ring-ink-200 ${cls}`}
+      className={`plate inline-flex items-center rounded-ctl bg-ink-50 text-ink-900 ring-1 ring-ink-200 ${cls}`}
     >
       {plate}
     </bdi>

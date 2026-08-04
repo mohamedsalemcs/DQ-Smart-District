@@ -24,7 +24,7 @@ export function Account() {
           </span>
           <div>
             <p className="font-bold">{me.nameAr}</p>
-            <p className="text-[--text-caption] text-ink-500">{roleAr[me.role]} · {prop?.code} · {me.phone}</p>
+            <p className="text-caption text-ink-500">{roleAr[me.role]} · {prop?.code} · {me.phone}</p>
           </div>
         </div>
       </Card>
@@ -33,10 +33,10 @@ export function Account() {
         <Card className="border border-danger-500 p-4">
           <p className="text-sm font-bold text-danger-600">تنبيهات إيقاف مرتبطة بملفك</p>
           {suspendedLinked.map((v) => (
-            <div key={v.id} className="mt-2 rounded-[--radius-card] bg-danger-50 p-3 text-sm">
-              <div className="flex items-center gap-2"><PlateBadge plate={v.plate} size="sm" /> <span className="text-[--text-caption]">{v.make}</span></div>
-              <p className="mt-1 text-[--text-caption] text-ink-500">{v.suspension?.reason}</p>
-              <p className="text-[--text-caption] text-ink-500">الإيقاف حتى {v.suspension ? fmtDate(v.suspension.untilISO) : ''} — الدخول مرفوض آليًا عند البوابات</p>
+            <div key={v.id} className="mt-2 rounded-card bg-danger-50 p-3 text-sm">
+              <div className="flex items-center gap-2"><PlateBadge plate={v.plate} size="sm" /> <span className="text-caption">{v.make}</span></div>
+              <p className="mt-1 text-caption text-ink-500">{v.suspension?.reason}</p>
+              <p className="text-caption text-ink-500">الإيقاف حتى {v.suspension ? fmtDate(v.suspension.untilISO) : ''} — الدخول مرفوض آليًا عند البوابات</p>
             </div>
           ))}
         </Card>
@@ -44,11 +44,11 @@ export function Account() {
 
       <Card className="p-5">
         <p className="mb-2 text-sm font-bold">العائلة والمفوّضون</p>
-        {family.length === 0 && <p className="text-[--text-caption] text-ink-500">لا أفراد مسجلين</p>}
+        {family.length === 0 && <p className="text-caption text-ink-500">لا أفراد مسجلين</p>}
         {family.map((f) => (
           <div key={f.id} className="flex items-center justify-between border-b border-ink-100 py-2 text-sm last:border-0">
             <span>{f.nameAr}</span>
-            <span className="text-[--text-caption] text-ink-500">{roleAr[f.role]}</span>
+            <span className="text-caption text-ink-500">{roleAr[f.role]}</span>
           </div>
         ))}
       </Card>
@@ -58,10 +58,10 @@ export function Account() {
         {vehicles.map((v) => (
           <div key={v.id} className="flex items-center justify-between border-b border-ink-100 py-2 text-sm last:border-0">
             <span className="flex items-center gap-2"><PlateBadge plate={v.plate} size="sm" /> {v.make} · {v.color}</span>
-            <span className={`text-[--text-caption] font-semibold ${v.accessState === 'allowed' ? 'text-ok-600' : 'text-danger-600'}`}>{accessStateAr[v.accessState]}</span>
+            <span className={`text-caption font-semibold ${v.accessState === 'allowed' ? 'text-ok-600' : 'text-danger-600'}`}>{accessStateAr[v.accessState]}</span>
           </div>
         ))}
-        {vehicles.length === 0 && <p className="text-[--text-caption] text-ink-500">لا مركبات مسجلة</p>}
+        {vehicles.length === 0 && <p className="text-caption text-ink-500">لا مركبات مسجلة</p>}
       </Card>
     </div>
   );

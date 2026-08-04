@@ -48,7 +48,7 @@ export function MahdarScreen() {
         </h1>
         <div className="flex items-center gap-2">
           {locked && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-[--text-caption] font-bold text-brand-600">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-caption font-bold text-brand-600">
               <Lock size={13} /> معتمد ومقفل
             </span>
           )}
@@ -59,15 +59,15 @@ export function MahdarScreen() {
       </div>
 
       {locked && (
-        <div className="rounded-[--radius-card] border border-brand-300 bg-brand-50 p-4 text-sm">
+        <div className="rounded-card border border-brand-300 bg-brand-50 p-4 text-sm">
           <p className="flex items-center gap-2 font-semibold text-brand-600">
             <ShieldCheck size={16} /> السجل نهائي
           </p>
-          <p className="mt-1 text-[--text-caption] text-ink-500">
+          <p className="mt-1 text-caption text-ink-500">
             اعتمده {supervisor?.nameAr} في {mahdar.approvedISO ? fmtDateTime(mahdar.approvedISO) : ''} · أي محاولة تعديل ستُرفض
             وتُسجَّل في سجل التدقيق — جرّبها.
           </p>
-          <p className="mt-2 text-[--text-micro] text-ink-500">
+          <p className="mt-2 text-micro text-ink-500">
             سلسلة التحقق: <bdi dir="ltr" className="plate">{mahdar.hashChain[mahdar.hashChain.length - 1]?.slice(0, 32)}…</bdi>
           </p>
         </div>
@@ -82,7 +82,7 @@ export function MahdarScreen() {
         <Field label="التسوية / الإجراء">
           <TextArea value={resolution} onChange={(e) => setResolution(e.target.value)} onBlur={saveTexts} placeholder="ما تم الاتفاق عليه أو الإجراء المتخذ…" />
         </Field>
-        {locked && <p className="text-[--text-caption] text-ink-500">الحقول تُعرض كما اعتُمدت — الحفظ سيُرفض من المخزن.</p>}
+        {locked && <p className="text-caption text-ink-500">الحقول تُعرض كما اعتُمدت — الحفظ سيُرفض من المخزن.</p>}
       </Card>
 
       {/* waiver */}
@@ -110,12 +110,12 @@ export function MahdarScreen() {
       {/* seized items */}
       <Card className="p-5">
         <SectionTitle>المضبوطات وسلسلة العهدة</SectionTitle>
-        {mahdar.seized.length === 0 && <p className="mb-2 text-[--text-caption] text-ink-500">لا مضبوطات مسجلة</p>}
+        {mahdar.seized.length === 0 && <p className="mb-2 text-caption text-ink-500">لا مضبوطات مسجلة</p>}
         <ul className="mb-3 space-y-2">
           {mahdar.seized.map((it) => (
-            <li key={it.id} className="rounded-[--radius-card] bg-ink-0 p-3 text-sm">
+            <li key={it.id} className="rounded-card bg-ink-0 p-3 text-sm">
               <p className="font-medium">{it.descriptionAr}</p>
-              <p className="mt-1 text-[--text-caption] text-ink-500">
+              <p className="mt-1 text-caption text-ink-500">
                 {it.custody.map((c) => `${c.action === 'seized' ? 'ضُبط' : c.action === 'labelled' ? 'رُقّم' : c.action} · ${fmtDateTime(c.atISO)}`).join(' ← ')}
               </p>
             </li>
@@ -138,16 +138,16 @@ export function MahdarScreen() {
       {/* signatures */}
       <Card className="p-5">
         <SectionTitle>توقيعات الأطراف</SectionTitle>
-        {incident.parties.length === 0 && <p className="text-[--text-caption] text-ink-500">لا أطراف مسجلة على هذا البلاغ</p>}
+        {incident.parties.length === 0 && <p className="text-caption text-ink-500">لا أطراف مسجلة على هذا البلاغ</p>}
         <div className="grid gap-2 sm:grid-cols-2">
           {incident.parties.map((p) => (
-            <div key={p.nameAr} className="rounded-[--radius-card] bg-ink-0 p-3">
+            <div key={p.nameAr} className="rounded-card bg-ink-0 p-3">
               <p className="text-sm font-medium">{p.nameAr}</p>
-              <p className="text-[--text-caption] text-ink-500">{p.role === 'reporter' ? 'مبلّغ' : p.role === 'subject' ? 'طرف' : 'شاهد'}</p>
+              <p className="text-caption text-ink-500">{p.role === 'reporter' ? 'مبلّغ' : p.role === 'subject' ? 'طرف' : 'شاهد'}</p>
               {p.signatureDataUrl ? (
                 <div className="mt-2">
                   <img src={p.signatureDataUrl} alt={`توقيع ${p.nameAr}`} className="h-14 w-full rounded bg-ink-0 object-contain" />
-                  <p className="mt-1 text-[--text-micro] text-ink-500">وُقّع {p.signedISO ? fmtDateTime(p.signedISO) : ''}</p>
+                  <p className="mt-1 text-micro text-ink-500">وُقّع {p.signedISO ? fmtDateTime(p.signedISO) : ''}</p>
                 </div>
               ) : (
                 <Button size="sm" className="mt-2 w-full" onClick={() => setSigningParty(p.nameAr)}>
@@ -165,7 +165,7 @@ export function MahdarScreen() {
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-sm font-semibold">اعتماد المشرف</p>
-              <p className="text-[--text-caption] text-ink-500">
+              <p className="text-caption text-ink-500">
                 {allSigned ? 'جميع الأطراف وقّعت — جاهز للاعتماد' : 'بانتظار توقيع جميع الأطراف قبل الاعتماد'}
               </p>
             </div>

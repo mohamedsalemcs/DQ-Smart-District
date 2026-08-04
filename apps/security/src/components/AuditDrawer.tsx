@@ -52,17 +52,17 @@ export function AuditDrawer({
             const meta = actionMeta[a.action];
             const Icon = meta.icon;
             return (
-              <li key={a.id} className="rounded-[--radius-card] bg-ink-50 p-3">
+              <li key={a.id} className="rounded-card bg-ink-50 p-3">
                 <div className="flex items-center gap-2">
                   <Icon size={15} className={meta.cls} />
                   <span className="text-sm font-medium">{meta.labelAr}</span>
-                  <span className="text-[--text-caption] text-ink-500">{a.entity}</span>
+                  <span className="text-caption text-ink-500">{a.entity}</span>
                 </div>
-                <p className="mt-1 text-[--text-caption] text-ink-500">
+                <p className="mt-1 text-caption text-ink-500">
                   {nameOf(a.actorId)} · {fmtDateTime(a.atISO)}
                 </p>
                 {(a.before != null || a.after != null) && (
-                  <pre dir="ltr" className="thin-scroll mt-2 max-h-24 overflow-auto rounded bg-ink-0/90 p-2 text-[--text-micro] leading-relaxed text-ink-800">
+                  <pre dir="ltr" className="thin-scroll mt-2 max-h-24 overflow-auto rounded bg-ink-0/90 p-2 text-micro leading-relaxed text-ink-800">
 {JSON.stringify({ before: a.before, after: a.after }, null, 1)}
                   </pre>
                 )}

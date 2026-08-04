@@ -41,16 +41,16 @@ export function AdminPermits() {
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="font-semibold">{p.subject.nameAr}</p>
-                  <p className="text-[--text-caption] text-ink-500">{permitKindAr[p.kind]}{host ? ` · مضيف: ${host.code}` : ''}</p>
+                  <p className="text-caption text-ink-500">{permitKindAr[p.kind]}{host ? ` · مضيف: ${host.code}` : ''}</p>
                 </div>
                 {permitPill(p.status)}
               </div>
               {p.plate && <div className="mt-2"><PlateBadge plate={p.plate} size="sm" /></div>}
-              <p className="mt-2 text-[--text-caption] tabular-nums text-ink-500">
+              <p className="mt-2 text-caption tabular-nums text-ink-500">
                 {fmtDateTime(p.validFromISO)} ← {fmtDateTime(p.validToISO)} · مرافقون: {p.companions}
               </p>
               {p.approvals.length > 0 && (
-                <p className="mt-1 text-[--text-caption] text-ink-500">
+                <p className="mt-1 text-caption text-ink-500">
                   آخر إجراء: {p.approvals[p.approvals.length - 1].decision === 'approved' ? 'اعتماد' : p.approvals[p.approvals.length - 1].decision === 'rejected' ? 'رفض' : 'طلب معلومات'}
                   {p.approvals[p.approvals.length - 1].noteAr ? ` — ${p.approvals[p.approvals.length - 1].noteAr}` : ''}
                 </p>

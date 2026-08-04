@@ -68,7 +68,7 @@ export function Button({
       aria-disabled={inert || undefined}
       aria-busy={loading || undefined}
       disabled={inert}
-      className={`inline-flex shrink-0 items-center justify-center rounded-[--radius-ctl] font-semibold
+      className={`inline-flex shrink-0 items-center justify-center rounded-ctl font-semibold
         transition-all duration-150 active:scale-[0.98]
         disabled:pointer-events-none disabled:opacity-50
         ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
@@ -99,7 +99,7 @@ export function Card({
   onClick?: () => void;
   ariaLabel?: string;
 }) {
-  const base = `rounded-[--radius-card] bg-ink-0 ring-1 ring-ink-100 ${ELEV[elevation]} ${PAD[padding]} ${className}`;
+  const base = `rounded-card bg-ink-0 ring-1 ring-ink-100 ${ELEV[elevation]} ${PAD[padding]} ${className}`;
   /* البطاقة القابلة للنقر عنصر button حقيقي — لا div onClick */
   if (onClick) {
     return (
@@ -130,8 +130,8 @@ export function PageHeader({
   return (
     <header className="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <h1 className="text-[--text-h1] font-bold tracking-tight text-ink-900">{title}</h1>
-        {subtitle && <p className="mt-1 text-[--text-caption] text-ink-500">{subtitle}</p>}
+        <h1 className="text-h1 font-bold tracking-tight text-ink-900">{title}</h1>
+        {subtitle && <p className="mt-1 text-caption text-ink-500">{subtitle}</p>}
       </div>
       {action}
     </header>
@@ -150,8 +150,8 @@ export function SectionTitle({
   return (
     <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
       <div>
-        <h2 className="text-[--text-h3] font-semibold text-ink-900">{children}</h2>
-        {sub && <p className="mt-0.5 text-[--text-caption] text-ink-500">{sub}</p>}
+        <h2 className="text-h3 font-semibold text-ink-900">{children}</h2>
+        {sub && <p className="mt-0.5 text-caption text-ink-500">{sub}</p>}
       </div>
       {action}
     </div>
@@ -185,7 +185,7 @@ export function Field({
   return (
     <FieldCtx.Provider value={{ id, describedBy, invalid: !!error }}>
       <div className="block">
-        <label htmlFor={id} className="mb-1.5 block text-[--text-caption] font-semibold text-ink-700">
+        <label htmlFor={id} className="mb-1.5 block text-caption font-semibold text-ink-700">
           {label}
           {required && (
             <span className="text-danger-500" aria-hidden>
@@ -200,14 +200,14 @@ export function Field({
           <p
             id={errId}
             role="alert"
-            className="mt-1.5 flex items-center gap-1.5 text-[--text-caption] font-medium text-danger-600"
+            className="mt-1.5 flex items-center gap-1.5 text-caption font-medium text-danger-600"
           >
             <AlertCircle size={13} aria-hidden />
             {error}
           </p>
         )}
         {hint && !error && (
-          <p id={hintId} className="mt-1.5 text-[--text-caption] text-ink-500">
+          <p id={hintId} className="mt-1.5 text-caption text-ink-500">
             {hint}
           </p>
         )}
@@ -217,7 +217,7 @@ export function Field({
 }
 
 /* ink-400 للحدود: 3.52 يجتاز WCAG 1.4.11 للمكوّنات غير النصية */
-const CONTROL = `w-full rounded-[--radius-ctl] border bg-ink-0 px-3 text-[--text-body] text-ink-800
+const CONTROL = `w-full rounded-ctl border bg-ink-0 px-3 text-body text-ink-800
   placeholder:text-ink-400 transition-colors
   focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/20
   disabled:bg-ink-50 disabled:text-ink-300`;
@@ -315,18 +315,18 @@ export function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className={`rise-in relative max-h-[85vh] w-full overflow-y-auto rounded-[--radius-panel] bg-ink-0 p-5 shadow-e4 thin-scroll ${
+        className={`rise-in relative max-h-[85vh] w-full overflow-y-auto rounded-panel bg-ink-0 p-5 shadow-e4 thin-scroll ${
           wide ? 'max-w-2xl' : 'max-w-md'
         }`}
       >
         <div className="mb-4 flex items-start justify-between gap-3">
-          <h2 id={titleId} className="text-[--text-h3] font-bold text-ink-900">
+          <h2 id={titleId} className="text-h3 font-bold text-ink-900">
             {title}
           </h2>
           <button
             onClick={onClose}
             aria-label="إغلاق"
-            className="-m-1 rounded-[--radius-ctl] p-1.5 text-ink-500 hover:bg-ink-50 hover:text-ink-800"
+            className="-m-1 rounded-ctl p-1.5 text-ink-500 hover:bg-ink-50 hover:text-ink-800"
           >
             <X size={18} aria-hidden />
           </button>
@@ -357,7 +357,7 @@ export function ConfirmDialog({
 }) {
   return (
     <Modal open={open} onClose={onClose} title={title}>
-      {body && <p className="mb-5 text-[--text-body] leading-relaxed text-ink-600">{body}</p>}
+      {body && <p className="mb-5 text-body leading-relaxed text-ink-600">{body}</p>}
       <div className="flex justify-end gap-2">
         <Button variant="ghost" onClick={onClose}>
           إلغاء
@@ -396,8 +396,8 @@ export function EmptyState({
         <Icon size={22} strokeWidth={1.5} aria-hidden />
       </span>
       <div>
-        <p className="text-[--text-body] font-semibold text-ink-700">{title}</p>
-        {hint && <p className="mt-1 max-w-sm text-[--text-caption] leading-relaxed text-ink-500">{hint}</p>}
+        <p className="text-body font-semibold text-ink-700">{title}</p>
+        {hint && <p className="mt-1 max-w-sm text-caption leading-relaxed text-ink-500">{hint}</p>}
       </div>
       {action}
     </div>
@@ -405,7 +405,7 @@ export function EmptyState({
 }
 
 export function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse rounded-[--radius-ctl] bg-ink-100 ${className}`} aria-hidden />;
+  return <div className={`animate-pulse rounded-ctl bg-ink-100 ${className}`} aria-hidden />;
 }
 
 /* ───────────────────────────── Stat ───────────────────────────── */
@@ -435,13 +435,13 @@ export function Stat({
   const body = (
     <>
       <div className="flex items-start justify-between gap-2">
-        <p className="text-[--text-caption] font-medium text-ink-500">{label}</p>
+        <p className="text-caption font-medium text-ink-500">{label}</p>
         {Icon && <Icon size={16} className="shrink-0 text-ink-300" aria-hidden />}
       </div>
       <p className="tnum mt-2 text-[1.75rem] font-bold leading-none text-ink-900">{value}</p>
       {delta !== undefined && (
         <p
-          className={`mt-2 flex items-center gap-1 text-[--text-caption] font-semibold ${
+          className={`mt-2 flex items-center gap-1 text-caption font-semibold ${
             good ? 'text-ok-600' : 'text-danger-600'
           }`}
         >
@@ -451,7 +451,7 @@ export function Stat({
           {deltaLabel && <span className="font-normal text-ink-500">{deltaLabel}</span>}
         </p>
       )}
-      {sub && <p className="mt-1 text-[--text-caption] text-ink-500">{sub}</p>}
+      {sub && <p className="mt-1 text-caption text-ink-500">{sub}</p>}
     </>
   );
   return onClick ? (

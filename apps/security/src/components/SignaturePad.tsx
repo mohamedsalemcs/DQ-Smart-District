@@ -44,13 +44,13 @@ export function SignaturePad({ onConfirm, onCancel }: { onConfirm: (dataUrl: str
         ref={canvasRef}
         width={440}
         height={160}
-        className="w-full touch-none rounded-[--radius-card] border border-ink-300 bg-ink-0"
+        className="w-full touch-none rounded-card border border-ink-300 bg-ink-0"
         onPointerDown={start}
         onPointerMove={move}
         onPointerUp={end}
         onPointerLeave={end}
       />
-      <p className="mt-1 text-[--text-caption] text-ink-500">وقّع داخل الإطار بالإصبع أو الفأرة</p>
+      <p className="mt-1 text-caption text-ink-500">وقّع داخل الإطار بالإصبع أو الفأرة</p>
       <div className="mt-3 flex justify-end gap-2">
         <Button variant="ghost" onClick={onCancel}>إلغاء</Button>
         <Button variant="outline" onClick={clear}>مسح</Button>

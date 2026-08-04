@@ -72,7 +72,7 @@ export function AdminEvents() {
         <Card className="lg:col-span-2 overflow-x-auto p-0">
           <table className="w-full min-w-[680px] text-sm">
             <thead>
-              <tr className="border-b border-ink-100 text-[--text-caption] text-ink-500">
+              <tr className="border-b border-ink-100 text-caption text-ink-500">
                 <th className="p-3 text-start">المرفق</th>
                 <th className="p-3 text-start">الحاجز</th>
                 <th className="p-3 text-start">الموعد</th>
@@ -89,7 +89,7 @@ export function AdminEvents() {
                     <td className="p-3 font-medium">{store.assets.find((a) => a.id === b.facilityId)?.nameAr}</td>
                     <td className="p-3">
                       <p className="font-medium">{person?.nameAr}</p>
-                      <p className="text-[--text-caption] text-ink-500">
+                      <p className="text-caption text-ink-500">
                         {property ? (
                           <Link to={`/a/properties/${property.id}`} className="hover:text-brand-600">{property.code}</Link>
                         ) : 'غير مرتبط بعقار'}
@@ -98,9 +98,9 @@ export function AdminEvents() {
                     </td>
                     <td className="p-3 tabular-nums text-ink-500">{fmtDateTime(b.fromISO)}</td>
                     <td className="p-3 tabular-nums">{b.attendees}</td>
-                    <td className="p-3"><bdi dir="ltr" className="plate text-[--text-caption]">{b.qrToken}</bdi></td>
+                    <td className="p-3"><bdi dir="ltr" className="plate text-caption">{b.qrToken}</bdi></td>
                     <td className="p-3">
-                      <span className={`rounded-full px-2 py-0.5 text-[--text-caption] font-semibold ${b.status === 'confirmed' ? 'bg-ok-600-50 text-ok-600' : b.status === 'used' ? 'bg-ink-50 text-ink-500' : 'bg-danger-50 text-danger-600'}`}>
+                      <span className={`rounded-full px-2 py-0.5 text-caption font-semibold ${b.status === 'confirmed' ? 'bg-ok-600-50 text-ok-600' : b.status === 'used' ? 'bg-ink-50 text-ink-500' : 'bg-danger-50 text-danger-600'}`}>
                         {statusAr[b.status]}
                       </span>
                     </td>
@@ -115,7 +115,7 @@ export function AdminEvents() {
         {/* charts */}
         <div className="space-y-4">
           <Card className="p-4">
-            <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">حالة الحجوزات</p>
+            <p className="mb-2 text-caption font-semibold text-ink-500">حالة الحجوزات</p>
             <div className="h-32" dir="ltr">
               <ResponsiveContainer>
                 <PieChart>
@@ -128,7 +128,7 @@ export function AdminEvents() {
             </div>
             <div className="mt-1 space-y-1">
               {donut.map((d) => (
-                <span key={d.name} className="flex items-center justify-between text-[--text-caption]">
+                <span key={d.name} className="flex items-center justify-between text-caption">
                   <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: d.color }} />{d.name}</span>
                   <b className="tabular-nums">{d.value}</b>
                 </span>
@@ -137,7 +137,7 @@ export function AdminEvents() {
           </Card>
 
           <Card className="p-4">
-            <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">الطلب حسب المرفق — حجوزات وحضور</p>
+            <p className="mb-2 text-caption font-semibold text-ink-500">الطلب حسب المرفق — حجوزات وحضور</p>
             <div className="h-44" dir="ltr">
               <ResponsiveContainer>
                 <BarChart data={byFacility} layout="vertical" margin={{ right: 8 }}>
@@ -169,13 +169,13 @@ export function AdminEvents() {
           {eventPermits.map((p) => {
             const { person, property } = requesterOf(p.requestedBy);
             return (
-              <div key={p.id} className="rounded-[--radius-card] bg-ink-50 p-3">
+              <div key={p.id} className="rounded-card bg-ink-50 p-3">
                 <div className="flex items-start justify-between gap-2">
                   <p className="text-sm font-semibold">{p.subject.nameAr}</p>
                   {permitPill(p.status)}
                 </div>
-                <p className="mt-1 text-[--text-caption] text-ink-500">{permitKindAr[p.kind]}</p>
-                <div className="mt-2 space-y-1 text-[--text-caption]">
+                <p className="mt-1 text-caption text-ink-500">{permitKindAr[p.kind]}</p>
+                <div className="mt-2 space-y-1 text-caption">
                   <p className="flex items-center gap-1.5">
                     <Users size={11} className="text-ink-500" />
                     مقدّم الطلب: <b>{person?.nameAr}</b>

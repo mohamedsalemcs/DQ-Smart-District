@@ -21,10 +21,10 @@ export function PropertyFile() {
             <p className="text-lg font-bold">{prop.code}</p>
             <p className="text-sm text-ink-500">{prop.unitNo} · {propertyTypeAr[prop.type]} · {prop.zone}</p>
           </div>
-          <div className="rounded-[--radius-card] border border-ink-100 p-3 text-center">
+          <div className="rounded-card border border-ink-100 p-3 text-center">
             <QrCode size={72} className="mx-auto text-ink-900" />
-            <bdi dir="ltr" className="plate mt-1 block text-[--text-micro] text-ink-500">{prop.qrToken}</bdi>
-            <p className="text-[--text-micro] text-ink-500">يبرزه الزائر أو الحارس للتحقق</p>
+            <bdi dir="ltr" className="plate mt-1 block text-micro text-ink-500">{prop.qrToken}</bdi>
+            <p className="text-micro text-ink-500">يبرزه الزائر أو الحارس للتحقق</p>
           </div>
         </div>
       </Card>
@@ -34,18 +34,18 @@ export function PropertyFile() {
         {residents.map((r) => (
           <div key={r.id} className="flex items-center justify-between border-b border-ink-100 py-2 text-sm last:border-0">
             <span>{r.nameAr}{r.id === me.id ? ' (أنت)' : ''}</span>
-            <span className="text-[--text-caption] text-ink-500">{roleAr[r.role]}</span>
+            <span className="text-caption text-ink-500">{roleAr[r.role]}</span>
           </div>
         ))}
       </Card>
 
       <Card className="p-5">
         <p className="mb-2 text-sm font-bold">المركبات المسجلة</p>
-        {vehicles.length === 0 && <p className="text-[--text-caption] text-ink-500">لا مركبات</p>}
+        {vehicles.length === 0 && <p className="text-caption text-ink-500">لا مركبات</p>}
         {vehicles.map((v) => (
           <div key={v.id} className="flex items-center justify-between border-b border-ink-100 py-2 text-sm last:border-0">
             <span className="flex items-center gap-2"><PlateBadge plate={v.plate} size="sm" /> {v.make}</span>
-            <span className={`text-[--text-caption] font-semibold ${v.accessState === 'allowed' ? 'text-ok-600' : 'text-danger-600'}`}>{accessStateAr[v.accessState]}</span>
+            <span className={`text-caption font-semibold ${v.accessState === 'allowed' ? 'text-ok-600' : 'text-danger-600'}`}>{accessStateAr[v.accessState]}</span>
           </div>
         ))}
       </Card>

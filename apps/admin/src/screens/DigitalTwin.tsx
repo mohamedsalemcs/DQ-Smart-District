@@ -77,7 +77,7 @@ export function DigitalTwin({ }: Record<string, never>) {
   };
 
   const chip = (active: boolean) =>
-    `flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[--text-caption] font-semibold transition-colors ${
+    `flex items-center gap-1.5 rounded-full px-3 py-1.5 text-caption font-semibold transition-colors ${
       active ? 'bg-brand-600 text-ink-900' : 'bg-ink-0/80 text-ink-500 ring-1 ring-ink-100 hover:text-ink-900-800'
     }`;
 
@@ -86,11 +86,11 @@ export function DigitalTwin({ }: Record<string, never>) {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h1 className="text-lg font-bold tracking-tight">الخريطة الذكية — الحي الدبلوماسي</h1>
-          <p className="text-[--text-caption] opacity-60">
+          <p className="text-caption opacity-60">
             نموذج جغرافي حقيقي للحي · حرّك بالسحب، قرّب بالعجلة — كل الطبقات حية من نفس مخزن الحالة
           </p>
         </div>
-        <div className="flex items-center gap-2 text-[--text-caption]">
+        <div className="flex items-center gap-2 text-caption">
           <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 font-semibold ${activeIncidents.length ? 'bg-danger-50 text-danger-600' : 'bg-ok-600-50 text-ok-600'}`}>
             <Siren size={12} /> {activeIncidents.length} بلاغ نشط
           </span>
@@ -103,19 +103,19 @@ export function DigitalTwin({ }: Record<string, never>) {
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-[--radius-card] ring-1 ring-ink-100" style={{ height: 'calc(100vh - 205px)', minHeight: 480 }}>
+      <div className="relative overflow-hidden rounded-card ring-1 ring-ink-100" style={{ height: 'calc(100vh - 205px)', minHeight: 480 }}>
         <DQTwinCanvas layers={layers} autoRotate={autoRotate} onOpen={open} />
 
         {/* layer sidebar — checkboxes */}
-        <aside className="absolute top-3 start-3 bottom-3 w-48 overflow-y-auto rounded-[--radius-card] bg-ink-0/85 p-3 ring-1 ring-ink-100 backdrop-blur thin-scroll">
-          <p className="mb-2 flex items-center gap-1.5 text-[--text-caption] font-bold text-ink-500">
+        <aside className="absolute top-3 start-3 bottom-3 w-48 overflow-y-auto rounded-card bg-ink-0/85 p-3 ring-1 ring-ink-100 backdrop-blur thin-scroll">
+          <p className="mb-2 flex items-center gap-1.5 text-caption font-bold text-ink-500">
             <Layers size={12} /> طبقات الخريطة
           </p>
           <div className="space-y-0.5">
             {layerDefs.map((l) => (
               <label
                 key={l.key}
-                className={`flex cursor-pointer items-center gap-2 rounded-[--radius-ctl] px-2 py-1.5 text-[--text-caption] transition-colors hover:bg-ink-0/5 ${
+                className={`flex cursor-pointer items-center gap-2 rounded-ctl px-2 py-1.5 text-caption transition-colors hover:bg-ink-0/5 ${
                   layers[l.key] ? 'text-ink-800' : 'text-ink-500'
                 }`}
               >
@@ -147,7 +147,7 @@ export function DigitalTwin({ }: Record<string, never>) {
         </div>
 
         {/* legend */}
-        <div className="absolute bottom-8 end-3 rounded-[--radius-card] bg-ink-0/85 p-3 text-[--text-micro] text-ink-800 ring-1 ring-ink-100 backdrop-blur">
+        <div className="absolute bottom-8 end-3 rounded-card bg-ink-0/85 p-3 text-micro text-ink-800 ring-1 ring-ink-100 backdrop-blur">
           <p className="mb-1.5 font-bold text-ink-500">دليل الطبقات</p>
           <div className="grid grid-cols-2 gap-x-4 gap-y-1">
             <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-1.5 rounded-sm bg-[#0e7c4a]" /> حركة سالكة</span>
@@ -160,7 +160,7 @@ export function DigitalTwin({ }: Record<string, never>) {
         </div>
 
         {/* attribution — required by the model's imagery license */}
-        <p dir="ltr" className="absolute bottom-1 end-2 text-[--text-micro] text-white/40">
+        <p dir="ltr" className="absolute bottom-1 end-2 text-micro text-white/40">
           Imagery: Satlas — Allen Institute for AI · Map data © OpenStreetMap contributors
         </p>
       </div>

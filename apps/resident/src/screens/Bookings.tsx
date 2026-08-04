@@ -28,7 +28,7 @@ export function ResidentBookings() {
         {facilities.slice(0, 6).map((f) => (
           <Card key={f.id} className="p-4">
             <p className="font-semibold">{f.nameAr}</p>
-            <p className="text-[--text-caption] text-ink-500">{f.kind === 'court' ? 'ملعب — يتطلب حجزًا' : 'حديقة عامة — الفعاليات تتطلب حجزًا'}</p>
+            <p className="text-caption text-ink-500">{f.kind === 'court' ? 'ملعب — يتطلب حجزًا' : 'حديقة عامة — الفعاليات تتطلب حجزًا'}</p>
             <Button size="sm" variant="outline" className="mt-3" onClick={() => { setFacilityId(f.id); setOpen(true); }}>
               احجز
             </Button>
@@ -38,21 +38,21 @@ export function ResidentBookings() {
 
       <Card className="p-4">
         <p className="mb-2 text-sm font-bold">حجوزاتي</p>
-        {mine.length === 0 && <p className="py-3 text-center text-[--text-caption] text-ink-500">لا حجوزات بعد</p>}
+        {mine.length === 0 && <p className="py-3 text-center text-caption text-ink-500">لا حجوزات بعد</p>}
         <div className="space-y-2">
           {mine.map((b) => (
-            <div key={b.id} className="flex items-center justify-between gap-3 rounded-[--radius-card] bg-ink-50 p-3">
+            <div key={b.id} className="flex items-center justify-between gap-3 rounded-card bg-ink-50 p-3">
               <div>
                 <p className="text-sm font-medium">{store.assets.find((a) => a.id === b.facilityId)?.nameAr}</p>
-                <p className="text-[--text-caption] tabular-nums text-ink-500">{fmtDateTime(b.fromISO)} · {b.attendees} أشخاص</p>
-                <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[--text-micro] ${b.status === 'confirmed' ? 'bg-ok-600-50 text-ok-600' : b.status === 'used' ? 'bg-ink-50 text-ink-500' : 'bg-danger-50 text-danger-600'}`}>
+                <p className="text-caption tabular-nums text-ink-500">{fmtDateTime(b.fromISO)} · {b.attendees} أشخاص</p>
+                <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-micro ${b.status === 'confirmed' ? 'bg-ok-600-50 text-ok-600' : b.status === 'used' ? 'bg-ink-50 text-ink-500' : 'bg-danger-50 text-danger-600'}`}>
                   {statusAr[b.status]}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 {b.status === 'confirmed' && (
                   <>
-                    <div className="rounded-[--radius-card] border border-ink-100 p-1.5 text-center">
+                    <div className="rounded-card border border-ink-100 p-1.5 text-center">
                       <QrCode size={36} className="text-ink-900" />
                       <bdi dir="ltr" className="plate block text-[8px] text-ink-500">{b.qrToken}</bdi>
                     </div>
@@ -63,7 +63,7 @@ export function ResidentBookings() {
             </div>
           ))}
         </div>
-        <p className="mt-3 text-[--text-caption] text-ink-500">رمز الحجز يُقبل عند البوابة مباشرة — نفس الرمز الذي يمسحه الحارس.</p>
+        <p className="mt-3 text-caption text-ink-500">رمز الحجز يُقبل عند البوابة مباشرة — نفس الرمز الذي يمسحه الحارس.</p>
       </Card>
 
       <Modal open={open} onClose={() => setOpen(false)} title="حجز مرفق">

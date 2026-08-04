@@ -168,7 +168,7 @@ export function AdminDashboard() {
           </div>
           <div className="mt-1 space-y-1">
             {donut.map((d) => (
-              <div key={d.name} className="flex items-center justify-between text-[--text-caption]">
+              <div key={d.name} className="flex items-center justify-between text-caption">
                 <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: d.color }} />{d.name}</span>
                 <b className="tabular-nums">{d.value}</b>
               </div>
@@ -221,13 +221,13 @@ export function AdminDashboard() {
       </div>
 
       {/* visitor portal public link */}
-      <div className="flex flex-wrap items-center gap-3 rounded-[--radius-card] bg-ink-0 p-4 text-ink-800 ring-1 ring-brand-500/30">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[--radius-card] bg-brand-50 text-brand-600"><Car size={18} /></span>
+      <div className="flex flex-wrap items-center gap-3 rounded-card bg-ink-0 p-4 text-ink-800 ring-1 ring-brand-500/30">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-card bg-brand-50 text-brand-600"><Car size={18} /></span>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-bold">بوابة الزوار — تصريح دخول يومي</p>
-          <p className="text-[--text-caption] text-ink-500">رابط عام يُشارك مع الزوار: 50 ر.س لكل مركبة، دفع إلكتروني ورمز QR يُقبل عند البوابة مباشرة</p>
+          <p className="text-caption text-ink-500">رابط عام يُشارك مع الزوار: 50 ر.س لكل مركبة، دفع إلكتروني ورمز QR يُقبل عند البوابة مباشرة</p>
         </div>
-        <bdi dir="ltr" className="plate hidden rounded bg-ink-0/10 px-2.5 py-1 text-[--text-micro] text-ink-500 sm:block">/visit</bdi>
+        <bdi dir="ltr" className="plate hidden rounded bg-ink-0/10 px-2.5 py-1 text-micro text-ink-500 sm:block">/visit</bdi>
         <Button
           size="sm"
           variant="outline"
@@ -256,7 +256,7 @@ export function AdminDashboard() {
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2 p-3">
-          <p className="mb-2 px-1 text-[--text-caption] font-semibold text-ink-500">
+          <p className="mb-2 px-1 text-caption font-semibold text-ink-500">
             خريطة الحي الحية — بلاغات ومخالفات وأصول IoT على النموذج ثلاثي الأبعاد · حرّك وقرّب
           </p>
           <Map3D
@@ -273,29 +273,29 @@ export function AdminDashboard() {
 
         <div className="space-y-4">
           <Card className="p-4">
-            <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">أحدث المخالفات</p>
+            <p className="mb-2 text-caption font-semibold text-ink-500">أحدث المخالفات</p>
             <div className="space-y-2">
               {openViolations.slice(0, 4).map((v) => (
-                <Link key={v.id} to="/a/violations" className="block rounded-[--radius-card] bg-ink-50 p-2.5 transition-colors hover:bg-brand-50">
+                <Link key={v.id} to="/a/violations" className="block rounded-card bg-ink-50 p-2.5 transition-colors hover:bg-brand-50">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="truncate text-[--text-caption] font-semibold">{v.code} · {v.labelAr}</span>
+                    <span className="truncate text-caption font-semibold">{v.code} · {v.labelAr}</span>
                     {violationPill(v.status)}
                   </div>
-                  <p className="mt-0.5 text-[--text-micro] text-ink-500">{ago(v.events[0]?.atISO ?? '')} {v.repeatCount > 1 ? `· تكرار ${v.repeatCount}` : ''}</p>
+                  <p className="mt-0.5 text-micro text-ink-500">{ago(v.events[0]?.atISO ?? '')} {v.repeatCount > 1 ? `· تكرار ${v.repeatCount}` : ''}</p>
                 </Link>
               ))}
             </div>
           </Card>
           <Card className="p-4">
-            <p className="mb-2 text-[--text-caption] font-semibold text-ink-500">أحدث الطلبات</p>
+            <p className="mb-2 text-caption font-semibold text-ink-500">أحدث الطلبات</p>
             <div className="space-y-2">
               {openRequests.slice(0, 4).map((r) => (
-                <Link key={r.id} to="/a/requests" className="block rounded-[--radius-card] bg-ink-50 p-2.5 transition-colors hover:bg-brand-50">
+                <Link key={r.id} to="/a/requests" className="block rounded-card bg-ink-50 p-2.5 transition-colors hover:bg-brand-50">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="truncate text-[--text-caption] font-semibold">{requestKindAr[r.kind]}</span>
+                    <span className="truncate text-caption font-semibold">{requestKindAr[r.kind]}</span>
                     {requestPill(r.status)}
                   </div>
-                  <p className="mt-0.5 truncate text-[--text-micro] text-ink-500">{r.descriptionAr}</p>
+                  <p className="mt-0.5 truncate text-micro text-ink-500">{r.descriptionAr}</p>
                 </Link>
               ))}
             </div>
