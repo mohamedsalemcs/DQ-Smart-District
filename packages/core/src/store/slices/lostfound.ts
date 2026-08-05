@@ -92,6 +92,28 @@ export const createLostFoundSlice = (set: Set, get: Get) => {
       return item;
     },
 
+    /** طلب استلام يدوي — يربط المشغّل بلاغ فقدان بغرض معثور عليه عندما تفوت المطابقة الآلية */
+    createLostFoundMatch: (aId: string, bId: string) => {
+      const a = get().lostFoundItems.find((x) => x.id === aId);
+      const b = get().lostFoundItems.find((x) => x.id === bId);
+      if (!a || !b || a.status !== 'open' || b.status !== 'open' || a.kind === b.kind) {
+        get().pushToast('تعذّر الربط', 'يشترط بلاغ فقدان وغرض معثور عليه وكلاهما مفتوح', 'bad');
+        return;
+      }
+      const at = nowISO();
+      set((st) => ({
+        lostFoundItems: st.lostFoundItems.map((x) =>
+          x.id === a.id
+            ? { ...x, status: 'matched' as const, matchedItemId: b.id, matchedISO: at }
+            : x.id === b.id
+              ? { ...x, status: 'matched' as const, matchedItemId: a.id, matchedISO: at }
+              : x,
+        ),
+      }));
+      get().appendAudit('lost_found', a.id, 'update', { status: 'open' }, { status: 'matched', with: b.id, manual: true });
+      get().pushToast('أُنشئ طلب الاستلام', `${a.refNo} ↔ ${b.refNo} — بانتظار التحقق من الملكية`, 'ok');
+    },
+
     /** قرار المشغّل في طلب الاستلام بعد التحقق من صاحب البلاغ */
     resolveLostFoundMatch: (id: string, decision: 'returned' | 'unmatch') => {
       const item = get().lostFoundItems.find((x) => x.id === id);

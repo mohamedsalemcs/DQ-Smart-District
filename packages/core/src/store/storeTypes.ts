@@ -233,6 +233,7 @@ export interface Store {
     reporterNameAr: string;
     reporterPhone: string;
   }) => LostFoundItem | null;
+  createLostFoundMatch: (aId: ID, bId: ID) => void;
   resolveLostFoundMatch: (id: ID, decision: 'returned' | 'unmatch') => void;
 
   /* embassy entry management */

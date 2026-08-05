@@ -68,6 +68,31 @@ export function AdminLostFound() {
     }
   };
 
+  /* manual claim — عندما تفوت المطابقة الآلية (لون مختلف مثلًا) يربط المشغّل الطرفين بنفسه */
+  const [claimFor, setClaimFor] = useState<string | null>(null);
+  const [claimWith, setClaimWith] = useState('');
+  const claimItem = items.find((i) => i.id === claimFor);
+  const claimCandidates = useMemo(() => {
+    if (!claimItem) return [];
+    const list = items.filter((i) => i.status === 'open' && i.kind !== claimItem.kind);
+    // المرشحون من التصنيف نفسه أولًا
+    return [...list].sort((a, b) => Number(b.category === claimItem.category) - Number(a.category === claimItem.category));
+  }, [items, claimItem]);
+
+  const openClaim = (id: string) => {
+    setClaimFor(id);
+    const item = items.find((i) => i.id === id);
+    const first = items
+      .filter((i) => i.status === 'open' && i.kind !== item?.kind)
+      .sort((a, b) => Number(b.category === item?.category) - Number(a.category === item?.category))[0];
+    setClaimWith(first?.id ?? '');
+  };
+
+  const submitClaim = () => {
+    if (claimFor && claimWith) store.createLostFoundMatch(claimFor, claimWith);
+    setClaimFor(null);
+  };
+
   const copyPublicLink = () => {
     navigator.clipboard?.writeText(portalUrl('/lost')).catch(() => {});
     store.pushToast('نُسخ رابط بلاغات المفقودات', 'شاركه في قنوات الحي وعند البوابات', 'ok');
@@ -172,6 +197,7 @@ export function AdminLostFound() {
               <th className="p-3 text-start">التاريخ</th>
               <th className="p-3 text-start">المبلّغ</th>
               <th className="p-3 text-start">الحالة</th>
+              <th className="p-3 text-start"></th>
             </tr>
           </thead>
           <tbody>
@@ -195,6 +221,13 @@ export function AdminLostFound() {
                   <span className={`rounded-full px-2 py-0.5 text-caption font-semibold ${statusCls[i.status]}`}>
                     {lostFoundStatusAr[i.status]}
                   </span>
+                </td>
+                <td className="p-3">
+                  {i.status === 'open' && (
+                    <Button size="sm" variant="outline" onClick={() => openClaim(i.id)}>
+                      <ArrowLeftRight size={12} /> طلب استلام
+                    </Button>
+                  )}
                 </td>
               </tr>
             ))}
@@ -244,6 +277,40 @@ export function AdminLostFound() {
         <div className="mt-4 flex justify-end gap-2">
           <Button variant="ghost" onClick={() => setFormOpen(false)}>إلغاء</Button>
           <Button onClick={submitFound}><PackagePlus size={14} /> تسجيل الغرض</Button>
+        </div>
+      </Modal>
+
+      {/* manual claim */}
+      <Modal open={claimFor !== null} onClose={() => setClaimFor(null)} title="إنشاء طلب استلام يدوي">
+        {claimItem && (
+          <div className="space-y-3">
+            <div className="rounded-card bg-ink-50 p-3">
+              <span className={`rounded-full px-2 py-0.5 text-micro font-semibold ${kindCls[claimItem.kind]}`}>{kindAr[claimItem.kind]}</span>
+              <p className="mt-1.5 text-sm font-semibold">{lostFoundCategoryAr[claimItem.category]} · {claimItem.colorAr}</p>
+              <p className="text-caption text-ink-500">{claimItem.descriptionAr}</p>
+              <p className="mt-1 text-micro text-ink-500">{claimItem.reporterNameAr} · <bdi dir="ltr">{claimItem.reporterPhone}</bdi></p>
+            </div>
+            <Field label={claimItem.kind === 'lost' ? 'اربطه بغرض معثور عليه' : 'اربطه ببلاغ فقدان'}>
+              {claimCandidates.length === 0 ? (
+                <p className="rounded-card bg-warn-600-50 p-2.5 text-caption text-warn-600">لا يوجد طرف مقابل مفتوح حاليًا</p>
+              ) : (
+                <Select value={claimWith} onChange={(e) => setClaimWith(e.target.value)}>
+                  {claimCandidates.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.refNo} — {lostFoundCategoryAr[c.category]} · {c.colorAr} · {c.descriptionAr.slice(0, 34)}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Field>
+            <p className="rounded-card bg-ink-50 p-2.5 text-caption text-ink-500">
+              يُنشئ الربط طلب استلام بحالة «بانتظار التحقق» — التسليم النهائي بعد التحقق من الملكية من بطاقة طلبات الاستلام أعلاه.
+            </p>
+          </div>
+        )}
+        <div className="mt-4 flex justify-end gap-2">
+          <Button variant="ghost" onClick={() => setClaimFor(null)}>إلغاء</Button>
+          <Button onClick={submitClaim} disabled={!claimWith}><ArrowLeftRight size={14} /> إنشاء طلب الاستلام</Button>
         </div>
       </Modal>
     </div>
