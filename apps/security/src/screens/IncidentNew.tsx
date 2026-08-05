@@ -53,7 +53,7 @@ export function IncidentNew() {
         parties: driverName.trim() ? [{ nameAr: driverName, role: 'subject' }] : [],
         detailAr: detail,
       });
-      navigate(`/s/incidents/${inc.id}`);
+      navigate(`/incidents/${inc.id}`);
     }, 400);
   };
 

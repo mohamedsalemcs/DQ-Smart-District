@@ -13,7 +13,7 @@ export function IncidentsList() {
     <div className="space-y-4">
       <SectionTitle
         action={
-          <Link to="/s/incidents/new">
+          <Link to="/incidents/new">
             <Button><Plus size={15} /> بلاغ جديد</Button>
           </Link>
         }
@@ -35,7 +35,7 @@ export function IncidentsList() {
           <tbody>
             {incidents.map((i) => (
               <tr key={i.id} className="border-b border-ink-100/50 hover:bg-ink-50/50">
-                <td className="p-3"><Link className="text-brand-600 hover:underline" to={`/s/incidents/${i.id}`}><Txn no={i.txnNo} /></Link></td>
+                <td className="p-3"><Link className="text-brand-600 hover:underline" to={`/incidents/${i.id}`}><Txn no={i.txnNo} /></Link></td>
                 <td className="p-3">{incidentKindAr[i.kind]}</td>
                 <td className="p-3">{severityAr[i.severity]}</td>
                 <td className="p-3 tabular-nums text-ink-500">{fmtDateTime(i.occurredISO)}</td>

@@ -45,7 +45,7 @@ export function PermitNew() {
         companions,
         gateIds,
       });
-      navigate('/r/permits');
+      navigate('/permits');
     }, 400);
   };
 

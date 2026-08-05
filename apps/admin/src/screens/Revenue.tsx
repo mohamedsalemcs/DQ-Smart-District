@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { format, subMonths } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import { Megaphone } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { useStore } from '@dq/core';
+import { APP_BASE, useStore } from '@dq/core';
 import { Card, SectionTitle } from '@dq/ui';
 import { ChartCard, KpiCard, axisTick, chartTooltip } from '../components/charts';
 
@@ -190,7 +189,10 @@ export function AdminRevenue() {
           <p className="flex items-center gap-1.5 text-sm font-bold">
             <Megaphone size={15} className="text-brand-600" /> إعلانات الوحدات التجارية — تُعرض في صفحة المجتمع
           </p>
-          <Link to="/r/community" className="text-caption text-brand-600 hover:underline">معاينة صفحة المجتمع ←</Link>
+          {/* بوابة السكان منصة أخرى بقاعدة نشر مستقلة — رابط مطلق لا Link راوتر */}
+          <a href={`${APP_BASE.r}/community`} className="text-caption text-brand-600 hover:underline">
+            معاينة صفحة المجتمع ←
+          </a>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
           {store.ads.filter((a) => a.status !== 'ended').map((ad) => {

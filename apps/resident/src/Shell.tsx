@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import {
   BadgeCheck,
   Building2,
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { ErrorBoundary, AppShell, NotificationsBell, ToastHost, type NavItem } from '@dq/ui';
 import { ago, useStore } from '@dq/core';
+import { useGo } from './lib/nav';
 import { EmergencyButton } from './components/EmergencyButton';
 
 const NAV: NavItem[] = [
@@ -30,7 +31,7 @@ const NAV: NavItem[] = [
 
 export function ResidentShell() {
   const location = useLocation();
-  const navigate = useNavigate();
+  const go = useGo();
 
   const persona = useStore((s) => s.persona);
   const setPersona = useStore((s) => s.setPersona);
@@ -75,7 +76,7 @@ export function ResidentShell() {
               onMarkAllRead={() => markAllRead('resident')}
               onOpen={(n) => {
                 markRead(n.id);
-                navigate(n.deepLink);
+                go(n.deepLink);
               }}
             />
             <span className="hidden items-center gap-2 border-s border-ink-100 ps-3 md:flex">

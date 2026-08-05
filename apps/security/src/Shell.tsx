@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import {
   Activity,
   DoorOpen,
@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { ErrorBoundary, AppShell, NotificationsBell, SpeedToggle, ToastHost, type NavItem } from '@dq/ui';
 import { ago, useStore } from '@dq/core';
+import { useGo } from './lib/nav';
 
 const NAV: NavItem[] = [
   { to: '/', labelAr: 'غرفة العمليات', icon: Radio, end: true, groupAr: 'الصورة العامة' },
@@ -31,7 +32,7 @@ const NAV: NavItem[] = [
 
 export function SecurityShell() {
   const location = useLocation();
-  const navigate = useNavigate();
+  const go = useGo();
 
   const persona = useStore((s) => s.persona);
   const setPersona = useStore((s) => s.setPersona);
@@ -74,7 +75,7 @@ export function SecurityShell() {
               onMarkAllRead={() => markAllRead('security')}
               onOpen={(n) => {
                 markRead(n.id);
-                navigate(n.deepLink);
+                go(n.deepLink);
               }}
             />
             <span className="hidden items-center gap-2 border-s border-ink-100 ps-3 md:flex">

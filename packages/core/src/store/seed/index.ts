@@ -465,6 +465,97 @@ export function buildSeed(): SeedData {
       escalationStep: 0,
       events: [{ atISO: hoursAgo(5), actorId: guards[0].id, actorRole: 'guard', action: 'تسجيل المخالفة' }],
     },
+    /* EP-20 — التظلّمات.
+       لم تكن أي مخالفة في البذرة تحمل تظلّمًا، فشاشة التظلّمات تفتح فارغة
+       دائمًا ولا يظهر أثر القاعدة الأهم فيها: التظلّم يوقف عدّاد المهلة حتى
+       البتّ. ثلاث حالات هنا تغطّي المسار كاملًا: قائم، ومقبول، ومرفوض —
+       والفرق بين الأخيرين هو أثرهما على العدّاد، ولا يبين بمثال واحد. */
+    {
+      id: 'vio-appeal-open',
+      subject: 'vehicle',
+      subjectId: vehicles[8].id,
+      code: 'TR-02',
+      labelAr: 'تجاوز السرعة داخل النطاق السكني',
+      status: 'appealed',
+      loggedBy: guards[5].id,
+      lat: 24.6838,
+      lng: 46.6262,
+      media: ['photo'],
+      graceUntilISO: daysFromNow(4),
+      repeatCount: 1,
+      escalationStep: 1,
+      appeal: {
+        reasonAr:
+          'الرادار سجّل المركبة أثناء إفساح الطريق لسيارة إسعاف خارجة من البوابة الرئيسية. أرفقتُ تسجيل الكاميرا الأمامية الذي يوضح الإشارة الصوتية قبل التجاوز بثوانٍ.',
+        submittedBy: residents[6].id,
+        submittedISO: daysAgo(1),
+      },
+      events: [
+        { atISO: daysAgo(4), actorId: guards[5].id, actorRole: 'guard', action: 'تسجيل المخالفة' },
+        { atISO: daysAgo(4), actorId: adminStaff[2].id, actorRole: 'admin_staff', action: 'إشعار المخالف', detailAr: 'إنذار أول ومهلة تصحيح' },
+        { atISO: daysAgo(1), actorId: residents[6].id, actorRole: 'resident', action: 'تقديم تظلّم', detailAr: 'عدّاد المهلة موقوف حتى البتّ' },
+      ],
+    },
+    {
+      id: 'vio-appeal-accepted',
+      subject: 'property',
+      subjectId: properties[11].id,
+      code: 'VD-01',
+      labelAr: 'مخلفات بناء على الرصيف',
+      status: 'closed',
+      loggedBy: guards[1].id,
+      lat: properties[11].lat,
+      lng: properties[11].lng,
+      media: ['photo'],
+      repeatCount: 1,
+      escalationStep: 0,
+      appeal: {
+        reasonAr:
+          'المخلفات تعود لمشروع البلدية على الرصيف المقابل لا للوحدة. صورة المخالفة التُقطت من زاوية تُظهر الرصيفين معًا.',
+        submittedBy: residents[3].id,
+        submittedISO: daysAgo(9),
+        decision: 'accepted',
+        decisionNoteAr:
+          'بالمعاينة الميدانية ثبت أن المخلفات ضمن نطاق أعمال البلدية. تُلغى المخالفة ولا تُحتسب في سجل التكرار.',
+        decidedBy: adminStaff[0].id,
+        decidedISO: daysAgo(7),
+      },
+      events: [
+        { atISO: daysAgo(12), actorId: guards[1].id, actorRole: 'guard', action: 'تسجيل المخالفة' },
+        { atISO: daysAgo(9), actorId: residents[3].id, actorRole: 'resident', action: 'تقديم تظلّم' },
+        { atISO: daysAgo(7), actorId: adminStaff[0].id, actorRole: 'admin_staff', action: 'قبول التظلّم', detailAr: 'إلغاء المخالفة ورفعها من سجل التكرار' },
+      ],
+    },
+    {
+      id: 'vio-appeal-rejected',
+      subject: 'vehicle',
+      subjectId: vehicles[3].id,
+      code: 'TR-07',
+      labelAr: 'وقوف خاطئ متكرر أمام مسار المشاة',
+      status: 'notified',
+      loggedBy: guards[2].id,
+      lat: 24.6759,
+      lng: 46.6231,
+      media: ['photo'],
+      graceUntilISO: daysFromNow(1),
+      repeatCount: 2,
+      escalationStep: 2,
+      appeal: {
+        reasonAr: 'المركبة كانت متوقفة دقيقتين فقط لإنزال الركاب.',
+        submittedBy: residents[8].id,
+        submittedISO: daysAgo(5),
+        decision: 'rejected',
+        decisionNoteAr:
+          'مسار المشاة ممنوع الوقوف عليه مهما قصرت المدة. المهلة تُستأنف من تاريخ هذا القرار لا من تاريخ المخالفة.',
+        decidedBy: adminStaff[0].id,
+        decidedISO: daysAgo(3),
+      },
+      events: [
+        { atISO: daysAgo(8), actorId: guards[2].id, actorRole: 'guard', action: 'تسجيل المخالفة' },
+        { atISO: daysAgo(5), actorId: residents[8].id, actorRole: 'resident', action: 'تقديم تظلّم' },
+        { atISO: daysAgo(3), actorId: adminStaff[0].id, actorRole: 'admin_staff', action: 'رفض التظلّم', detailAr: 'استئناف عدّاد المهلة' },
+      ],
+    },
   ];
 
   /* ——— incidents: history + 1 active ——— */
@@ -517,6 +608,85 @@ export function buildSeed(): SeedData {
       parties: [{ nameAr: guards[6].nameAr, personId: guards[6].id, role: 'reporter' }],
       status: 'open',
       events: [{ atISO: minutesAgo(38), actorId: guards[6].id, actorRole: 'guard', action: 'تسجيل البلاغ', detailAr: 'مركبة متوقفة أمام سور السفارة لفترة طويلة' }],
+    },
+  ];
+
+  /* ——— المحاضر ———
+     كانت `mahadir` تُبذر مصفوفةً فارغة، فتفتح شاشة المحاضر بلا سجل واحد،
+     ومعها يختفي الدليل على أهم خاصية فيها: المحضر المعتمَد يُقفل ويصير
+     سلسلة تجزئة لا تُعدَّل. محضران معتمدان مقفلان وثالث قيد التحرير على
+     البلاغ المفتوح — فتظهر الحالتان معًا. */
+  const mahdarHash = (payload: string, prior: string) => {
+    /* تجزئة استعراضية حتمية — الإنتاج يستبدلها بـSHA-256 على الخادم */
+    let h = 0x811c9dc5;
+    for (const ch of prior + payload) {
+      h ^= ch.charCodeAt(0);
+      h = Math.imul(h, 0x01000193);
+    }
+    return (h >>> 0).toString(16).padStart(8, '0').repeat(4);
+  };
+  const chain1 = mahdarHash('mah-1', '');
+  const chain2 = mahdarHash('mah-2', chain1);
+
+  const mahadir: Mahdar[] = [
+    {
+      id: 'mah-1',
+      incidentId: 'inc-hist-1',
+      txnNo: formatTxn(429),
+      summaryAr:
+        'تصادم جانبي بين مركبتين عند تقاطع الشارع الرئيسي مع مدخل القطاع السكني الشرقي أثناء انعطاف غير مصرّح به. لا إصابات. أضرار مادية محدودة في المصد الأمامي الأيسر للمركبة الأولى والباب الخلفي الأيمن للثانية.',
+      resolutionAr:
+        'تم التوفيق بين الطرفين ميدانيًا. أقرّ سائق المركبة الأولى بالمسؤولية وتعهّد بإصلاح الضرر خلال أسبوع. لم يُطلب تحرير بلاغ مروري رسمي.',
+      waiver: { agreed: true, noteAr: 'تنازل الطرف الثاني عن المطالبة بعد الإقرار والتعهّد بالإصلاح.' },
+      seized: [],
+      signatures: [
+        { partyId: guards[3].id, dataUrl: 'sig:guard', atISO: daysAgo(6) },
+        { partyId: supervisors[0].id, dataUrl: 'sig:supervisor', atISO: daysAgo(6) },
+      ],
+      approvedBy: supervisors[0].id,
+      approvedISO: daysAgo(6),
+      locked: true,
+      hashChain: [chain1],
+    },
+    {
+      id: 'mah-2',
+      incidentId: 'inc-hist-2',
+      txnNo: formatTxn(430),
+      summaryAr:
+        'بلاغ فقدان حقيبة يد داخل الحديقة قرب منطقة الألعاب. عُثر عليها بعد ساعتين لدى نقطة الأمن الجنوبية وسُلّمت لصاحبتها بعد التحقق من الهوية ومطابقة محتويات الحقيبة.',
+      resolutionAr: 'سُلّمت المفقودات كاملة إلى صاحبتها بعد توقيع محضر الاستلام. لم تُسجَّل أي شبهة جنائية.',
+      seized: [
+        {
+          id: 'itm-1',
+          descriptionAr: 'حقيبة يد جلدية بنّية تحتوي على محفظة وهاتف ومفاتيح',
+          custody: [
+            { byPersonId: guards[2].id, action: 'seized', atISO: daysAgo(2), locationAr: 'الحديقة — منطقة الألعاب' },
+            { byPersonId: guards[2].id, action: 'labelled', atISO: daysAgo(2), locationAr: 'نقطة الأمن الجنوبية' },
+            { byPersonId: supervisors[0].id, action: 'stored', atISO: daysAgo(2), locationAr: 'خزانة المفقودات — غرفة العمليات' },
+            { byPersonId: supervisors[0].id, action: 'released', atISO: daysAgo(2), locationAr: 'غرفة العمليات — تسليم للمالكة' },
+          ],
+        },
+      ],
+      signatures: [
+        { partyId: guards[2].id, dataUrl: 'sig:guard', atISO: daysAgo(2) },
+        { partyId: residents[4].id, dataUrl: 'sig:owner', atISO: daysAgo(2) },
+      ],
+      approvedBy: supervisors[0].id,
+      approvedISO: daysAgo(2),
+      locked: true,
+      hashChain: [chain1, chain2],
+    },
+    {
+      id: 'mah-3',
+      incidentId: 'inc-active',
+      txnNo: formatTxn(431),
+      summaryAr:
+        'مركبة دفع رباعي سوداء متوقفة أمام السور الخارجي لإحدى السفارات منذ ما يزيد على أربعين دقيقة دون راكب ظاهر. رُصدت من الدورية أثناء الجولة الاعتيادية.',
+      resolutionAr: '',
+      seized: [],
+      signatures: [],
+      locked: false,
+      hashChain: [],
     },
   ];
 
@@ -905,7 +1075,7 @@ export function buildSeed(): SeedData {
     requests,
     violations,
     incidents,
-    mahadir: [],
+    mahadir,
     gates,
     gateEvents,
     assets,

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import {
   BarChart3,
   Building2,
@@ -22,6 +22,7 @@ import {
 import { ErrorBoundary, AppShell, NotificationsBell, SpeedToggle, ToastHost, type NavItem } from '@dq/ui';
 import { ago, useStore } from '@dq/core';
 import { useI18n } from './i18n';
+import { useGo } from './lib/nav';
 
 /** مبدّل اللغة — العربية افتراضية · CFL-03 */
 function LangToggle() {
@@ -51,7 +52,7 @@ function LangToggle() {
 export function AdminShell() {
   const { t } = useI18n();
   const location = useLocation();
-  const navigate = useNavigate();
+  const go = useGo();
 
   /* محدِّدات ذرّية — لا useStore() عاريًا (DEF-035) */
   const persona = useStore((s) => s.persona);
@@ -114,7 +115,7 @@ export function AdminShell() {
               onMarkAllRead={() => markAllRead('admin')}
               onOpen={(n) => {
                 markRead(n.id);
-                navigate(n.deepLink);
+                go(n.deepLink);
               }}
               labelAr={t('notifications')}
               emptyAr={t('noNotifications')}

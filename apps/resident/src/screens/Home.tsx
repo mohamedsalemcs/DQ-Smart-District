@@ -14,10 +14,10 @@ export function ResidentHome() {
   const myPermits = store.permits.filter((p) => p.requestedBy === me.id && ['approved', 'pending'].includes(p.status));
 
   const quick = [
-    { to: '/r/permits/new', labelAr: 'تصريح زائر', icon: BadgePlus },
-    { to: '/r/requests/new', labelAr: 'بلاغ جديد', icon: FileWarning },
-    { to: '/r/bookings', labelAr: 'حجز مرفق', icon: CalendarPlus },
-    { to: '/r/community', labelAr: 'المجتمع', icon: Megaphone },
+    { to: '/permits/new', labelAr: 'تصريح زائر', icon: BadgePlus },
+    { to: '/requests/new', labelAr: 'بلاغ جديد', icon: FileWarning },
+    { to: '/bookings', labelAr: 'حجز مرفق', icon: CalendarPlus },
+    { to: '/community', labelAr: 'المجتمع', icon: Megaphone },
   ];
 
   const myBookings = store.bookings.filter((b) => b.byPersonId === me.id && b.status === 'confirmed');
@@ -57,10 +57,10 @@ export function ResidentHome() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="p-4">
-          <SectionTitle action={<Link to="/r/requests" className="text-caption text-brand-600 hover:underline">الكل</Link>}>طلباتي المفتوحة</SectionTitle>
+          <SectionTitle action={<Link to="/requests" className="text-caption text-brand-600 hover:underline">الكل</Link>}>طلباتي المفتوحة</SectionTitle>
           <div className="space-y-2">
             {myRequests.map((r) => (
-              <Link key={r.id} to={`/r/requests/${r.id}`} className="block rounded-card bg-ink-50 p-3 hover:bg-brand-50">
+              <Link key={r.id} to={`/requests/${r.id}`} className="block rounded-card bg-ink-50 p-3 hover:bg-brand-50">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-medium">{requestKindAr[r.kind]}</span>
                   {requestPill(r.status)}
@@ -73,7 +73,7 @@ export function ResidentHome() {
         </Card>
 
         <Card className="p-4">
-          <SectionTitle action={<Link to="/r/permits" className="text-caption text-brand-600 hover:underline">الكل</Link>}>تصاريحي الفعالة</SectionTitle>
+          <SectionTitle action={<Link to="/permits" className="text-caption text-brand-600 hover:underline">الكل</Link>}>تصاريحي الفعالة</SectionTitle>
           <div className="space-y-2">
             {myPermits.map((p) => (
               <div key={p.id} className="rounded-card bg-ink-50 p-3">
@@ -92,7 +92,7 @@ export function ResidentHome() {
       {/* dues + announcements */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="p-4">
-          <SectionTitle action={<Link to="/r/payments" className="text-caption text-brand-600 hover:underline">المدفوعات</Link>}>المستحقات</SectionTitle>
+          <SectionTitle action={<Link to="/payments" className="text-caption text-brand-600 hover:underline">المدفوعات</Link>}>المستحقات</SectionTitle>
           <div className="flex items-center justify-between rounded-card bg-warn-600-50 p-3 text-sm">
             <span>رسوم الخدمات — الربع الثالث</span>
             <span className="font-bold tabular-nums">— ر.س</span>

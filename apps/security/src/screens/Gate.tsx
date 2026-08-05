@@ -53,7 +53,7 @@ export function GateScreen() {
           {store.gates.map((g) => (
             <Link
               key={g.id}
-              to={`/s/gate/${g.id}`}
+              to={`/gate/${g.id}`}
               className={`rounded-full px-2.5 py-1 text-caption ${g.id === gateId ? 'bg-brand-600 text-ink-900 font-bold' : 'bg-ink-50 text-ink-500'}`}
             >
               {g.nameAr.replace('بوابة ', '').replace('البوابة ', '')}
@@ -200,7 +200,7 @@ export function GateScreen() {
               <Button variant="outline" className="border-white/50 !text-white" onClick={() => store.pushToast('جارٍ الاتصال بالمضيف…', 'محاكاة اتصال', 'info')}>
                 <PhoneCall size={16} /> الاتصال بالمضيف
               </Button>
-              <Button variant="outline" className="border-white/50 !text-white" onClick={() => store.notify('security', 'طلب مشرف عند البوابة', `${gate?.nameAr} — حالة تصعيد`, `/s/gate/${gateId}`, 'warn')}>
+              <Button variant="outline" className="border-white/50 !text-white" onClick={() => store.notify('security', 'طلب مشرف عند البوابة', `${gate?.nameAr} — حالة تصعيد`, `/gate/${gateId}`, 'warn')}>
                 طلب مشرف
               </Button>
             </div>

@@ -133,7 +133,7 @@ export function AdminPeople() {
               labelAr: `${p.code} — ${p.unitNo} · ${isOccupied(p) ? 'مشغولة' : 'شاغرة'}`,
               pulse: !isOccupied(p) && (filter === 'vacant' || filter === 'all'),
               glyph: p.type === 'embassy' ? 'س' : p.type === 'commercial' ? 'ت' : undefined,
-              onClick: () => navigate(`/a/properties/${p.id}`),
+              onClick: () => navigate(`/properties/${p.id}`),
             }))}
           />
           <div className="mt-2 flex flex-wrap gap-3 px-1 text-micro text-ink-500">
@@ -209,7 +209,7 @@ export function AdminPeople() {
               return (
                 <tr key={p.id} className="border-b border-ink-100 hover:bg-ink-50">
                   <td className="p-3">
-                    <Link to={`/a/properties/${p.id}`} className="font-semibold text-ink-900 hover:text-brand-600">{p.code}</Link>
+                    <Link to={`/properties/${p.id}`} className="font-semibold text-ink-900 hover:text-brand-600">{p.code}</Link>
                   </td>
                   <td className="p-3">{p.unitNo}</td>
                   <td className="p-3">{propertyTypeAr[p.type]}{p.subtypeAr ? ` · ${p.subtypeAr.split(' ')[0]}` : ''}</td>

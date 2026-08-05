@@ -34,7 +34,7 @@ export function RequestNew() {
         lng: prop?.lng ?? 46.63,
         media,
       });
-      navigate('/r/requests');
+      navigate('/requests');
     }, 400);
   };
 

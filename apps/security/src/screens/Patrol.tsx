@@ -20,8 +20,8 @@ export function PatrolScreen() {
             layers={{ patrols: true, incidents: true, gates: true }}
             className="aspect-[16/10]"
             onOpen={(link) => {
-              if (link.startsWith('incident:')) navigate(`/s/incidents/${link.slice(9)}`);
-              else if (link.startsWith('gate:')) navigate(`/s/gate/${link.slice(5)}`);
+              if (link.startsWith('incident:')) navigate(`/incidents/${link.slice(9)}`);
+              else if (link.startsWith('gate:')) navigate(`/gate/${link.slice(5)}`);
             }}
           />
         </Card>
@@ -38,7 +38,7 @@ export function PatrolScreen() {
                 </div>
                 <p className="mt-1 text-caption text-ink-500">{store.people.find((x) => x.id === p.guardId)?.nameAr}</p>
                 {task && (
-                  <Link to={`/s/incidents/${task.id}`} className="mt-2 block rounded-ctl bg-ink-0 p-2 text-caption hover:bg-ink-50">
+                  <Link to={`/incidents/${task.id}`} className="mt-2 block rounded-ctl bg-ink-0 p-2 text-caption hover:bg-ink-50">
                     المهمة: {incidentKindAr[task.kind]} <Txn no={task.txnNo} />
                     {task.dispatch?.responseSeconds != null && <span className="ms-2 text-ok-600">استجابة {secondsToClock(task.dispatch.responseSeconds)}</span>}
                   </Link>

@@ -42,7 +42,7 @@ export function ViolationNew() {
         lng: pos?.lng ?? 46.63,
         withPhoto: photo,
       });
-      navigate('/s/incidents'); // back to security home area; admin picks it up in /a/violations
+      navigate('/incidents'); // back to security home area; admin picks it up in /a/violations
     }, 350);
   };
 

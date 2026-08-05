@@ -111,7 +111,7 @@ export function IncidentDetail() {
 
             {incident.status === 'on_scene' && (
               <div className="mt-4 text-center">
-                <Button size="lg" onClick={() => { const m = store.startMahdar(incident.id); navigate(`/s/incidents/${incident.id}/mahdar`); void m; }}>
+                <Button size="lg" onClick={() => { const m = store.startMahdar(incident.id); navigate(`/incidents/${incident.id}/mahdar`); void m; }}>
                   <FileText size={18} /> فتح المحضر
                 </Button>
               </div>
@@ -119,7 +119,7 @@ export function IncidentDetail() {
 
             {(incident.status === 'pending_mahdar' || incident.status === 'pending_approval' || incident.status === 'closed') && mahdar && (
               <div className="mt-2 text-center">
-                <Link to={`/s/incidents/${incident.id}/mahdar`}>
+                <Link to={`/incidents/${incident.id}/mahdar`}>
                   <Button variant={mahdar.locked ? 'outline' : 'primary'} className={mahdar.locked ? 'border-ink-300 text-ink-800' : ''}>
                     <FileText size={16} /> {mahdar.locked ? 'عرض المحضر المعتمد (مقفل)' : 'متابعة المحضر'}
                   </Button>

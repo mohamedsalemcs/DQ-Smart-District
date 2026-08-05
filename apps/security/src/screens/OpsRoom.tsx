@@ -37,9 +37,9 @@ export function OpsRoom() {
             layers={{ traffic: true, patrols: true, incidents: true, gates: true }}
             className="aspect-[16/10]"
             onOpen={(link) => {
-              if (link.startsWith('incident:')) navigate(`/s/incidents/${link.slice(9)}`);
-              else if (link.startsWith('gate:')) navigate(`/s/gate/${link.slice(5)}`);
-              else navigate('/s/patrol');
+              if (link.startsWith('incident:')) navigate(`/incidents/${link.slice(9)}`);
+              else if (link.startsWith('gate:')) navigate(`/gate/${link.slice(5)}`);
+              else navigate('/patrol');
             }}
           />
         </Card>
@@ -52,7 +52,7 @@ export function OpsRoom() {
             </p>
             <div className="space-y-2">
               {active.map((i) => (
-                <Link key={i.id} to={`/s/incidents/${i.id}`} className="block rounded-card bg-ink-0 p-3 transition-colors hover:bg-ink-50">
+                <Link key={i.id} to={`/incidents/${i.id}`} className="block rounded-card bg-ink-0 p-3 transition-colors hover:bg-ink-50">
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-sm font-semibold">{incidentKindAr[i.kind]}</span>
                     {incidentPill(i.status)}
@@ -73,7 +73,7 @@ export function OpsRoom() {
             </p>
             <div className="space-y-1.5">
               {store.gates.map((g) => (
-                <Link key={g.id} to={`/s/gate/${g.id}`} className="flex items-center justify-between rounded-ctl bg-ink-0 px-3 py-2 text-sm hover:bg-ink-50">
+                <Link key={g.id} to={`/gate/${g.id}`} className="flex items-center justify-between rounded-ctl bg-ink-0 px-3 py-2 text-sm hover:bg-ink-50">
                   <span>{g.nameAr}</span>
                   <span className={`flex items-center gap-1 text-caption ${g.state === 'open' ? 'text-ok-600' : g.state === 'manual' ? 'text-warn-600-600' : 'text-danger-600'}`}>
                     <span className={`h-1.5 w-1.5 rounded-full ${g.state === 'open' ? 'bg-ok-600' : g.state === 'manual' ? 'bg-warn-600' : 'bg-danger-600'}`} />

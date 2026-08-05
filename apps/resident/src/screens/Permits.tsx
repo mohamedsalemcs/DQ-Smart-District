@@ -16,7 +16,7 @@ export function ResidentPermits() {
     <div className="mx-auto max-w-2xl space-y-4">
       <SectionTitle
         action={
-          <Link to="/r/permits/new">
+          <Link to="/permits/new">
             <Button><Plus size={15} /> تصريح جديد</Button>
           </Link>
         }

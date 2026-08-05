@@ -15,7 +15,7 @@ export function ResidentRequests() {
     <div className="mx-auto max-w-2xl space-y-4">
       <SectionTitle
         action={
-          <Link to="/r/requests/new">
+          <Link to="/requests/new">
             <Button><Plus size={15} /> بلاغ جديد</Button>
           </Link>
         }
@@ -27,7 +27,7 @@ export function ResidentRequests() {
 
       <div className="space-y-3">
         {mine.map((r) => (
-          <Link key={r.id} to={`/r/requests/${r.id}`} className="block">
+          <Link key={r.id} to={`/requests/${r.id}`} className="block">
             <Card className="p-4 transition-colors hover:bg-brand-50">
               <div className="flex items-center justify-between gap-2">
                 <div className="min-w-0">

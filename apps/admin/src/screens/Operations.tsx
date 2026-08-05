@@ -47,7 +47,7 @@ export function AdminOperations() {
           <p className="mb-2 px-1 text-caption font-semibold text-ink-500">
             أصول إنترنت الأشياء على النموذج الحي — الحاويات والإنارة وخزانات الري تتلوّن بحالتها لحظيًا
           </p>
-          <Map3D layers={{ bins: true, lamps: true, tanks: true, trees: true, gates: true }} className="aspect-[16/9]" onOpen={() => navigate('/a/twin')} />
+          <Map3D layers={{ bins: true, lamps: true, tanks: true, trees: true, gates: true }} className="aspect-[16/9]" onOpen={() => navigate('/twin')} />
         </Card>
 
         <div className="space-y-4">

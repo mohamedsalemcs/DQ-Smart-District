@@ -50,6 +50,13 @@ export {
 export { BOUNDS, VIEW, clampToDistrict, distance, districtPoint, project } from './lib/geo';
 export { sha256Hex } from './lib/hash';
 export { formatTxn } from './lib/txn';
+export {
+  APP_BASE,
+  PERSONA_APP,
+  resolveLink,
+  type AppKey,
+  type Resolved,
+} from './lib/appBase';
 export { int, mulberry32, pick } from './lib/rng';
 export * from './i18n/strings';
 

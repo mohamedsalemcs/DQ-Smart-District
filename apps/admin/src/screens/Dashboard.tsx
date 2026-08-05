@@ -68,7 +68,7 @@ export function AdminDashboard() {
       value: sum(cur, 'gateAllowed').toLocaleString('en'),
       delta: deltaPct(sum(cur, 'gateAllowed'), sum(prev, 'gateAllowed')),
       spark: cur.map((m) => m.gateAllowed),
-      onClick: () => navigate('/a/reports'),
+      onClick: () => navigate('/reports'),
     },
     {
       label: 'بلاغات السكان',
@@ -76,7 +76,7 @@ export function AdminDashboard() {
       delta: deltaPct(sum(cur, 'requestsOpened'), sum(prev, 'requestsOpened')),
       goodWhenDown: true,
       spark: cur.map((m) => m.requestsOpened),
-      onClick: () => navigate('/a/requests'),
+      onClick: () => navigate('/requests'),
     },
     {
       label: 'المخالفات',
@@ -85,7 +85,7 @@ export function AdminDashboard() {
       goodWhenDown: true,
       spark: cur.map((m) => m.violations),
       sparkColor: 'var(--color-viz-4)',
-      onClick: () => navigate('/a/violations'),
+      onClick: () => navigate('/violations'),
     },
     {
       label: 'متوسط الاستجابة الأمنية',
@@ -260,11 +260,11 @@ export function AdminDashboard() {
       {/* live operations layer */}
       <SectionTitle sub="مؤشرات لحظية — تتغير أمامك مع نشاط بقية الشخصيات">العمليات الآن</SectionTitle>
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-        <Stat label="بلاغات مفتوحة" value={openRequests.length} onClick={() => navigate('/a/requests')} />
-        <Stat label="تجاوزات SLA" value={slaBreaches.length} onClick={() => navigate('/a/requests')} />
-        <Stat label="مخالفات قائمة" value={openViolations.length} onClick={() => navigate('/a/violations')} />
-        <Stat label="تصاريح بانتظار الاعتماد" value={pendingPermits.length} onClick={() => navigate('/a/permits')} />
-        <Stat label="حاويات فوق 80%" value={fullBinsCount} onClick={() => navigate('/a/operations')} />
+        <Stat label="بلاغات مفتوحة" value={openRequests.length} onClick={() => navigate('/requests')} />
+        <Stat label="تجاوزات SLA" value={slaBreaches.length} onClick={() => navigate('/requests')} />
+        <Stat label="مخالفات قائمة" value={openViolations.length} onClick={() => navigate('/violations')} />
+        <Stat label="تصاريح بانتظار الاعتماد" value={pendingPermits.length} onClick={() => navigate('/permits')} />
+        <Stat label="حاويات فوق 80%" value={fullBinsCount} onClick={() => navigate('/operations')} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
@@ -276,10 +276,10 @@ export function AdminDashboard() {
             layers={{ requests: true, violations: true, bins: true, lamps: true, tanks: true, gates: true }}
             className="aspect-[16/9]"
             onOpen={(link) => {
-              if (link === 'violations') navigate('/a/violations');
-              else if (link === 'operations') navigate('/a/operations');
-              else if (link.startsWith('gate:')) navigate('/a/twin');
-              else navigate('/a/requests');
+              if (link === 'violations') navigate('/violations');
+              else if (link === 'operations') navigate('/operations');
+              else if (link.startsWith('gate:')) navigate('/twin');
+              else navigate('/requests');
             }}
           />
         </Card>
@@ -289,7 +289,7 @@ export function AdminDashboard() {
             <p className="mb-2 text-caption font-semibold text-ink-500">أحدث المخالفات</p>
             <div className="space-y-2">
               {openViolations.slice(0, 4).map((v) => (
-                <Link key={v.id} to="/a/violations" className="block rounded-card bg-ink-50 p-2.5 transition-colors hover:bg-brand-50">
+                <Link key={v.id} to="/violations" className="block rounded-card bg-ink-50 p-2.5 transition-colors hover:bg-brand-50">
                   <div className="flex items-center justify-between gap-2">
                     <span className="truncate text-caption font-semibold">{v.code} · {v.labelAr}</span>
                     {violationPill(v.status)}
@@ -303,7 +303,7 @@ export function AdminDashboard() {
             <p className="mb-2 text-caption font-semibold text-ink-500">أحدث الطلبات</p>
             <div className="space-y-2">
               {openRequests.slice(0, 4).map((r) => (
-                <Link key={r.id} to="/a/requests" className="block rounded-card bg-ink-50 p-2.5 transition-colors hover:bg-brand-50">
+                <Link key={r.id} to="/requests" className="block rounded-card bg-ink-50 p-2.5 transition-colors hover:bg-brand-50">
                   <div className="flex items-center justify-between gap-2">
                     <span className="truncate text-caption font-semibold">{requestKindAr[r.kind]}</span>
                     {requestPill(r.status)}

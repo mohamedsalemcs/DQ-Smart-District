@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Activity, Building2, ClipboardList, Cpu, DoorOpen, Droplets, FileWarning, Footprints, Landmark, Layers, Lightbulb, Radio, RefreshCw, Siren, Trash2, TreePine, Zap } from 'lucide-react';
 import { useStore } from '@dq/core';
 import { DQTwinCanvas, type TwinLayers } from '../components/three/DQTwin';
+import { useGo } from '../lib/nav';
 
 const layerDefs: { key: keyof TwinLayers; labelAr: string; icon: typeof Radio }[] = [
   { key: 'traffic', labelAr: 'الحركة المرورية', icon: Activity },
@@ -21,9 +21,9 @@ const layerDefs: { key: keyof TwinLayers; labelAr: string; icon: typeof Radio }[
 ];
 
 /** Smart Map — the georeferenced 3D model of DQ with every live layer on top.
- *  Shared by Admin (/a/twin) and Security (/s/twin); deep links respect the persona. */
+ *  Shared by Admin and Security; deep links resolve to the owning platform. */
 export function DigitalTwin({ }: Record<string, never>) {
-  const navigate = useNavigate();
+  const go = useGo();
   const store = useStore();
   const [layers, setLayers] = useState<TwinLayers>({
     traffic: true,
@@ -56,24 +56,21 @@ export function DigitalTwin({ }: Record<string, never>) {
     [store.assets, store.sensorValues],
   );
 
+  /* مسارات الإدارة (العمليات · البلاغات · المخالفات) تعيش في مركز القيادة
+     خلف قاعدة نشر أخرى — `go` يعبر إليها، ويبقي المسارات الأمنية داخل المسيّر. */
   const open = (link: string) => {
     if (link.startsWith('property:')) {
-      const id = link.slice(9);
-      if (false) navigate(`/a/properties/${id}`);
-      else {
-        const code = store.properties.find((p) => p.id === id)?.code ?? '';
-        navigate(`/s/lookup?q=${encodeURIComponent(code)}`);
-      }
-      return;
+      const code = store.properties.find((p) => p.id === link.slice(9))?.code ?? '';
+      return go(`/lookup?q=${encodeURIComponent(code)}`);
     }
-    if (link.startsWith('incident:')) navigate(`/s/incidents/${link.slice(9)}`);
-    else if (link.startsWith('gate:')) navigate(`/s/gate/${link.slice(5)}`);
-    else if (link === 'patrol') navigate('/s/patrol');
-    else if (link === 'operations') navigate('/a/operations');
-    else if (link === 'requests') navigate('/a/requests');
-    else if (link === 'violations') navigate('/a/violations');
-    else if (link === 'tour') navigate('/s/tour');
-    else navigate('/');
+    if (link.startsWith('incident:')) return go(`/incidents/${link.slice(9)}`);
+    if (link.startsWith('gate:')) return go(`/gate/${link.slice(5)}`);
+    if (link === 'patrol') return go('/patrol');
+    if (link === 'tour') return go('/tour');
+    if (link === 'operations') return go('/a/operations');
+    if (link === 'requests') return go('/a/requests');
+    if (link === 'violations') return go('/a/violations');
+    go('/');
   };
 
   const chip = (active: boolean) =>

@@ -91,7 +91,7 @@ export function AdminEvents() {
                       <p className="font-medium">{person?.nameAr}</p>
                       <p className="text-caption text-ink-500">
                         {property ? (
-                          <Link to={`/a/properties/${property.id}`} className="hover:text-brand-600">{property.code}</Link>
+                          <Link to={`/properties/${property.id}`} className="hover:text-brand-600">{property.code}</Link>
                         ) : 'غير مرتبط بعقار'}
                         {person?.phone ? ` · ${person.phone}` : ''}
                       </p>
@@ -160,7 +160,7 @@ export function AdminEvents() {
           <p className="flex items-center gap-1.5 text-sm font-bold">
             <Ticket size={15} className="text-brand-600" /> تصاريح الفعاليات والعارضين
           </p>
-          <Link to="/a/permits">
+          <Link to="/permits">
             <Button size="sm" variant="outline"><BadgeCheck size={13} /> إدارة الاعتماد في التصاريح</Button>
           </Link>
         </div>
@@ -179,7 +179,7 @@ export function AdminEvents() {
                   <p className="flex items-center gap-1.5">
                     <Users size={11} className="text-ink-500" />
                     مقدّم الطلب: <b>{person?.nameAr}</b>
-                    {property && <Link to={`/a/properties/${property.id}`} className="text-ink-500 hover:text-brand-600">({property.code})</Link>}
+                    {property && <Link to={`/properties/${property.id}`} className="text-ink-500 hover:text-brand-600">({property.code})</Link>}
                   </p>
                   <p className="flex items-center gap-1.5 tabular-nums text-ink-500">
                     <CalendarDays size={11} /> {fmtDateTime(p.validFromISO)} · {p.companions} مشارك
