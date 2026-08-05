@@ -13,6 +13,7 @@ import { Sustainability } from './screens/Sustainability';
 import { Mobility } from './screens/Mobility';
 import { AdminContracts } from './screens/Contracts';
 import { AdminEvents } from './screens/Events';
+import { AdminLostFound } from './screens/LostFound';
 import { AdminPeople } from './screens/People';
 import { AdminPropertyDetail } from './screens/PropertyDetail';
 import { AdminRevenue } from './screens/Revenue';
@@ -48,6 +49,7 @@ export const router = createBrowserRouter(
         { path: 'mobility', element: <Mobility /> },
         { path: 'contracts', element: <AdminContracts /> },
         { path: 'events', element: <AdminEvents /> },
+        { path: 'lostfound', element: <AdminLostFound /> },
         { path: 'people', element: <AdminPeople /> },
         { path: 'properties/:id', element: <AdminPropertyDetail /> },
         { path: 'revenue', element: <AdminRevenue /> },

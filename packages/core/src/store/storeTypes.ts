@@ -16,6 +16,7 @@ import type {
   Incident,
   IncidentKind,
   IncidentParty,
+  LostFoundItem,
   Mahdar,
   Notification,
   Organization,
@@ -52,6 +53,7 @@ export interface Store {
   sensorValues: Record<string, { fill?: number; battery?: number; lampOk?: boolean; tankLevel?: number; moisture?: number }>;
   bookings: Booking[];
   eventRequests: EventRequest[];
+  lostFoundItems: LostFoundItem[];
   shifts: Shift[];
   checkpoints: Checkpoint[];
   checkpointScans: CheckpointScan[];
@@ -211,6 +213,27 @@ export interface Store {
   }) => EventRequest | null;
   decideEventApproval: (id: ID, ministry: EventMinistry, decision: 'approved' | 'rejected', noteAr?: string) => void;
   decideEventRequest: (id: ID, decision: 'approved' | 'rejected') => void;
+
+  /* lost & found */
+  reportLostItem: (input: {
+    category: LostFoundItem['category'];
+    colorAr: string;
+    descriptionAr: string;
+    locationAr?: string;
+    dateISO: string;
+    reporterNameAr: string;
+    reporterPhone: string;
+  }) => LostFoundItem | null;
+  reportFoundItem: (input: {
+    category: LostFoundItem['category'];
+    colorAr: string;
+    descriptionAr: string;
+    locationAr?: string;
+    dateISO: string;
+    reporterNameAr: string;
+    reporterPhone: string;
+  }) => LostFoundItem | null;
+  resolveLostFoundMatch: (id: ID, decision: 'returned' | 'unmatch') => void;
 
   /* embassy entry management */
   setEmbassyLimit: (propId: ID, dailyLimit: number) => void;

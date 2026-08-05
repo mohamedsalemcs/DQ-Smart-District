@@ -13,6 +13,7 @@ import { createGatesSlice } from './slices/gates';
 import { createSensorsSlice } from './slices/sensors';
 import { createBookingsSlice } from './slices/bookings';
 import { createEventsSlice } from './slices/events';
+import { createLostFoundSlice } from './slices/lostfound';
 import { createSecurityOpsSlice } from './slices/securityOps';
 import { createEmbassySlice } from './slices/embassy';
 import { createVisitorsSlice } from './slices/visitors';
@@ -77,6 +78,7 @@ export const useStore = create<Store>()((set, get) => ({
   ...createSensorsSlice(set, get),
   ...createBookingsSlice(set, get),
   ...createEventsSlice(set, get),
+  ...createLostFoundSlice(set, get),
   ...createSecurityOpsSlice(set, get),
   ...createEmbassySlice(set, get),
   ...createVisitorsSlice(set, get),

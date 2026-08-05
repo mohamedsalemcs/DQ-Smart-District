@@ -38,6 +38,7 @@ const DICT = {
   navMobility: ['التنقّل الذكي', 'Smart Mobility'],
   navContracts: ['الشركات والعقود', 'Contractors'],
   navEvents: ['الفعاليات والحجوزات', 'Events'],
+  navLostFound: ['المفقودات', 'Lost & Found'],
   navRevenue: ['الإيرادات', 'Revenue'],
   navReports: ['التقارير', 'Reports'],
   navSettings: ['الإعدادات', 'Settings'],

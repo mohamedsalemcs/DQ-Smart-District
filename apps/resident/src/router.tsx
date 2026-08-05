@@ -14,12 +14,14 @@ import { Account } from './screens/Account';
 import { MyViolations } from './screens/MyViolations';
 import { EmbassyBooking } from './screens/EmbassyBooking';
 import { VisitorPortal } from './screens/VisitorPortal';
+import { LostReport } from './screens/LostReport';
 
 export const router = createBrowserRouter(
   [
     // صفحات عامة بلا غلاف — رابط السفارة وبوابة الزوار
     { path: '/book/:embassyId', element: <EmbassyBooking /> },
     { path: '/visit', element: <VisitorPortal /> },
+    { path: '/lost', element: <LostReport /> },
     {
       path: '/',
       element: <ResidentShell />,

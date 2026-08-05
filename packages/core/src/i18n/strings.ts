@@ -4,6 +4,7 @@ import type {
   EventPartyKind,
   EventRequesterKind,
   IncidentKind,
+  LostFoundCategory,
   IncidentStatus,
   PermitKind,
   PermitStatus,
@@ -94,6 +95,25 @@ export const incidentStatusAr: Record<IncidentStatus, string> = {
   closed: 'مغلق',
   closed_no_action: 'أُغلق بلا إجراء',
 };
+
+export const lostFoundCategoryAr: Record<LostFoundCategory, string> = {
+  electronics: 'إلكترونيات',
+  documents: 'وثائق وبطاقات',
+  jewelry: 'مجوهرات وساعات',
+  keys: 'مفاتيح',
+  bag: 'حقائب ومحافظ',
+  clothing: 'ملابس ونظارات',
+  other: 'أخرى',
+};
+
+export const lostFoundStatusAr = {
+  open: 'مفتوح',
+  matched: 'تطابق — بانتظار التحقق',
+  returned: 'سُلّم لصاحبه',
+} as const;
+
+/** ألوان ثابتة كي تنجح المطابقة الآلية بالمعيار نفسه */
+export const lostFoundColorsAr = ['أسود', 'أبيض', 'رمادي', 'فضي', 'ذهبي', 'أزرق', 'أحمر', 'أخضر', 'بني', 'متعدد الألوان'] as const;
 
 export const eventRequesterAr: Record<EventRequesterKind, string> = {
   embassy: 'سفارة',

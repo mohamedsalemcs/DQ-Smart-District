@@ -345,6 +345,32 @@ export interface Booking {
   attendees: number;
 }
 
+/** تصنيف غرض في المفقودات */
+export type LostFoundCategory = 'electronics' | 'documents' | 'jewelry' | 'keys' | 'bag' | 'clothing' | 'other';
+
+/** غرض مفقود (بلاغ عام عبر الرابط) أو معثور عليه (يسجله المشغّل من لوحة التحكم) */
+export interface LostFoundItem {
+  id: ID;
+  /** مرجع قصير يُعطى للمبلّغ لمتابعة بلاغه */
+  refNo: string;
+  kind: 'lost' | 'found';
+  category: LostFoundCategory;
+  colorAr: string;
+  descriptionAr: string;
+  locationAr?: string;
+  /** تاريخ الفقد أو العثور التقريبي */
+  dateISO: ISO;
+  reporterNameAr: string;
+  reporterPhone: string;
+  /** حاضر عندما يسجّل موظف الغرض المعثور عليه */
+  reporterPersonId?: ID;
+  /** open → matched (طلب استلام قيد التحقق) → returned، وunmatch يعيدها إلى open */
+  status: 'open' | 'matched' | 'returned';
+  matchedItemId?: ID;
+  matchedISO?: ISO;
+  createdISO: ISO;
+}
+
 /** جهة طالبة للفعالية */
 export type EventRequesterKind = 'embassy' | 'resident' | 'commercial' | 'school' | 'government';
 
