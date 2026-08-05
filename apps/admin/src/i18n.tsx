@@ -42,6 +42,7 @@ const DICT = {
   navRevenue: ['الإيرادات', 'Revenue'],
   navReports: ['التقارير', 'Reports'],
   navVisualReports: ['التقارير المرئية', 'Visual Reports'],
+  navVisualDisorder: ['التشوه البصري', 'Visual Pollution'],
   navSettings: ['الإعدادات', 'Settings'],
 
   /* عام */

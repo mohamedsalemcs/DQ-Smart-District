@@ -20,6 +20,7 @@ import { AdminRevenue } from './screens/Revenue';
 import { RevenueStreamPage } from './screens/RevenueStream';
 import { AdminReports } from './screens/Reports';
 import { VisualReports } from './screens/VisualReports';
+import { VisualDisorder } from './screens/VisualDisorder';
 import { AdminSettings } from './screens/Settings';
 
 // three.js وتوابعه (~1.2MB) خارج الحزمة الأساسية — تُحمَّل عند فتح التوأم فقط
@@ -45,6 +46,7 @@ export const router = createBrowserRouter(
         { path: 'permits', element: <AdminPermits /> },
         { path: 'violations', element: <AdminViolations /> },
         { path: 'appeals', element: <AdminAppeals /> },
+        { path: 'visual-disorder', element: <VisualDisorder /> },
         { path: 'embassies', element: <EmbassyAccess /> },
         { path: 'operations', element: <AdminOperations /> },
         { path: 'sustainability', element: <Sustainability /> },
