@@ -41,6 +41,7 @@ const DICT = {
   navLostFound: ['المفقودات', 'Lost & Found'],
   navRevenue: ['الإيرادات', 'Revenue'],
   navReports: ['التقارير', 'Reports'],
+  navVisualReports: ['التقارير المرئية', 'Visual Reports'],
   navSettings: ['الإعدادات', 'Settings'],
 
   /* عام */

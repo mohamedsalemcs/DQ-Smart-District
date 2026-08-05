@@ -13,6 +13,7 @@ import {
   Landmark,
   LayoutDashboard,
   Leaf,
+  Map,
   Orbit,
   PackageSearch,
   Route,
@@ -91,6 +92,7 @@ export function AdminShell() {
     { to: '/people', labelAr: t('navPeople'), icon: Users, groupAr: 'سجلات' },
     { to: '/revenue', labelAr: t('navRevenue'), icon: Coins },
     { to: '/reports', labelAr: t('navReports'), icon: BarChart3 },
+    { to: '/visual-reports', labelAr: t('navVisualReports'), icon: Map },
     { to: '/settings', labelAr: t('navSettings'), icon: Cog, groupAr: 'حوكمة' },
   ];
 

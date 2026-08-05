@@ -19,6 +19,7 @@ import { AdminPropertyDetail } from './screens/PropertyDetail';
 import { AdminRevenue } from './screens/Revenue';
 import { RevenueStreamPage } from './screens/RevenueStream';
 import { AdminReports } from './screens/Reports';
+import { VisualReports } from './screens/VisualReports';
 import { AdminSettings } from './screens/Settings';
 
 // three.js وتوابعه (~1.2MB) خارج الحزمة الأساسية — تُحمَّل عند فتح التوأم فقط
@@ -56,6 +57,7 @@ export const router = createBrowserRouter(
         { path: 'revenue', element: <AdminRevenue /> },
         { path: 'revenue/:streamId', element: <RevenueStreamPage /> },
         { path: 'reports', element: <AdminReports /> },
+        { path: 'visual-reports', element: <VisualReports /> },
         { path: 'settings', element: <AdminSettings /> },
       ],
     },
