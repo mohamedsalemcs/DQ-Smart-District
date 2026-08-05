@@ -1,5 +1,8 @@
 import type {
   AssetKind,
+  EventMinistry,
+  EventPartyKind,
+  EventRequesterKind,
   IncidentKind,
   IncidentStatus,
   PermitKind,
@@ -91,6 +94,40 @@ export const incidentStatusAr: Record<IncidentStatus, string> = {
   closed: 'مغلق',
   closed_no_action: 'أُغلق بلا إجراء',
 };
+
+export const eventRequesterAr: Record<EventRequesterKind, string> = {
+  embassy: 'سفارة',
+  resident: 'مقيم',
+  commercial: 'منشأة تجارية',
+  school: 'مدرسة',
+  government: 'جهة حكومية',
+};
+
+export const eventPartyAr: Record<EventPartyKind, string> = {
+  district_security: 'أمن الحي',
+  police: 'الشرطة',
+  traffic_police: 'المرور',
+  civil_defense: 'الدفاع المدني',
+  red_crescent: 'الهلال الأحمر',
+  municipality: 'الأمانة',
+};
+
+export const eventRequestStatusAr = {
+  pending: 'قيد المراجعة',
+  approved: 'معتمد',
+  rejected: 'مرفوض',
+} as const;
+
+export const eventMinistryAr: Record<EventMinistry, string> = {
+  interior: 'وزارة الداخلية',
+  foreign_affairs: 'وزارة الخارجية',
+};
+
+export const eventApprovalStatusAr = {
+  pending: 'بانتظار الاعتماد',
+  approved: 'معتمد',
+  rejected: 'مرفوض',
+} as const;
 
 export const severityAr = {
   low: 'منخفضة',

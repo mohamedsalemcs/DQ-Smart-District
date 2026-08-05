@@ -271,6 +271,10 @@ export function Modal({
   const panelRef = useRef<HTMLDivElement>(null);
   const restoreRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
+  // onClose يصل غالبًا كدالة سهمية جديدة كل رسم؛ لو دخل في اعتماديات التأثير
+  // لأعاد التركيز إلى أول زر في اللوحة مع كل ضغطة مفتاح داخل الحقول
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     if (!open) return;
@@ -282,7 +286,7 @@ export function Modal({
     panel?.querySelector<HTMLElement>('[autofocus],button,input,select,textarea,a[href]')?.focus();
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') return onClose();
+      if (e.key === 'Escape') return onCloseRef.current();
       if (e.key !== 'Tab' || !panel) return;
       const items = panel.querySelectorAll<HTMLElement>(
         'button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])',
@@ -304,7 +308,7 @@ export function Modal({
       document.body.style.overflow = prevOverflow;
       restoreRef.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open) return null;
   return (

@@ -8,6 +8,8 @@ import type {
   CheckpointScan,
   DayMetric,
   EscalationSettings,
+  EventMinistry,
+  EventRequest,
   Gate,
   GateEvent,
   ID,
@@ -49,6 +51,7 @@ export interface Store {
   assets: Asset[];
   sensorValues: Record<string, { fill?: number; battery?: number; lampOk?: boolean; tankLevel?: number; moisture?: number }>;
   bookings: Booking[];
+  eventRequests: EventRequest[];
   shifts: Shift[];
   checkpoints: Checkpoint[];
   checkpointScans: CheckpointScan[];
@@ -192,6 +195,22 @@ export interface Store {
   /* bookings */
   createBooking: (facilityId: ID, fromISO: string, toISO: string, attendees: number) => Booking | null;
   cancelBooking: (id: ID) => void;
+
+  /* event requests */
+  createEventRequest: (input: {
+    titleAr: string;
+    requesterKind: EventRequest['requesterKind'];
+    requesterNameAr: string;
+    requesterPropertyId?: ID;
+    facilityId: ID;
+    fromISO: string;
+    toISO: string;
+    attendees: number;
+    notesAr?: string;
+    parties: EventRequest['parties'];
+  }) => EventRequest | null;
+  decideEventApproval: (id: ID, ministry: EventMinistry, decision: 'approved' | 'rejected', noteAr?: string) => void;
+  decideEventRequest: (id: ID, decision: 'approved' | 'rejected') => void;
 
   /* embassy entry management */
   setEmbassyLimit: (propId: ID, dailyLimit: number) => void;

@@ -60,7 +60,7 @@ export function AdminAppeals() {
   return (
     <div className="space-y-4">
       <PageHeader
-        title="التظلّمات"
+        title="الاعتراض علي المخالفات"
         subtitle="اعتراضات السكان على المخالفات — القبول يُلغي المخالفة ويرفع كل آثارها"
       />
 

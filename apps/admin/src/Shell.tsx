@@ -76,7 +76,7 @@ export function AdminShell() {
   const nav: NavItem[] = [
     { to: '/', labelAr: t('navDashboard'), icon: LayoutDashboard, end: true, groupAr: 'تشخيص' },
     { to: '/twin', labelAr: t('navTwin'), icon: Orbit },
-    { to: '/requests', labelAr: t('navRequests'), icon: ClipboardList, groupAr: 'تصريف الطوابير' },
+    { to: '/requests', labelAr: t('navRequests'), icon: ClipboardList, groupAr: 'الطلبات' },
     { to: '/permits', labelAr: t('navPermits'), icon: ShieldCheck },
     { to: '/violations', labelAr: t('navViolations'), icon: FileWarning, groupAr: 'إنفاذ' },
     { to: '/appeals', labelAr: t('navAppeals'), icon: Gavel },

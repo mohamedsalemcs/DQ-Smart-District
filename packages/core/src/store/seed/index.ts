@@ -8,6 +8,7 @@ import type {
   CheckpointScan,
   DayMetric,
   EscalationSettings,
+  EventRequest,
   Gate,
   GateEvent,
   Incident,
@@ -84,6 +85,7 @@ export interface SeedData {
   assets: Asset[];
   sensorValues: Record<string, { fill?: number; battery?: number; lampOk?: boolean; tankLevel?: number; moisture?: number }>;
   bookings: Booking[];
+  eventRequests: EventRequest[];
   shifts: Shift[];
   checkpoints: Checkpoint[];
   checkpointScans: CheckpointScan[];
@@ -754,6 +756,65 @@ export function buildSeed(): SeedData {
     { id: 'bk-7', facilityId: 'garden-4', byPersonId: residents[25].id, fromISO: daysFromNow(12), toISO: daysFromNow(12), status: 'confirmed', qrToken: 'QR-BKG-007', attendees: 35 },
   ];
 
+  /* ——— event requests — فعاليات تتطلب تنسيق جهات خارجية ——— */
+  const eventRequests: EventRequest[] = [
+    {
+      id: 'evr-1',
+      titleAr: 'احتفال اليوم الوطني',
+      requesterKind: 'embassy',
+      requesterNameAr: embassies[0],
+      requesterPropertyId: 'prop-37',
+      facilityId: 'garden-6',
+      fromISO: daysFromNow(9),
+      toISO: daysFromNow(9),
+      attendees: 250,
+      notesAr: 'حضور دبلوماسي رفيع — تنظيم مواقف وتأمين المداخل',
+      parties: ['district_security', 'police', 'traffic_police'],
+      partiesSentISO: daysAgo(2),
+      approvals: [
+        { ministry: 'interior', status: 'approved', decidedISO: daysAgo(1) },
+        { ministry: 'foreign_affairs', status: 'approved', decidedISO: hoursAgo(30) },
+      ],
+      status: 'approved',
+      createdISO: daysAgo(2),
+    },
+    {
+      id: 'evr-2',
+      titleAr: 'بازار الحي الموسمي',
+      requesterKind: 'commercial',
+      requesterNameAr: 'سوق الحي التجاري',
+      requesterPropertyId: 'prop-35',
+      facilityId: 'garden-2',
+      fromISO: daysFromNow(14),
+      toISO: daysFromNow(14),
+      attendees: 400,
+      parties: ['district_security', 'civil_defense', 'red_crescent'],
+      partiesSentISO: hoursAgo(5),
+      approvals: [{ ministry: 'interior', status: 'pending' }],
+      status: 'pending',
+      createdISO: hoursAgo(5),
+    },
+    {
+      id: 'evr-3',
+      titleAr: 'أمسية ثقافية وعرض فني',
+      requesterKind: 'embassy',
+      requesterNameAr: embassies[1],
+      requesterPropertyId: 'prop-38',
+      facilityId: 'garden-9',
+      fromISO: daysFromNow(20),
+      toISO: daysFromNow(20),
+      attendees: 120,
+      parties: ['district_security', 'police'],
+      partiesSentISO: hoursAgo(26),
+      approvals: [
+        { ministry: 'interior', status: 'pending' },
+        { ministry: 'foreign_affairs', status: 'pending' },
+      ],
+      status: 'pending',
+      createdISO: hoursAgo(26),
+    },
+  ];
+
   /* ——— patrols / shifts / checkpoints ——— */
   const patrols: Patrol[] = [
     { id: 'patrol-1', nameAr: 'دورية ١ — القطاع الشرقي', guardId: guards[7].id, lat: 24.6825, lng: 46.6355, status: 'available' },
@@ -1081,6 +1142,7 @@ export function buildSeed(): SeedData {
     assets,
     sensorValues,
     bookings,
+    eventRequests,
     shifts,
     checkpoints,
     checkpointScans,

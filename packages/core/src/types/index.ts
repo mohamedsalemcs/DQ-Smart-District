@@ -345,6 +345,45 @@ export interface Booking {
   attendees: number;
 }
 
+/** جهة طالبة للفعالية */
+export type EventRequesterKind = 'embassy' | 'resident' | 'commercial' | 'school' | 'government';
+
+/** جهة خارجية تُنسَّق معها الفعالية */
+export type EventPartyKind = 'district_security' | 'police' | 'traffic_police' | 'civil_defense' | 'red_crescent' | 'municipality';
+
+/** وزارة يمر عبرها اعتماد الفعالية */
+export type EventMinistry = 'interior' | 'foreign_affairs';
+
+/** اعتماد وزاري على طلب فعالية — يُنشأ معلقًا عند تسجيل الطلب */
+export interface EventApproval {
+  ministry: EventMinistry;
+  status: 'pending' | 'approved' | 'rejected';
+  decidedISO?: ISO;
+  noteAr?: string;
+}
+
+/** طلب إقامة فعالية — يُنشئه المشغّل ويحدد الجهات الخارجية المطلوب تنسيقها */
+export interface EventRequest {
+  id: ID;
+  titleAr: string;
+  requesterKind: EventRequesterKind;
+  requesterNameAr: string;
+  /** العقار المرتبط عندما تكون الجهة سفارة أو منشأة */
+  requesterPropertyId?: ID;
+  facilityId: ID;
+  fromISO: ISO;
+  toISO: ISO;
+  attendees: number;
+  notesAr?: string;
+  /** الجهات المحددة عند الإنشاء — يُرسل إشعار لكل جهة فور الحفظ */
+  parties: EventPartyKind[];
+  partiesSentISO?: ISO;
+  /** اعتمادات وزارية معلقة: الداخلية عند طلب جهات أمنية، والخارجية لفعاليات السفارات */
+  approvals: EventApproval[];
+  status: 'pending' | 'approved' | 'rejected';
+  createdISO: ISO;
+}
+
 export interface Shift {
   id: ID;
   guardId: ID;
