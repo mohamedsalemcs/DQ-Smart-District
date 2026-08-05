@@ -1,5 +1,7 @@
-import type { ReactNode } from 'react';
-import { project, VIEW } from '@dq/core';
+import { useEffect, useRef, type ReactNode } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { BOUNDS, DISTRICT_POLYGON } from '@dq/core';
 
 export interface MapMarker {
   id: string;
@@ -12,7 +14,30 @@ export interface MapMarker {
   glyph?: string; // single char
 }
 
-/** Static SVG of DQ with absolutely positioned markers — no map SDK (§1). */
+const DQ_BOUNDS = L.latLngBounds([BOUNDS.latMin, BOUNDS.lngMin], [BOUNDS.latMax, BOUNDS.lngMax]);
+
+const TILES = {
+  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+};
+const ATTRIBUTION =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+const PIN_CSS = `
+.dq-pin-icon { background: transparent; border: none; }
+.dq-pin { position: relative; width: 18px; height: 18px; }
+.dq-pin-dot {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  border-radius: 9999px; background: var(--pin); border: 2.5px solid #fff;
+  color: #fff; font-size: 9px; font-weight: 700; line-height: 1;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+}
+.dq-pin-pulse {
+  position: absolute; inset: -7px; border-radius: 9999px; background: var(--pin); opacity: 0.25;
+}
+`;
+
+/** Real Leaflet map of the Riyadh Diplomatic Quarter (CARTO/OSM tiles) — same lat/lng space as the 3D twin. */
 export function MapCanvas({
   markers,
   dark = false,
@@ -24,57 +49,71 @@ export function MapCanvas({
   className?: string;
   children?: ReactNode;
 }) {
-  const bg = dark ? '#0a443e' : '#e4eaea';
-  const land = dark ? '#16283F' : '#f8fafa';
-  const green = dark ? '#1E3A31' : '#e7f5ed';
-  const road = dark ? 'var(--color-viz-1)' : '#FFFFFF';
-  const label = dark ? 'var(--color-viz-5)' : '#9AA8B8';
+  const elRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<L.Map | null>(null);
+  const tilesRef = useRef<L.TileLayer | null>(null);
+  const pinsRef = useRef<L.LayerGroup | null>(null);
+
+  useEffect(() => {
+    const el = elRef.current;
+    if (!el || mapRef.current) return;
+    const map = L.map(el, {
+      minZoom: 13,
+      maxZoom: 18,
+      maxBounds: DQ_BOUNDS.pad(0.5),
+      maxBoundsViscosity: 0.8,
+      zoomControl: true,
+    });
+    map.attributionControl.setPrefix(false);
+    map.fitBounds(DQ_BOUNDS, { padding: [4, 4] });
+    tilesRef.current = L.tileLayer(dark ? TILES.dark : TILES.light, {
+      attribution: ATTRIBUTION,
+      subdomains: 'abcd',
+      maxZoom: 18,
+    }).addTo(map);
+    L.polygon(
+      DISTRICT_POLYGON.map(([lng, lat]) => [lat, lng] as [number, number]),
+      { color: 'var(--color-brand-500, #0e7490)', weight: 2, dashArray: '6 4', fill: false, interactive: false },
+    ).addTo(map);
+    pinsRef.current = L.layerGroup().addTo(map);
+    mapRef.current = map;
+
+    const ro = new ResizeObserver(() => map.invalidateSize());
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      map.remove();
+      mapRef.current = null;
+      tilesRef.current = null;
+      pinsRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    tilesRef.current?.setUrl(dark ? TILES.dark : TILES.light);
+  }, [dark]);
+
+  useEffect(() => {
+    const pins = pinsRef.current;
+    if (!pins) return;
+    pins.clearLayers();
+    for (const m of markers) {
+      const icon = L.divIcon({
+        className: 'dq-pin-icon',
+        iconSize: [18, 18],
+        iconAnchor: [9, 9],
+        html: `<div class="dq-pin" style="--pin:${m.color}">${m.pulse ? '<span class="dq-pin-pulse pulse-dot"></span>' : ''}<span class="dq-pin-dot">${m.glyph ?? ''}</span></div>`,
+      });
+      const marker = L.marker([m.lat, m.lng], { icon, title: m.labelAr, keyboard: false });
+      if (m.onClick) marker.on('click', m.onClick);
+      pins.addLayer(marker);
+    }
+  }, [markers]);
 
   return (
-    <div className={`relative overflow-hidden rounded-card ${className}`} style={{ background: bg }}>
-      <svg viewBox={`0 0 ${VIEW.w} ${VIEW.h}`} className="h-full w-full" role="img" aria-label="خريطة الحي الدبلوماسي">
-        {/* wadi curve (Wadi Hanifa side) */}
-        <path d={`M 0 ${VIEW.h * 0.88} C ${VIEW.w * 0.25} ${VIEW.h * 0.7}, ${VIEW.w * 0.2} ${VIEW.h * 0.45}, ${VIEW.w * 0.05} ${VIEW.h * 0.2} L 0 0 L 0 ${VIEW.h} Z`} fill={dark ? '#0A1420' : '#cbd5d5'} />
-        {/* district body */}
-        <path
-          d={`M ${VIEW.w * 0.1} ${VIEW.h * 0.12} L ${VIEW.w * 0.92} ${VIEW.h * 0.06} L ${VIEW.w * 0.96} ${VIEW.h * 0.55} L ${VIEW.w * 0.78} ${VIEW.h * 0.95} L ${VIEW.w * 0.28} ${VIEW.h * 0.92} L ${VIEW.w * 0.12} ${VIEW.h * 0.6} Z`}
-          fill={land}
-          stroke={dark ? 'var(--color-viz-1)' : '#D2DBE4'}
-          strokeWidth="2"
-        />
-        {/* garden blobs */}
-        <ellipse cx={VIEW.w * 0.38} cy={VIEW.h * 0.32} rx="70" ry="44" fill={green} />
-        <ellipse cx={VIEW.w * 0.66} cy={VIEW.h * 0.62} rx="88" ry="52" fill={green} />
-        <ellipse cx={VIEW.w * 0.3} cy={VIEW.h * 0.72} rx="52" ry="36" fill={green} />
-        <ellipse cx={VIEW.w * 0.82} cy={VIEW.h * 0.25} rx="46" ry="34" fill={green} />
-        {/* ring road */}
-        <path
-          d={`M ${VIEW.w * 0.2} ${VIEW.h * 0.22} C ${VIEW.w * 0.5} ${VIEW.h * 0.08}, ${VIEW.w * 0.85} ${VIEW.h * 0.15}, ${VIEW.w * 0.88} ${VIEW.h * 0.5} C ${VIEW.w * 0.9} ${VIEW.h * 0.8}, ${VIEW.w * 0.55} ${VIEW.h * 0.9}, ${VIEW.w * 0.32} ${VIEW.h * 0.82} C ${VIEW.w * 0.16} ${VIEW.h * 0.72}, ${VIEW.w * 0.14} ${VIEW.h * 0.4}, ${VIEW.w * 0.2} ${VIEW.h * 0.22} Z`}
-          fill="none"
-          stroke={road}
-          strokeWidth="10"
-          opacity={dark ? 0.5 : 1}
-        />
-        <path d={`M ${VIEW.w * 0.2} ${VIEW.h * 0.52} L ${VIEW.w * 0.88} ${VIEW.h * 0.44}`} stroke={road} strokeWidth="7" opacity={dark ? 0.4 : 0.9} />
-        <path d={`M ${VIEW.w * 0.52} ${VIEW.h * 0.1} L ${VIEW.w * 0.48} ${VIEW.h * 0.88}`} stroke={road} strokeWidth="7" opacity={dark ? 0.4 : 0.9} />
-        <text x={VIEW.w * 0.07} y={VIEW.h * 0.5} fill={label} fontSize="18" transform={`rotate(-72 ${VIEW.w * 0.07} ${VIEW.h * 0.5})`}>وادي حنيفة</text>
-
-        {markers.map((m) => {
-          const { x, y } = project(m.lat, m.lng);
-          return (
-            <g key={m.id} transform={`translate(${x} ${y})`} onClick={m.onClick} style={{ cursor: m.onClick ? 'pointer' : 'default' }}>
-              <title>{m.labelAr}</title>
-              {m.pulse && <circle r="14" fill={m.color} opacity="0.25" className="pulse-dot" />}
-              <circle r="8" fill={m.color} stroke={dark ? '#0a443e' : '#fff'} strokeWidth="2.5" />
-              {m.glyph && (
-                <text y="3.5" textAnchor="middle" fontSize="9" fontWeight="700" fill="#fff">
-                  {m.glyph}
-                </text>
-              )}
-            </g>
-          );
-        })}
-      </svg>
+    <div className={`relative isolate overflow-hidden rounded-card ${className}`}>
+      <style>{PIN_CSS}</style>
+      <div ref={elRef} className="absolute inset-0" role="application" aria-label="خريطة الحي الدبلوماسي" />
       {children}
     </div>
   );

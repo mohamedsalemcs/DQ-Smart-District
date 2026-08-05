@@ -47,7 +47,7 @@ export {
   withinWindow,
 } from './lib/time';
 
-export { BOUNDS, VIEW, clampToDistrict, distance, districtPoint, project } from './lib/geo';
+export { BOUNDS, DISTRICT_POLYGON, VIEW, clampToDistrict, distance, districtPoint, project } from './lib/geo';
 export { sha256Hex } from './lib/hash';
 export { formatTxn } from './lib/txn';
 export {
