@@ -17,6 +17,7 @@ import { AdminLostFound } from './screens/LostFound';
 import { AdminPeople } from './screens/People';
 import { AdminPropertyDetail } from './screens/PropertyDetail';
 import { AdminRevenue } from './screens/Revenue';
+import { RevenueStreamPage } from './screens/RevenueStream';
 import { AdminReports } from './screens/Reports';
 import { AdminSettings } from './screens/Settings';
 
@@ -53,6 +54,7 @@ export const router = createBrowserRouter(
         { path: 'people', element: <AdminPeople /> },
         { path: 'properties/:id', element: <AdminPropertyDetail /> },
         { path: 'revenue', element: <AdminRevenue /> },
+        { path: 'revenue/:streamId', element: <RevenueStreamPage /> },
         { path: 'reports', element: <AdminReports /> },
         { path: 'settings', element: <AdminSettings /> },
       ],
