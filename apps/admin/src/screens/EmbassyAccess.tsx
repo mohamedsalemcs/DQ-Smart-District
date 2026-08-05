@@ -6,6 +6,7 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { useStore } from '@dq/core';
 import { Button, Card, Input, SectionTitle } from '@dq/ui';
 import { KpiCard, axisTick, chartTooltip } from '../components/charts';
+import { portalUrl } from '../lib/portal';
 import { fmtDateTime } from '@dq/core';
 
 const statusAr = { booked: 'محجوز', attended: 'حضر', expired: 'لم يحضر', cancelled: 'ملغى' } as const;
@@ -69,7 +70,7 @@ export function EmbassyAccess() {
   );
 
   const copyLink = (propId: string) => {
-    const url = `${window.location.origin}/book/${propId}`;
+    const url = portalUrl(`/book/${propId}`);
     navigator.clipboard?.writeText(url).catch(() => {});
     setCopied(propId);
     setTimeout(() => setCopied(null), 1600);
@@ -145,7 +146,7 @@ export function EmbassyAccess() {
                 <button onClick={() => copyLink(e.id)} title="نسخ الرابط العام" className="rounded p-1.5 text-ink-500 hover:bg-ink-50 hover:text-ink-900-800">
                   {copied === e.id ? <Check size={13} className="text-ok-600" /> : <Copy size={13} />}
                 </button>
-                <a href={`/book/${e.id}`} target="_blank" rel="noreferrer" title="فتح صفحة الحجز" className="rounded p-1.5 text-ink-500 hover:bg-ink-50 hover:text-ink-900-800">
+                <a href={portalUrl(`/book/${e.id}`)} target="_blank" rel="noreferrer" title="فتح صفحة الحجز" className="rounded p-1.5 text-ink-500 hover:bg-ink-50 hover:text-ink-900-800">
                   <ExternalLink size={13} />
                 </a>
               </div>

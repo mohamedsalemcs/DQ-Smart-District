@@ -22,6 +22,7 @@ import { useStore } from '@dq/core';
 import { Button, Card, SectionTitle, Stat } from '@dq/ui';
 import { ChartCard, KpiCard, RangePicker, type Range, axisTick, chartTooltip, windowStats } from '../components/charts';
 import { Map3D } from '../components/three/DQTwin';
+import { portalUrl } from '../lib/portal';
 import { requestPill, violationPill } from '../components/StatusPill';
 import { ago, isPast, secondsToClock } from '@dq/core';
 import { requestKindAr } from '@dq/core';
@@ -246,13 +247,13 @@ export function AdminDashboard() {
           variant="outline"
           className="border-ink-300 !text-ink-800"
           onClick={() => {
-            navigator.clipboard?.writeText(`${window.location.origin}/visit`).catch(() => {});
+            navigator.clipboard?.writeText(portalUrl('/visit')).catch(() => {});
             pushToast('نُسخ رابط بوابة الزوار', 'شاركه في قنوات الحي ومداخل الخرائط', 'ok');
           }}
         >
           <Copy size={13} /> نسخ الرابط
         </Button>
-        <a href="/visit" target="_blank" rel="noreferrer">
+        <a href={portalUrl('/visit')} target="_blank" rel="noreferrer">
           <Button size="sm"><ExternalLink size={13} /> فتح البوابة</Button>
         </a>
       </div>
