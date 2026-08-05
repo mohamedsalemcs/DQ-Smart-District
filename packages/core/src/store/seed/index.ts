@@ -238,6 +238,73 @@ export function buildSeed(): SeedData {
   const demoDriver = drivers[0];
   demoDriver.nameAr = 'رمضان صبحي عبدالعال';
 
+  /* ——— شخصيات هامة: رؤساء البعثات الثمانية يحملون لقب السفير ——— */
+  people.filter((p) => p.role === 'embassy_rep').forEach((p) => { p.vipTitleAr = 'سفير — رئيس البعثة'; });
+
+  /* ——— السجل الكامل للحي: توسعة إلى حجم المدينة (~3,000 وحدة · ‎+10 آلاف ساكن) ———
+   * الوحدات التفصيلية (prop-1..44) تحمل الروابط الغنية (مركبات، تصاريح، بلاغات)؛
+   * هذه الكتلة تكمل الحجم الحقيقي وتُغذي الإحصاءات والخريطة والبحث */
+  const VIP_TITLES = ['أمير', 'وزير سابق', 'سفير سابق', 'مستشار بالديوان الملكي', 'رجل أعمال بارز', 'قنصل عام'];
+  let vipLeft = 28;
+  const BULK = 2956;
+  for (let i = 0; i < BULK; i++) {
+    const n = 45 + i;
+    const roll = i % 20;
+    const type: Property['type'] = roll < 11 ? 'villa' : roll < 19 ? 'apartment' : 'commercial';
+    const vacant = type !== 'commercial' && rng() < 0.08;
+    const pid = `bprop-${i + 1}`;
+    const pt = districtPoint(rng(), rng());
+    const owner: Person = {
+      id: `bres-${i + 1}-o`,
+      nameAr: arabicName(),
+      nationalId: natId(),
+      phone: phone(),
+      role: type === 'commercial' ? 'company_rep' : 'owner',
+      propertyId: vacant ? undefined : pid,
+    };
+    if (vipLeft > 0 && type === 'villa' && !vacant && rng() < 0.02) {
+      owner.vipTitleAr = VIP_TITLES[vipLeft % VIP_TITLES.length];
+      vipLeft--;
+    }
+    people.push(owner);
+    const extras: Person[] = [];
+    if (!vacant && type !== 'commercial') {
+      const count = int(rng, 2, 5);
+      for (let k = 0; k < count; k++) {
+        extras.push({ id: `bres-${i + 1}-x${k + 1}`, nameAr: arabicName(), nationalId: natId(), phone: phone(), role: 'resident', propertyId: pid });
+      }
+      people.push(...extras);
+    }
+    const prop: Property = {
+      id: pid,
+      code: `DQ-${type === 'villa' ? 'V' : type === 'apartment' ? 'A' : 'C'}-${String(n).padStart(4, '0')}`,
+      unitNo: type === 'commercial' ? pick(rng, commercialUses) : `وحدة ${n}`,
+      type,
+      subtypeAr: type === 'commercial' ? pick(rng, commercialUses) : undefined,
+      zone: pick(rng, zones),
+      lat: pt.lat,
+      lng: pt.lng,
+      ownerId: owner.id,
+      residentIds: vacant ? [] : [owner.id, ...extras.map((x) => x.id)],
+      vehicleIds: [],
+      qrToken: token('QR-PROP', n),
+    };
+    if (!vacant && rng() < 0.5) {
+      const v: Vehicle = {
+        id: `bveh-${i + 1}`,
+        plate: plate(),
+        make: pick(rng, carMakes),
+        color: pick(rng, carColors),
+        ownerPersonId: owner.id,
+        propertyId: pid,
+        accessState: 'allowed',
+      };
+      prop.vehicleIds.push(v.id);
+      vehicles.push(v);
+    }
+    properties.push(prop);
+  }
+
   /* ——— permits (12 across statuses) ——— */
   const permits: Permit[] = [];
   // hosts must live in an occupied unit — vacant-unit owners carry no propertyId
@@ -716,7 +783,7 @@ export function buildSeed(): SeedData {
   }
   for (let i = 0; i < 6; i++) {
     const pt = districtPoint(rng(), rng());
-    const a: Asset = { id: `tank-${i + 1}`, kind: 'irrigation_tank', nameAr: `خزان ري ${i + 1}`, lat: pt.lat, lng: pt.lng, qrToken: token('QR-TNK', i + 1) };
+    const a: Asset = { id: `tank-${i + 1}`, kind: 'irrigation_tank', nameAr: `خزان مياة ${i + 1}`, lat: pt.lat, lng: pt.lng, qrToken: token('QR-TNK', i + 1) };
     assets.push(a);
     sensorValues[a.id] = { tankLevel: int(rng, 35, 95), battery: int(rng, 60, 100) };
   }

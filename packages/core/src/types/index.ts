@@ -23,6 +23,8 @@ export interface Person {
   propertyId?: ID;
   employerId?: ID; // company / school / embassy
   photoUrl?: string;
+  /** شخصية هامة — لقب يُعرض ببروز (سفير، أمير، وزير سابق…) */
+  vipTitleAr?: string;
 }
 
 export interface Property {

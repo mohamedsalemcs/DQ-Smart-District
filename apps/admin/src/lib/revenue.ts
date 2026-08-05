@@ -160,4 +160,4 @@ export function sarParts(v: number): { n: string; u: string } {
   return { n: Math.round(v).toLocaleString('en'), u: 'ر.س' };
 }
 export const sarStr = (v: number) => { const p = sarParts(v); return `${p.n} ${p.u}`; };
-export const mTick = (v: number) => `${(v / 1e6).toFixed(1)}M`;
+export const mTick = (v: number) => (v >= 1e6 ? `${(v / 1e6).toFixed(1)}M` : `${Math.round(v / 1e3)}k`);

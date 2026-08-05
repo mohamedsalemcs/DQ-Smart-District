@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Car, Copy, ExternalLink } from 'lucide-react';
+import { Building2, Car, Copy, Crown, ExternalLink, Users2 } from 'lucide-react';
 import { format } from 'date-fns';
 import {
   Area,
@@ -39,6 +39,12 @@ export function AdminDashboard() {
   const fullBinsCount = useStore(
     (s) => s.assets.filter((a) => a.kind === 'bin' && (s.sensorValues[a.id]?.fill ?? 0) >= 80).length,
   );
+  /* سجل الحي — أعداد أولية (Object.is تكفيها) من قوائم بالآلاف */
+  const residentsCount = useStore(
+    (s) => s.people.filter((p) => ['owner', 'tenant', 'resident', 'embassy_rep', 'company_rep'].includes(p.role)).length,
+  );
+  const propertiesCount = useStore((s) => s.properties.length);
+  const vipCount = useStore((s) => s.people.filter((p) => p.vipTitleAr).length);
   const pushToast = useStore((s) => s.pushToast);
   const navigate = useNavigate();
   const [range, setRange] = useState<Range>(30);
@@ -146,6 +152,36 @@ export function AdminDashboard() {
           <KpiCard key={k.label} {...k} />
         ))}
       </div>
+
+      {/* سجل الحي — الحجم الحقيقي: آلاف الوحدات وعشرات آلاف السكان */}
+      <button
+        onClick={() => navigate('/people')}
+        className="flex w-full flex-wrap items-center gap-x-8 gap-y-3 rounded-card bg-ink-0 p-4 text-start ring-1 ring-ink-100 transition-all hover:-translate-y-0.5 hover:ring-brand-500/50"
+      >
+        <span className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-card bg-brand-50 text-brand-600"><Users2 size={17} /></span>
+          <span>
+            <b className="block text-xl font-bold leading-none tabular-nums">{residentsCount.toLocaleString('en')}</b>
+            <span className="text-caption text-ink-500">ساكن مسجل في الحي</span>
+          </span>
+        </span>
+        <span className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-card bg-brand-50 text-brand-600"><Building2 size={17} /></span>
+          <span>
+            <b className="block text-xl font-bold leading-none tabular-nums">{propertiesCount.toLocaleString('en')}</b>
+            <span className="text-caption text-ink-500">وحدة عقارية</span>
+          </span>
+        </span>
+        <span className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-card text-warn-600" style={{ background: 'color-mix(in srgb, #b45309 12%, #fff)' }}><Crown size={17} /></span>
+          <span>
+            <b className="block text-xl font-bold leading-none tabular-nums">{vipCount}</b>
+            <span className="text-caption text-ink-500">شخصية هامة تحت رعاية خاصة</span>
+          </span>
+        </span>
+        <span className="flex-1" />
+        <span className="text-caption font-semibold text-brand-600">سجل السكان والعقارات ←</span>
+      </button>
 
       {/* trends */}
       <div className="grid gap-4 lg:grid-cols-3">

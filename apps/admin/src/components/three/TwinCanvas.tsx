@@ -742,18 +742,21 @@ function PropertiesLayer({ onHover, onOpen }: { onHover: (h: HoverInfo | null) =
   const people = useStore((s) => s.people);
   const vehicles = useStore((s) => s.vehicles);
 
-  const pins = useMemo(
-    () =>
-      properties.map((p) => {
+  const pins = useMemo(() => {
+    /* PERF — السجل توسّع إلى ~3 آلاف وحدة: الدبابيس ثلاثية الأبعاد تقتصر على الوحدات
+     * التفصيلية (السفارات، التجارية، العينة الغنية) — والبحث بالفهرس لا بمسح خطي لكل دبوس */
+    const peopleById = new Map(people.map((x2) => [x2.id, x2]));
+    return properties
+      .filter((p) => !p.id.startsWith('bprop'))
+      .map((p) => {
         const [x, z] = proj.toXZ(p.lat, p.lng);
-        const owner = people.find((x2) => x2.id === p.ownerId);
+        const owner = peopleById.get(p.ownerId);
         const flagged = vehicles.some(
           (v) => p.vehicleIds.includes(v.id) && v.accessState !== 'allowed' && !v.suspension?.liftedAtISO,
         );
         return { p, x, z, y: proj.groundY(x, z), owner, flagged };
-      }),
-    [properties, people, vehicles, proj],
-  );
+      });
+  }, [properties, people, vehicles, proj]);
 
   return (
     <group>

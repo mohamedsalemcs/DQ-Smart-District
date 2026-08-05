@@ -108,7 +108,7 @@ export function IncidentNew() {
           )}
           {locationKind === 'property' && (
             <Select value={propertyId} onChange={(e) => setPropertyId(e.target.value)}>
-              {properties.map((p) => <option key={p.id} value={p.id}>{p.code} — {p.unitNo}</option>)}
+              {properties.filter((p) => !p.id.startsWith('bprop')).map((p) => <option key={p.id} value={p.id}>{p.code} — {p.unitNo}</option>)}
             </Select>
           )}
           {locationKind === 'street' && (

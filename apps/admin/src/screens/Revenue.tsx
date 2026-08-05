@@ -52,7 +52,7 @@ export function AdminRevenue() {
     () =>
       [...model.streams]
         .sort((a, b) => b.cur - a.cur)
-        .map((s) => ({ name: s.def.nameAr, الإيراد: s.cur, label: sarStr(s.cur) })),
+        .map((s) => ({ name: s.def.nameAr, الإيراد: s.cur, label: mTick(s.cur) })),
     [model.streams],
   );
 

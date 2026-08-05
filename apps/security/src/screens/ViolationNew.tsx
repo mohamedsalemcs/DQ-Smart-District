@@ -82,14 +82,15 @@ export function ViolationNew() {
 
         <Field label={subject === 'vehicle' ? 'المركبة' : subject === 'property' ? 'العقار' : 'الشخص'}>
           <Select value={subjectId} onChange={(e) => setSubjectId(e.target.value)}>
+            {/* السجل توسّع لآلاف القيود — القوائم تقتصر على السجل التفصيلي، والبحث الكامل في شاشة التحقق */}
             {subject === 'vehicle' &&
-              vehicles.map((v) => (
+              vehicles.filter((v) => !v.id.startsWith('bveh')).map((v) => (
                 <option key={v.id} value={v.id}>
                   {v.plate} — {v.make} ({v.color})
                 </option>
               ))}
             {subject === 'property' &&
-              properties.map((p) => (
+              properties.filter((p) => !p.id.startsWith('bprop')).map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.code} — {p.unitNo}
                 </option>

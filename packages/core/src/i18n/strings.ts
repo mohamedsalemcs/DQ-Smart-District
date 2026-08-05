@@ -165,7 +165,7 @@ export const priorityAr = {
 
 export const assetKindAr: Record<AssetKind, string> = {
   bin: 'حاوية نفايات',
-  irrigation_tank: 'خزان ري',
+  irrigation_tank: 'خزان مياة',
   light_pole: 'عمود إنارة',
   pump: 'مضخة',
   restroom: 'دورة مياه',

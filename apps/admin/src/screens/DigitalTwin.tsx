@@ -9,7 +9,7 @@ const layerDefs: { key: keyof TwinLayers; labelAr: string; icon: typeof Radio }[
   { key: 'patrols', labelAr: 'الدوريات', icon: Radio },
   { key: 'bins', labelAr: 'الحاويات', icon: Trash2 },
   { key: 'lamps', labelAr: 'الإنارة', icon: Lightbulb },
-  { key: 'tanks', labelAr: 'خزانات الري', icon: Droplets },
+  { key: 'tanks', labelAr: 'خزانات المياه', icon: Droplets },
   { key: 'trees', labelAr: 'أشجار وري', icon: TreePine },
   { key: 'incidents', labelAr: 'البلاغات الأمنية', icon: Siren },
   { key: 'gates', labelAr: 'البوابات', icon: DoorOpen },

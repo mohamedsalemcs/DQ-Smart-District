@@ -165,7 +165,7 @@ export function Sustainability() {
                 ['معامل انبعاث الشبكة', `${GRID_KG_CO2_PER_KWH} kg CO₂/kWh`, 'الشبكة السعودية'],
                 ['إنتاجية الطاقة الشمسية', `${SOLAR_YIELD} kWh/kWp·يوم`, 'إشعاع الرياض'],
                 ['سعة الحاوية', `${BIN_CAPACITY_L} L`, 'المواصفة القياسية'],
-                ['سعة خزان الري', `${TANK_CAPACITY_L} L`, 'المواصفة القياسية'],
+                ['سعة خزان المياه', `${TANK_CAPACITY_L} L`, 'المواصفة القياسية'],
               ].map(([k, v, src]) => (
                 <tr key={k}>
                   <td className="py-2.5 font-medium text-ink-800">{k}</td>
